@@ -10,8 +10,12 @@ export default class LoginForm extends Component {
         return (
             <div className={styles.container}>
                 <LogoTitle />
-                <FormField />
-                <FormField />
+                <FormField label='Phone / Email' icon='person'/>
+                <FormField 
+                    label='Password' 
+                    icon='lock'
+                    type='password'
+                />
                 <RoundedButton/>
                 <Link />
             </div>
