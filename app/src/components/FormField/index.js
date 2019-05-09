@@ -1,7 +1,12 @@
 import React from 'react'
+import Icon from '../Icon'
 
-export default ({type='text'}) => {
+export default ({label="", type='text'}) => {
     return (
-        <input type={type}/>
+        <div>
+            <Icon />            
+            <label>{label}</label>
+            <input type={type}/>
+        </div>
     )
 }
