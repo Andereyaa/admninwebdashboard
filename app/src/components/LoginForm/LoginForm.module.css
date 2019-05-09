@@ -1,0 +1,9 @@
+.container {
+    height: 60vh;
+    width: 30vw;
+    border: 1px solid var(--white);
+    box-shadow: 2px 2px var(--translucent);
+    border-radius: 4px;
+    /* min-width: ; */
+    /* max-width: ; */
+}
