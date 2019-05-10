@@ -14,3 +14,14 @@
     font-size: 2rem;
     color: var(--white)
 }
+
+@media (max-width:1400px) {
+    .title {
+        font-size: 1.5rem
+    }
+
+    .logo {
+        height: 75px;
+        width: 75px;
+    }
+}
