@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import LoginForm from '../../components/LoginForm'
 import styles  from './Login.module.css'
+import {INCORRECT_PASSWORD, INCORRECT_USER} from '../../constants/errors'
 
 import * as actions from '../../actions'
 import {connect} from "react-redux"
@@ -10,7 +11,16 @@ export class Login extends Component {
 
     authenticate = async (email, password) => {
         const {actions} = this.props
-        actions.fetchLogin(email, password)
+        const response = await actions.fetchLogin(email, password)
+        if (!response.success){
+            switch (response.code){
+                case INCORRECT_PASSWORD : alert(`Login Failed - Please verify your login credentials and try again`); break;
+                case INCORRECT_USER : alert(`Login Failed - Please verify your login credentials and try again`); break;
+                default: alert(`Login Failed`)
+            }   
+        } else {
+            actions.fetchUser(response.userId)
+        }
     }
     render (){
         return (

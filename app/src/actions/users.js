@@ -37,10 +37,14 @@ export const fetchLogin = (email, password) => {
     return dispatch => firebase.auth().signInWithEmailAndPassword(email, password)
         .then(auth => {
             dispatch(login(auth.user.uid));
-            return auth.user.uid
+            return {success: true, userId: auth.user.uid}
         })
         .catch(error => {
             console.warn(error);
-            return false
+            return {success: false, code: error.code}
         });
 };
+
+export const fetchUser = (userId) => {
+    console.log(`fetching user ${userId}`)
+}
