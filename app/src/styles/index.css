@@ -5,7 +5,8 @@
   --light-grey: #eee;
   --white: #fff;
   --black: #000;
-  --translucent: #00000094;
+  --translucent-dark: #00000094;
+  --translucent-light: #fff3;
 }
 
 body {

@@ -9,14 +9,14 @@ export default class LoginForm extends Component {
     render (){
         return (
             <div className={styles.container}>
-                <LogoTitle />
+                <LogoTitle title="Boresha Dashboard"/>
                 <FormField label='Phone / Email' icon='person'/>
                 <FormField 
                     label='Password' 
                     icon='lock'
                     type='password'
                 />
-                <RoundedButton/>
+                <RoundedButton text="Login"/>
                 <Link />
             </div>
         )

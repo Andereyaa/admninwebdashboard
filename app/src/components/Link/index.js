@@ -1,5 +1,5 @@
 import React from 'react'
-
-export default ({}) => (
-    <a>this is a link</a>
+import styles from './Link.module.css'
+export default ({text="link"}) => (
+    <a className={styles.container}>{text}</a>
 )

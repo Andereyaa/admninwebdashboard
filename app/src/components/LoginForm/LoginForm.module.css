@@ -4,6 +4,7 @@
     border: 1px solid var(--white);
     box-shadow: 2px 2px var(--translucent);
     border-radius: 4px;
+    padding: 2em;
     /* min-width: ; */
     /* max-width: ; */
 }

@@ -1,12 +1,15 @@
 import React from 'react'
 import Icon from '../Icon'
+import styles from './FormField.module.css'
 
-export default ({label="", icon="", type='text'}) => {
+export default ({label="", icon="", type='text', customStyles={}}) => {
     return (
-        <div>
-            {icon? <Icon icon={icon}/> : null}            
-            <label>{label}</label>
-            <input type={type}/>
+        <div className={styles.container} style={customStyles}>
+            <label className={styles.label}>{label}</label>
+            <div className={styles.field}>
+                <span className={styles.icon}>{icon? <Icon icon={icon}/> : null}</span> 
+                <input className={styles.input} type={type}/>
+            </div>
         </div>
     )
 }
