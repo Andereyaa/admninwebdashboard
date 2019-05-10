@@ -24,10 +24,9 @@ const usersReducer = (state = initialState.users, action = {}) => {
             return initialState.users;
 
         case types.SAVE_USER:
-            usersById[payload.id] = {...usersById[payload.id], ...payload.user};
+            usersById[payload.id] = {id: payload.id, ...usersById[payload.id], ...payload.user};
             return {
                 ...state,
-                selectedId: payload.id,
                 userIds: Object.keys(usersById),
                 usersById,
             };
