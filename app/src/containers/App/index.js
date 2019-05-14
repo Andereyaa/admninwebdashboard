@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import styles from './App.module.css';
 import Login from '../../screens/Login'
+import ScreenContent from '../../components/ScreenContent'
 
 import {connect} from "react-redux"
 import {bindActionCreators} from "redux";
@@ -14,9 +15,9 @@ export class App extends Component {
       <div className={styles.container}>
         {
           users.authenticatedUserId ?
-          <div>
-
-          </div>
+          <ScreenContent>
+            {this.props.children}
+          </ScreenContent>
           :
           <Login />
         }
