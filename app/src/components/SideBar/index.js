@@ -6,7 +6,7 @@ export default ({}) => {
     return (
         <div className={styles.container}>
             <SideBarItem text="dashboard"/>
-            <SideBarItem text="logout"/>
+            <SideBarItem text="logout" icon="arrow-back"/>
         </div>
     )   
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './Icon.module.css'
 
+import ArrowBack from '@material-ui/icons/ArrowBack'
 import Dashboard from '@material-ui/icons/Dashboard'
 import Person from '@material-ui/icons/Person'
 import Lock from '@material-ui/icons/Lock'
@@ -22,6 +23,7 @@ export default ({icon="dashboard", customStyles={}}) => {
     icon = icon.toLowerCase()
     let SelectedIcon = Dashboard
     switch (icon) {
+        case 'arrow-back': SelectedIcon = ArrowBack; break;
         case 'dashboard' : SelectedIcon = Dashboard; break;
         case 'lock' : SelectedIcon = Lock; break;
         case 'person' : SelectedIcon = Person; break;

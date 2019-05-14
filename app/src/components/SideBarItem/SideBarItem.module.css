@@ -5,3 +5,27 @@
     display: flex;
     align-items: center;
 }
+
+.text {
+    color: var(--dark);
+    margin-left: 5px;
+}
+
+
+.container > svg {
+    color: var(--dark)
+}
+
+/* during hover */
+.container:hover, .selected {
+    background-color: var(--secondary)
+}
+
+.container:hover > .text {
+    color: var(--white);
+    font-weight: 600
+}
+
+.container:hover > svg, .selected {
+    color: var(--white)
+}
