@@ -9,11 +9,14 @@ import * as actions from "../../actions";
 export class App extends Component {
   render(){
     const {users} = this.props
+    if (!users) return null
     return (
       <div className={styles.container}>
         {
           users.authenticatedUserId ?
-          <div>welcome to the dash!</div>
+          <div>
+
+          </div>
           :
           <Login />
         }
