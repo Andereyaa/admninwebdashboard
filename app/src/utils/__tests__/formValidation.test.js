@@ -1,4 +1,4 @@
-import { fieldValueIsNotBlank } from "../formValidation";
+import { fieldValueIsNotBlank, fieldValueIsEmail } from "../formValidation";
 import moment from 'moment'
 
 describe("test fieldValueIsNotBlank", () => {
@@ -62,4 +62,48 @@ describe("test fieldValueIsNotBlank", () => {
         const result = fieldValueIsNotBlank(value)
         expect(result).toBe(true)
     })
+})
+
+describe.only("test fieldValueIsEmail", () => {
+    it('returns true for valid emails', () => {
+        const value= 'test@test.com'
+        const result = fieldValueIsEmail(value)
+        expect(result).toBe(true)
+    });
+
+    it('returns false for strings without the @ sign but with a dot', () => {
+        const value= 'testtest.com'
+        const result = fieldValueIsEmail(value)
+        expect(result).toBe(false)
+    });
+
+    it('returns false for strings with the @ sign but without a dot', () => {
+        const value= 'test@testcom'
+        const result = fieldValueIsEmail(value)
+        expect(result).toBe(false)
+    });
+
+    it('returns false for letter strings', () => {
+        const value= 'testtestcom'
+        const result = fieldValueIsEmail(value)
+        expect(result).toBe(false)
+    });
+
+    it('returns false for numbers', () => {
+        const value= 1234
+        const result = fieldValueIsEmail(value)
+        expect(result).toBe(false)
+    });
+
+    it('returns false for number strings', () => {
+        const value= "1234"
+        const result = fieldValueIsEmail(value)
+        expect(result).toBe(false)
+    });
+
+    it('returns false for null', () => {
+        const value= null
+        const result = fieldValueIsEmail(value)
+        expect(result).toBe(false)
+    });
 })
