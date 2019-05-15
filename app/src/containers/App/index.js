@@ -9,13 +9,14 @@ import * as actions from "../../actions";
 
 export class App extends Component {
   render(){
-    const {users} = this.props
+    const {users, location} = this.props
     if (!users) return null
+    if (!location) return null
     return (
       <div className={styles.container}>
         {
           users.authenticatedUserId ?
-          <ScreenContent>
+          <ScreenContent currentScreenPathname={location.pathname}>
             {this.props.children}
           </ScreenContent>
           :
