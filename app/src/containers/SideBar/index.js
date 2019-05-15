@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react'
 import styles from './SideBar.module.css'
-import SideBarItem from '../SideBarItem'
+import SideBarItem from '../../components/SideBarItem'
 import {INDEX} from '../../constants/screenPathnames'
 
 import {connect} from "react-redux"
@@ -10,7 +10,7 @@ import * as actions from "../../actions";
 export class SideBar extends PureComponent {
     render(){
         const {actions, location, currentScreenPathname} = this.props
-        console.log(location)
+        if (!actions) return null
         return (
             <div className={styles.container}>
                 <SideBarItem text="dashboard" selected={currentScreenPathname==INDEX}/>

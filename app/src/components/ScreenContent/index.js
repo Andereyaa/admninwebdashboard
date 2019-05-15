@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import SideBar from '../SideBar'
+import SideBar from '../../containers/SideBar'
 import TopBar from '../TopBar'
 
 import {INDEX} from '../../constants/screenPathnames'
