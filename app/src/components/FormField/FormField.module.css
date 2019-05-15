@@ -8,6 +8,13 @@
     font-size: 1rem;
 }
 
+.error {
+    display: block;
+    color: var(--accent);
+    font-size: 0.9rem;
+    font-weight: 700
+}
+
 .input {
     background-color: var(--translucent-light);
     height: 30px;
