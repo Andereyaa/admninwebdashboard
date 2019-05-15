@@ -6,11 +6,15 @@ import RoundedButton from '../RoundedButton'
 import Link from '../Link'
 import PropTypes from 'prop-types';
 
+//form validation
+import {fieldValueIsNotBlank} from '../../utils/formValidation'
+import {BLANK_USER_ID, BLANK_PASSWORD} from '../../constants/errors'
 export default class LoginForm extends Component {
 
     state = {
         userId: "",
-        password: ""
+        password: "",
+        errors: {}
     }
 
     static propTypes = {
@@ -37,15 +41,27 @@ export default class LoginForm extends Component {
     }
 
     validate = () => {
-        return true
+        const {userId, password} = this.state
+        const errors = {
+            userId: null,
+            password: null
+        }
+        if (!fieldValueIsNotBlank(userId)) errors.userId = BLANK_USER_ID
+        if (!fieldValueIsNotBlank(password)) errors.password = BLANK_PASSWORD
+        if (Object.values(errors).every(error => !error)) return true
+        else {
+            this.setState({errors})
+            return false
+        }
     }
     render (){
-        const {userId, password} = this.state 
+        const {userId, password, errors} = this.state 
         return (
             <div className={styles.container}>
                 <LogoTitle title="Boresha Dashboard"/>
                 <div className={styles.fields}>
                     <FormField 
+                        error={errors.userId}
                         label='Phone / Email' 
                         icon='person'
                         name="userId"
@@ -53,6 +69,7 @@ export default class LoginForm extends Component {
                         onChange={this.handleChange}
                     />
                     <FormField 
+                        error={errors.password}
                         label='Password' 
                         icon='lock'
                         type='password'
