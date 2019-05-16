@@ -64,7 +64,7 @@ describe("test fieldValueIsNotBlank", () => {
     })
 })
 
-describe.only("test fieldValueIsEmail", () => {
+describe("test fieldValueIsEmail", () => {
     it('returns true for valid emails', () => {
         const value= 'test@test.com'
         const result = fieldValueIsEmail(value)
