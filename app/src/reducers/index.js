@@ -14,6 +14,7 @@ export const initialState = {
         usersById: {},
         userIds: [],
         selectedId: null,
+        authenticatedUserIsAuthorized: false,
         authenticatedUserId: null
     },
     institution: {

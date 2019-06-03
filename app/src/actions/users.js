@@ -6,6 +6,7 @@ import {logError} from '../utils/errorHandling'
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const SAVE_USER = 'SAVE_USER';
+export const SET_AUTHENTICATED_USER_IS_AUTHORIZED = 'SET_AUTHENTICATED_USER_IS_AUTHORIZED'
 
 export const login = (id) => {
     return {
@@ -33,6 +34,15 @@ export const saveUser = (id, user) => {
     }
 };
 
+export const setAuthenticatedUserIsAuthorized = (isAuthorized) => {
+    return {
+        type: SET_AUTHENTICATED_USER_IS_AUTHORIZED,
+        payload: {
+            isAuthorized
+        }
+    }
+}
+
 export const fetchLogin = (email, password) => {
     /**
      * Purpose: log the user in and save his userId
@@ -48,7 +58,7 @@ export const fetchLogin = (email, password) => {
         });
 };
 
-export const fetchUser = (userId) => {
+export const fetchUser = (userId, isLogin = false) => {
 /**
      * retrieve details of user from remote database and save on local
      */
@@ -62,13 +72,15 @@ export const fetchUser = (userId) => {
                     return {success: false}
                 }
                 const user = doc.data()
-                if (user.userTypes.includes(OWNER) || user.userTypes.includes(MANAGER) ){
-                    //if the signed in user is an owner or a manager
-                    dispatch(saveUser(doc.id, user));
-                    return {success: true}
+                dispatch(saveUser(doc.id, user));
+                if (isLogin){
+                    //if this is the login sequence 
+                    if (!user.userTypes.includes(OWNER) && !user.userTypes.includes(MANAGER) ){
+                        // if the signed in user is not an owner or a manager
+                        return {success: false, code: USER_LOGIN_NOT_ALLOWED }
+                    } else dispatch(setAuthenticatedUserIsAuthorized(true))
                 }
-                return {success: false, code: USER_LOGIN_NOT_ALLOWED }
-                
+                return {success: true}
             }
         )
         .catch(error => {

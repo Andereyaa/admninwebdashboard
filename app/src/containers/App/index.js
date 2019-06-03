@@ -15,7 +15,9 @@ export class App extends Component {
     return (
       <div className={styles.container}>
         {
-          users.authenticatedUserId ?
+          users.authenticatedUserId && 
+          users.authenticatedUserIsAuthorized
+          ?
           <ScreenContent currentScreenPathname={location.pathname}>
             {this.props.children}
           </ScreenContent>

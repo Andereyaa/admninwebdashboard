@@ -6,6 +6,7 @@ import {initialState} from './index'
 //     usersById: {},
 //     userIds: [],
 //     selectedId: null,
+//     authenticatedUserIsAuthorized: false,
 //     authenticatedUserId: null,
 // }
 
@@ -17,6 +18,13 @@ const usersReducer = (state = initialState.users, action = {}) => {
             return {
                 ...state,
                 authenticatedUserId: payload.id,
+            }
+        }
+
+        case types.SET_AUTHENTICATED_USER_IS_AUTHORIZED: {
+            return {
+                ...state,
+                authenticatedUserIsAuthorized: payload.isAuthorized
             }
         }
 

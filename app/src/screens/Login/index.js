@@ -13,7 +13,7 @@ export class Login extends Component {
         const {actions} = this.props
         let response = await actions.fetchLogin(email, password)
         if (response.success){
-           response = await actions.fetchUser(response.userId)
+           response = await actions.fetchUser(response.userId, true)
         } 
         if (!response.success){
             actions.logout()
