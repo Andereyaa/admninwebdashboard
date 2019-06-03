@@ -4,7 +4,6 @@ import {logError} from '../utils/errorHandling'
 export const SAVE_CENTER = 'SAVE_CENTER'
 
 export const saveCenter = (id, center) => {
-    console.log("in save center, saving", center)
     return {
         type: SAVE_CENTER,
         payload: {

@@ -2,6 +2,7 @@ import {persistCombineReducers} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import users from './users'
 import institution from './institution'
+import centers from './centers'
 
 const config = {
     key: 'primary',
@@ -23,11 +24,17 @@ export const initialState = {
         ownerId: null,
         totalCapacity: 0,
         standardRate: 0,
+    },
+    centers: {
+        centersById: {},
+        centerIds: [],
+        selectedId: null
     }
 };
 const rootReducer = persistCombineReducers(config, {
     users,
-    institution
+    institution,
+    centers
 });
 
 export default rootReducer
