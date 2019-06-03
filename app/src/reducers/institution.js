@@ -18,7 +18,8 @@ const institutionReducer = (state = initialState.users, action = {}) => {
 
             return {
                 ...state,
-                ...payload.institution
+                ...payload.institution,
+                id: payload.id
             };
         default:
             return state

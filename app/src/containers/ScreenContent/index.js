@@ -18,7 +18,13 @@ export class ScreenContent extends Component {
         const {actions, users} = this.props
         const authenticatedUser = users.usersById[users.authenticatedUserId]
         const institutionId = authenticatedUser.owner.institutionIds[0]
-        const result = await actions.fetchInstitution(institutionId)
+        try {
+            let response = await actions.fetchInstitution(institutionId)
+            if (!response.success) throw new Error(`Something went wrong`)
+            response = await actions.fetchCenters()
+        } catch (error){
+
+        }
     }
     
     getTopBarName = () => {

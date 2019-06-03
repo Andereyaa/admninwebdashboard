@@ -3,10 +3,11 @@ import {logError} from '../utils/errorHandling'
 
 export const SAVE_INSTITUTION = 'SAVE_INSTITUTION'
 
-export const saveInstitution = (institution) => {
+export const saveInstitution = (id, institution) => {
     return {
         type: SAVE_INSTITUTION,
         payload: {
+            id,
             institution
         }
     }
@@ -18,12 +19,12 @@ export const fetchInstitution = (institutionId) => {
                 
     return dispatch => institutionRef.doc(institutionId).get()
         .then(docRef => {
-            const institution = {id: docRef.id, ...docRef.data()}
-            dispatch(saveInstitution(institution))
-            return true
+            const institution = docRef.data()
+            dispatch(saveInstitution(docRef.id, institution))
+            return {success: true}
         })
         .catch(error => {
             logError("something went wrong",error)
-            return false
+            return {success: false}
         })
 }
