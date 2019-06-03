@@ -7,7 +7,7 @@ import {initialState} from './index'
 //     standardRate: 0,
 // }
 
-const institutionReducer = (state = initialState.users, action = {}) => {
+const institutionReducer = (state = initialState.institution, action = {}) => {
     const {type, payload} = action;
     switch (type) {
 

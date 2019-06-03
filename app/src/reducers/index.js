@@ -3,6 +3,8 @@ import storage from 'redux-persist/lib/storage'
 import users from './users'
 import institution from './institution'
 import centers from './centers'
+import milkCollections from './milkCollections'
+import suppliers from './suppliers'
 
 const config = {
     key: 'primary',
@@ -29,12 +31,26 @@ export const initialState = {
         centersById: {},
         centerIds: [],
         selectedId: null
+    },
+    milkCollections: {
+        milkCollectionsById: {},
+        milkCollectionIdsBySupplierId: {},
+        milkCollectionIds: [],
+        selectedId: null
+    },
+    suppliers: {
+        suppliersById: {},
+        supplierIds: [],
+        selectedId: null
     }
 };
+
 const rootReducer = persistCombineReducers(config, {
     users,
     institution,
-    centers
+    centers,
+    milkCollections,
+    suppliers
 });
 
 export default rootReducer
