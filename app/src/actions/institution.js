@@ -1,4 +1,5 @@
 import firebase, {firestore} from '../firebase'
+import {logError} from '../utils/errorHandling'
 
 export const SAVE_INSTITUTION = 'SAVE_INSTITUTION'
 
@@ -22,7 +23,7 @@ export const fetchInstitution = (institutionId) => {
             return true
         })
         .catch(error => {
-            console.warn("something went wrong",error)
+            logError("something went wrong",error)
             return false
         })
 }

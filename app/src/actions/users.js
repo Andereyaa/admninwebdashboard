@@ -1,6 +1,7 @@
 import firebase, {firestore} from '../firebase'
 import {OWNER, MANAGER} from '../constants/userTypes'
 import {USER_LOGIN_NOT_ALLOWED} from '../constants/errors'
+import {logError} from '../utils/errorHandling'
 
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
@@ -42,7 +43,7 @@ export const fetchLogin = (email, password) => {
             return {success: true, userId: auth.user.uid}
         })
         .catch(error => {
-            console.warn(error);
+            logError(error);
             return {success: false, code: error.code}
         });
 };
@@ -71,7 +72,7 @@ export const fetchUser = (userId) => {
             }
         )
         .catch(error => {
-            console.error(error);
+            logError(error);
             return false
         })
 };
