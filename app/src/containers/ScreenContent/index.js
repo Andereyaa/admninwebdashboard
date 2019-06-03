@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
-import SideBar from '../../containers/SideBar'
-import TopBar from '../TopBar'
+import SideBar from '../SideBar'
+import TopBar from '../../components/TopBar'
 
 import {INDEX} from '../../constants/screenPathnames'
 
 export default class ScreenContent extends Component {
 
+    
     getTopBarName = () => {
         const {currentScreenPathname} = this.props
         switch (currentScreenPathname){
@@ -13,6 +14,7 @@ export default class ScreenContent extends Component {
             default: return ""
         }
     } 
+
     render (){
         const {currentScreenPathname} = this.props
         return (

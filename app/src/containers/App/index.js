@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import styles from './App.module.css';
 import Login from '../../screens/Login'
-import ScreenContent from '../../components/ScreenContent'
+import ScreenContent from '../ScreenContent'
 
 import {connect} from "react-redux"
 import {bindActionCreators} from "redux";
