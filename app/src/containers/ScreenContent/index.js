@@ -4,8 +4,22 @@ import TopBar from '../../components/TopBar'
 
 import {INDEX} from '../../constants/screenPathnames'
 
-export default class ScreenContent extends Component {
+import {connect} from "react-redux"
+import {bindActionCreators} from "redux";
+import * as actions from "../../actions";
 
+export class ScreenContent extends Component {
+
+    componentDidMount = () => {
+        this.loadContent()
+    }
+
+    loadContent = async () => {
+        const {actions, users} = this.props
+        const authenticatedUser = users.usersById[users.authenticatedUserId]
+        const institutionId = authenticatedUser.owner.institutionIds[0]
+        const result = await actions.fetchInstitution(institutionId)
+    }
     
     getTopBarName = () => {
         const {currentScreenPathname} = this.props
@@ -28,3 +42,13 @@ export default class ScreenContent extends Component {
         )
     }
 } 
+
+const mapStateToProps = state => ({
+    users: state.users
+});
+  
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(actions, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ScreenContent);
