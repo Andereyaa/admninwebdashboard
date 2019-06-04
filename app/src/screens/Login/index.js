@@ -7,6 +7,8 @@ import * as actions from '../../actions'
 import {connect} from "react-redux"
 import {bindActionCreators} from "redux";
 
+import { Redirect } from 'react-router-dom';
+
 export class Login extends Component {
 
     authenticate = async (email, password) => {
@@ -27,6 +29,14 @@ export class Login extends Component {
          
     }
     render (){
+        const {users} = this.props
+        if (
+            users.authenticatedUserId && 
+            users.authenticatedUserIsAuthorized
+          ) {
+            return <Redirect to="/" />;
+          }
+
         return (
         <div className={styles.container}>
             <LoginForm onSubmit={this.authenticate}/>

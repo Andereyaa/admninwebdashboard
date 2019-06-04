@@ -1,29 +1,35 @@
 import React, {Component} from 'react';
 import styles from './App.module.css';
 import Login from '../../screens/Login'
+import Dashboard from '../../screens/Dashboard'
+
 import ScreenContent from '../ScreenContent'
 
 import {connect} from "react-redux"
 import {bindActionCreators} from "redux";
 import * as actions from "../../actions";
 
+import { Route, Redirect, Switch } from 'react-router-dom';
+
 export class App extends Component {
   render(){
     const {users, location} = this.props
     if (!users) return null
     if (!location) return null
+
+    if (
+      !users.authenticatedUserId || 
+      !users.authenticatedUserIsAuthorized
+    ) {
+      return <Redirect to="/login" />;
+    }
     return (
       <div className={styles.container}>
-        {
-          users.authenticatedUserId && 
-          users.authenticatedUserIsAuthorized
-          ?
           <ScreenContent currentScreenPathname={location.pathname}>
-            {this.props.children}
+            <Switch>
+              <Route exact path="/" component={Dashboard} />
+            </Switch>
           </ScreenContent>
-          :
-          <Login />
-        }
       </div>
     );
   }
