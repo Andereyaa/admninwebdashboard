@@ -118,3 +118,17 @@ describe('test save_center', ()=> {
         })
     })
 })
+
+describe('test select_center', ()=> {
+    it('should change the value of selectedId', () => {
+        const action = {
+            type: types.SELECT_CENTER,
+            payload: {
+                id: 1234
+            }
+        }
+        const result = centersReducer(initialState, action )
+        expect(result.selectedId === initialState.selectedId).toBeFalsy()
+        expect(result.selectedId).toBe(1234)
+    })
+})

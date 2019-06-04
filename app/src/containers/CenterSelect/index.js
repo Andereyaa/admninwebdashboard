@@ -10,7 +10,7 @@ import styles from './CenterSelect.module.css'
 export class CenterSelect extends Component {
 
     getCenterTileForEachCenter = () => {
-        const {centers} = this.props
+        const {centers, actions} = this.props
         if (!centers) return null
         return centers.centerIds.map(centerId => {
             const center = centers.centersById[centerId]    
@@ -18,7 +18,7 @@ export class CenterSelect extends Component {
                         key={center.id}
                         id={center.id} 
                         centerName={center.centerName}
-                        onClick={() => alert('boom')}
+                        onClick={id => actions.selectCenter(id)}
                     />
         })
         

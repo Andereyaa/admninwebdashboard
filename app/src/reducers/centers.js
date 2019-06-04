@@ -43,6 +43,13 @@ const centersReducer = (state = initialState.centers, action = {}) => {
             }
         }
 
+        case types.SELECT_CENTER: {
+            return {
+                ...state,
+                selectedId: payload.id
+            }
+        }
+
         default:
             return state
     }
