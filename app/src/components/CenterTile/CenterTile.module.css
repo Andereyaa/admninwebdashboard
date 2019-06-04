@@ -1,0 +1,18 @@
+.container {
+    border: 1px solid var(--dark);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 15em;
+    padding: 0.5em;
+    margin-left: 0.5em;
+}
+
+.container:hover {
+    border-color: var(--secondary)
+}
+.container > svg {
+    color: var(--dark);
+    margin-right: 0.5em;
+}

@@ -5,6 +5,7 @@ import ArrowBack from '@material-ui/icons/ArrowBack'
 import Dashboard from '@material-ui/icons/Dashboard'
 import Person from '@material-ui/icons/Person'
 import Lock from '@material-ui/icons/Lock'
+import Business from '@material-ui/icons/Business'
 
 /**
  * Documentation here: https://www.npmjs.com/package/@material-ui/icons
@@ -24,6 +25,7 @@ export default ({icon="dashboard", customStyles={}}) => {
     let SelectedIcon = Dashboard
     switch (icon) {
         case 'arrow-back': SelectedIcon = ArrowBack; break;
+        case 'business': SelectedIcon = Business; break;
         case 'dashboard' : SelectedIcon = Dashboard; break;
         case 'lock' : SelectedIcon = Lock; break;
         case 'person' : SelectedIcon = Person; break;
