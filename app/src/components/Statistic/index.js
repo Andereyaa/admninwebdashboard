@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './Statistic.module.js'
+import styles from './Statistic.module.css'
 
 export default ({label="", value="", units="", unitsPositionedRight=false}) => {
     return (
