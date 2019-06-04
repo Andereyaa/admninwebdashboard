@@ -7,8 +7,10 @@ import {capitalizeFirstLetterOfAllWords} from '../../utils/formatting'
 export default ({id, centerName, onClick=()=>{}}) => {
     return (
         <div className={styles.container} onClick={() => onClick(id)}>
-            <Icon icon="business"/>            
-            <span>{capitalizeFirstLetterOfAllWords(centerName)}</span>
+            <div className={styles.innerContainer}>
+                <Icon icon="business"/>            
+                <span>{capitalizeFirstLetterOfAllWords(centerName)}</span>
+            </div>
         </div>
     )
 }

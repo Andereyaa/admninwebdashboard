@@ -8,16 +8,23 @@ import * as actions from "../../actions";
 import styles from './CenterSelect.module.css'
 
 export class CenterSelect extends Component {
-    render () {
+
+    getCenterTileForEachCenter = () => {
         const {centers} = this.props
-        const center = centers.centersById[centers.centerIds[0]]
+        return centers.centerIds.map(centerId => {
+            const center = centers.centersById[centerId]    
+            return <CenterTile 
+                        key={center.id}
+                        id={center.id} 
+                        centerName={center.centerName}
+                    />
+        })
+        
+    }
+    render () {
         return (
             <div className={styles.container}>
-                <CenterTile 
-                    id={center.id} 
-                    centerName={center.centerName}
-                />
-                
+                {this.getCenterTileForEachCenter()}
             </div>
         )
     }
