@@ -1,9 +1,6 @@
 import usersReducer from '../users'
 import * as types from '../../actions'
 
-
-
-
 let initialState
 beforeEach(() => {
     initialState = {
