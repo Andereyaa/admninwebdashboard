@@ -17,15 +17,19 @@
 }
 
 /* during hover */
-.container:hover, .selected {
+.container:hover, .container.selected {
     background-color: var(--secondary)
 }
 
-.container:hover > .text {
+.container.selected > svg {
+    color: var(--white)
+}
+
+.container.selected > .text {
     color: var(--white);
     font-weight: 600
 }
 
-.container:hover > svg, .selected {
+.container.selected > svg {
     color: var(--white)
 }

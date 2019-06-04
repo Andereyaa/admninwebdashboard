@@ -18,6 +18,7 @@ export class CenterSelect extends Component {
                         key={center.id}
                         id={center.id} 
                         centerName={center.centerName}
+                        selected={center.id === centers.selectedId}
                         onClick={id => actions.selectCenter(id)}
                     />
         })
@@ -26,7 +27,9 @@ export class CenterSelect extends Component {
     render () {
         return (
             <div className={styles.container}>
-                {this.getCenterTileForEachCenter()}
+                <div className={styles.innerContainer}> 
+                    {this.getCenterTileForEachCenter()}
+                </div>
             </div>
         )
     }

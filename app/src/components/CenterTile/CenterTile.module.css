@@ -2,9 +2,9 @@
     border: 1px solid var(--dark);
     border-radius: 4px;
     display: inline-block;
-    width: 15em;
+    width: 14em;
     padding: 0.5em;
-    margin-left: 0.5em;
+    margin: 0 0 0.5em 0.5em;
 }
 
 .innerContainer {
@@ -18,4 +18,15 @@
 .innerContainer > svg {
     color: var(--dark);
     margin-right: 0.5em;
+}
+
+.selected {
+    background-color: var(--secondary);
+    border-color: var(--secondary);
+    color: var(--white);
+    font-weight: 600
+}
+
+.container.selected > .innerContainer > svg {
+    color: var(--white)
 }
