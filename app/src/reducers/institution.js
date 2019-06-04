@@ -3,7 +3,10 @@ import {initialState} from './index'
 
 //STATE
 // institution: {
-//     id: null,
+//     id: null, 
+//     institutionName: null,
+//     ownerId: null,
+//     totalCapacity: 0,
 //     standardRate: 0,
 // }
 
