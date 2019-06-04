@@ -1,4 +1,4 @@
-import firebase, {firestore} from '../firebase'
+import {firestore} from '../firebase'
 import {logError} from '../utils/errorHandling'
 
 export const SAVE_INSTITUTION = 'SAVE_INSTITUTION'

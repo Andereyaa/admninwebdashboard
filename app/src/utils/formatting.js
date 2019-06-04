@@ -16,7 +16,7 @@ export const numberToOneDecimalPlaceString = number => {
     }
     if (Number.isInteger(number)) return `${number}.0` 
     const decimalPlaces = number.toString().split(".")[1].length || 0;
-    if (decimalPlaces == 1) return number.toString()
+    if (decimalPlaces === 1) return number.toString()
     else if (decimalPlaces > 1) return `${Math.round(number * 10) / 10}`
 }
 
