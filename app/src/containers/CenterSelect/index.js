@@ -11,12 +11,14 @@ export class CenterSelect extends Component {
 
     getCenterTileForEachCenter = () => {
         const {centers} = this.props
+        if (!centers) return null
         return centers.centerIds.map(centerId => {
             const center = centers.centersById[centerId]    
             return <CenterTile 
                         key={center.id}
                         id={center.id} 
                         centerName={center.centerName}
+                        onClick={() => alert('boom')}
                     />
         })
         

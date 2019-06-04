@@ -30,12 +30,13 @@ export class Login extends Component {
     }
     render (){
         const {users} = this.props
-        if (
+        if (!users) return null
+        if(
             users.authenticatedUserId && 
             users.authenticatedUserIsAuthorized
-          ) {
-            return <Redirect to="/" />;
-          }
+        ) {
+        return <Redirect to="/" />;
+        }
 
         return (
         <div className={styles.container}>
