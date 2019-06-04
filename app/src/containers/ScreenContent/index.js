@@ -8,6 +8,8 @@ import {connect} from "react-redux"
 import {bindActionCreators} from "redux";
 import * as actions from "../../actions";
 
+import styles from "./ScreenContent.module.css";
+
 export class ScreenContent extends Component {
 
     componentDidMount = () => {
@@ -41,7 +43,7 @@ export class ScreenContent extends Component {
             <div>
                 <TopBar text={this.getTopBarName()}/>
                 <SideBar currentScreenPathname={currentScreenPathname} />
-                <div>
+                <div className={styles.screenContainer}>
                     {this.props.children}
                 </div>
             </div>

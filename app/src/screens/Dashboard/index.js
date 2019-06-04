@@ -1,8 +1,13 @@
 import React, {Component} from 'react'
+import CenterSelect from '../../containers/CenterSelect'
 
 export class Dashboard extends Component {
     render (){
-        return <div>hi, ho how do you do</div>
+        return (
+            <div>
+                <CenterSelect/>
+            </div>
+        )
     }
 }
 
