@@ -6,10 +6,12 @@ import {connect} from "react-redux"
 import {bindActionCreators} from "redux";
 import * as actions from "../../actions";
 
+import styles from './DailyStatisticsPanel.module.css'
+
 export class DailyStatisticsPanel extends Component {
     render () {
         return (
-            <div>
+            <div className={styles.container}>
                 <Statistic 
                     label="volume collected today"
                     value={1846}

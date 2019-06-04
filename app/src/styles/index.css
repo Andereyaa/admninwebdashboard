@@ -9,6 +9,8 @@
   --dark: #333;
   --translucent-dark: #00000094;
   --translucent-light: #fff3;
+  --large-font: 1.75rem;
+  --small-font:0.75rem;
 }
 
 body {
