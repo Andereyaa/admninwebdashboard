@@ -11,10 +11,11 @@ import MilkCollectionsTableHeader from '../../components/MilkCollectionsTableHea
 
 export class MilkCollectionsTable extends Component{
     getRows = (milkCollectionsArray) => {
-        return milkCollectionsArray.map(milkCollection => {
+        return milkCollectionsArray.map((milkCollection,index) => {
             return <MilkCollectionsTableRow 
                         key={milkCollection.id} 
                         milkCollection={milkCollection}
+                        even={((index % 2) > 0)}
                      />
         })
     }
