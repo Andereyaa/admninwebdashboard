@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import {connect} from "react-redux"
 
 import DatePicker from '../../components/DatePicker'
+import moment from 'moment'
 
 import {capitalizeFirstLetterOfAllWords} from '../../utils/formatting'
 export class CenterDateSelect extends Component {
@@ -18,7 +19,7 @@ export class CenterDateSelect extends Component {
                     centers.selectedId ?
                     <div>
                         {`Milk received at ${capitalizeFirstLetterOfAllWords(centerName)} on `} 
-                        <DatePicker value={value} onSelect={onSelect}/>
+                        <DatePicker value={value} onSelect={onSelect} max={moment()}/>
                     </div>
                     :
                     null
