@@ -7,6 +7,7 @@ import * as actions from "../../actions";
 import styles from './MilkCollectionsTable.module.css'
 
 import MilkCollectionsTableRow from '../../components/MilkCollectionsTableRow'
+import MilkCollectionsTableHeader from '../../components/MilkCollectionsTableHeader'
 
 export class MilkCollectionsTable extends Component{
     getRows = (milkCollectionsArray) => {
@@ -24,6 +25,7 @@ export class MilkCollectionsTable extends Component{
         })
         return (
             <div className={styles.container}>
+                <MilkCollectionsTableHeader />
                 {this.getRows(milkCollectionsArray)}
             </div>
         )
