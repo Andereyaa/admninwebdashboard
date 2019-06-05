@@ -9,17 +9,24 @@ export default ({label="", value="", units="", unitsPositionedRight=false}) => {
             <div className={styles.label}>{capitalizeFirstLetterOfAllWords(label)}</div>
             <div className={styles.valueContainer}>
                 {
-                    units && !unitsPositionedRight ?
-                        <div className={[styles.units, styles.unitsLeft].join(" ")}>{units}</div>
+                    value ?
+                        <React.Fragment>
+                            {
+                                units && !unitsPositionedRight ?
+                                    <div className={[styles.units, styles.unitsLeft].join(" ")}>{units}</div>
+                                :
+                                null
+                            }
+                            <div>{value}</div>
+                            {
+                                units && unitsPositionedRight ?
+                                    <div className={[styles.units, styles.unitsRight].join(" ")}>{units}</div>
+                                :
+                                null
+                            }
+                        </React.Fragment>
                     :
-                    null
-                }
-                <div>{value}</div>
-                {
-                    units && unitsPositionedRight ?
-                        <div className={[styles.units, styles.unitsRight].join(" ")}>{units}</div>
-                    :
-                    null
+                    <div>--</div>
                 }
             </div>
         </div>
