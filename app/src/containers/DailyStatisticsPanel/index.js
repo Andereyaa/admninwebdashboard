@@ -9,13 +9,6 @@ import styles from './DailyStatisticsPanel.module.css'
 import {getLocalStartOfDayTimestamp} from '../../utils/dateHandling'
 
 export class DailyStatisticsPanel extends Component {
-    
-    getTodaysMilkCollections = (milkCollectionsArray) => {
-        const localStartOfDay = getLocalStartOfDayTimestamp()
-        return milkCollectionsArray.filter(milkCollection => {
-            return milkCollection.dateCollected > localStartOfDay
-        })
-    }
 
     getVolumeCollectedToday = (milkCollectionsArray) => {
         return milkCollectionsArray.reduce((total,milkCollection) => {
@@ -49,28 +42,26 @@ export class DailyStatisticsPanel extends Component {
         const {milkCollections} = this.props
         if (!milkCollections) return null
         const {milkCollectionsArray} = this.props
-        const todaysMilkCollections = this.getTodaysMilkCollections(milkCollectionsArray)
-
         return (
             <div className={styles.container}>
                 <Statistic 
                     label="volume collected today"
-                    value={this.getVolumeCollectedToday(todaysMilkCollections)}
+                    value={this.getVolumeCollectedToday(milkCollectionsArray)}
                     units="L"
                     unitsPositionedRight={true}
                 />
                 <Statistic 
                     label="most common rate today"
-                    value={this.getMostCommonRateToday(todaysMilkCollections)}
+                    value={this.getMostCommonRateToday(milkCollectionsArray)}
                     units="UGX"
                 />
                 <Statistic 
                     label="no. milk collections today"
-                    value={todaysMilkCollections.length}
+                    value={milkCollectionsArray.length}
                 />
                 <Statistic 
                     label="total milk value today"
-                    value={this.getMilkValueToday(todaysMilkCollections)}
+                    value={this.getMilkValueToday(milkCollectionsArray)}
                     units="UGX"
                 />
             </div>
