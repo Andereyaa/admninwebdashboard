@@ -6,11 +6,25 @@ import * as actions from "../../actions";
 
 import styles from './MilkCollectionsTable.module.css'
 
+import MilkCollectionsTableRow from '../../components/MilkCollectionsTableRow'
+
 export class MilkCollectionsTable extends Component{
+    getRows = (milkCollectionsArray) => {
+        return milkCollectionsArray.map(milkCollection => {
+            return <MilkCollectionsTableRow 
+                        key={milkCollection.id} 
+                        milkCollection={milkCollection}
+                     />
+        })
+    }
     render(){
+        const {milkCollections} = this.props
+        const milkCollectionsArray = milkCollections.milkCollectionIds.map(milkCollectionId => {
+            return milkCollections.milkCollectionsById[milkCollectionId]
+        })
         return (
             <div className={styles.container}>
-                
+                {this.getRows(milkCollectionsArray)}
             </div>
         )
     }
