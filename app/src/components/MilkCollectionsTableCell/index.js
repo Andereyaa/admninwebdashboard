@@ -4,6 +4,6 @@ import styles from './MilkCollectionsTableCell.module.css'
 
 export default ({value}) => {
     return (
-        <div>{value}</div>
+        <div className={styles.container}>{value}</div>
     )
 }

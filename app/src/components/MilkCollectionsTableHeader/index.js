@@ -4,9 +4,9 @@ import styles from './MilkCollectionsTableHeader.module.css'
 export default () => {
     return (
         <div className={styles.container}>
-            <div>Name</div>
-            <div>Volume (Litres)</div>
-            <div>Price (UGX)</div>
+            <div className={styles.th}>Name</div>
+            <div className={styles.th}>Volume (Litres)</div>
+            <div className={styles.th}>Price (UGX)</div>
         </div>
     )
 }

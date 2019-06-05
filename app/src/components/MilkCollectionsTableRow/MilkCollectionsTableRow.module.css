@@ -1,6 +1,7 @@
 .container {
     display: flex;
-    justify-content: space-around;
+    flex-wrap: wrap;
+    flex-direction: row;
     padding: 0.5em;
     background-color: var(--white)
 }

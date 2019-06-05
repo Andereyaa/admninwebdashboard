@@ -11,10 +11,13 @@ import MilkCollectionsTableHeader from '../../components/MilkCollectionsTableHea
 
 export class MilkCollectionsTable extends Component{
     getRows = (milkCollectionsArray) => {
+        const {suppliers} = this.props
         return milkCollectionsArray.map((milkCollection,index) => {
+            const supplier = suppliers.suppliersById[milkCollection.supplierId]
             return <MilkCollectionsTableRow 
                         key={milkCollection.id} 
                         milkCollection={milkCollection}
+                        supplier={supplier}
                         even={((index % 2) > 0)}
                      />
         })
@@ -34,7 +37,8 @@ export class MilkCollectionsTable extends Component{
 }
 
 const mapStateToProps = state => ({
-    milkCollections: state.milkCollections
+    milkCollections: state.milkCollections,
+    suppliers: state.suppliers
 });
 
 const mapDispatchToProps = dispatch => ({

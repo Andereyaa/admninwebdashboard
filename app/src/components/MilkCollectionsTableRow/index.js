@@ -3,13 +3,13 @@ import React from 'react'
 import styles from './MilkCollectionsTableRow.module.css'
 
 import MilkCollectionTableCell from '../MilkCollectionsTableCell'
+import {capitalizeFirstLetterOfAllWords} from '../../utils/formatting'
 
-export default ({milkCollection, even=false}) => {
-    console.log('even is ', even)
+export default ({milkCollection, supplier, even=false}) => {
     const evenStyle = even ? styles.even : ""
     return (
         <div className={[styles.container, evenStyle].join(" ")}>
-            <MilkCollectionTableCell value="Name"/>
+            <MilkCollectionTableCell value={capitalizeFirstLetterOfAllWords(supplier.supplierName)}/>
             <MilkCollectionTableCell value={milkCollection.volumeInLitres}/>
             <MilkCollectionTableCell value={milkCollection.rateInShillings}/>
         </div>
