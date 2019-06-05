@@ -6,6 +6,9 @@
     background-color: var(--white)
 }
 
+.container:hover {
+    border: 1px solid var(--secondary)
+}
 .container.even {
     background-color: var(--light-grey)
 }
