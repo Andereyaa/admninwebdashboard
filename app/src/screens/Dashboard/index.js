@@ -19,6 +19,7 @@ export class Dashboard extends Component {
 
     render (){
         const {milkCollections} = this.props
+        if(!milkCollections) return null
         const milkCollectionsArray = milkCollections.milkCollectionIds.map(milkCollectionId => {
             return milkCollections.milkCollectionsById[milkCollectionId]
         })

@@ -22,6 +22,7 @@ export class MilkCollectionsTable extends Component{
     }
     render(){
         const {milkCollectionsArray} = this.props
+        if (!milkCollectionsArray) return null
         return (
             <div className={styles.container}>
                 <MilkCollectionsTableHeader />
