@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
 
 import {connect} from "react-redux"
-import {bindActionCreators} from "redux";
-import * as actions from "../../actions";
 
 import styles from './MilkCollectionsTable.module.css'
 
@@ -23,14 +21,16 @@ export class MilkCollectionsTable extends Component{
         })
     }
     render(){
-        const {milkCollections} = this.props
-        const milkCollectionsArray = milkCollections.milkCollectionIds.map(milkCollectionId => {
-            return milkCollections.milkCollectionsById[milkCollectionId]
-        })
+        const {milkCollectionsArray} = this.props
         return (
             <div className={styles.container}>
                 <MilkCollectionsTableHeader />
-                {this.getRows(milkCollectionsArray)}
+                {
+                    milkCollectionsArray.length > 0 ?
+                    this.getRows(milkCollectionsArray)
+                    :
+                    <div className={styles.noData}>No Data</div>
+                }
             </div>
         )
     }
@@ -41,8 +41,5 @@ const mapStateToProps = state => ({
     suppliers: state.suppliers
 });
 
-const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators(actions, dispatch)
-})
 
-export default connect(mapStateToProps, mapDispatchToProps)(MilkCollectionsTable)
+export default connect(mapStateToProps)(MilkCollectionsTable)
