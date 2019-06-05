@@ -6,8 +6,6 @@ import {connect} from "react-redux"
 
 import styles from './DailyStatisticsPanel.module.css'
 
-import {getLocalStartOfDayTimestamp} from '../../utils/dateHandling'
-
 export class DailyStatisticsPanel extends Component {
 
     getVolumeCollectedToday = (milkCollectionsArray) => {
