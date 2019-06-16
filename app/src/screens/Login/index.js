@@ -29,8 +29,7 @@ export class Login extends Component {
          
     }
     render (){
-        const {users, countries} = this.props
-        console.log("countries are ", countries)
+        const {users} = this.props
         if (!users) return null
         if(
             users.authenticatedUserId && 
@@ -48,8 +47,7 @@ export class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-    users: state.users,
-    countries: state.countries
+    users: state.users
 });
 
 const mapDispatchToProps = dispatch => ({
