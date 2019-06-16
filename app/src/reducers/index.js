@@ -5,6 +5,7 @@ import institution from './institution'
 import centers from './centers'
 import milkCollections from './milkCollections'
 import suppliers from './suppliers'
+import countries from './countries'
 
 const config = {
     key: 'primary',
@@ -42,6 +43,11 @@ export const initialState = {
         suppliersById: {},
         supplierIds: [],
         selectedId: null
+    },
+    countries: {
+        countriesById:{},
+        countryIds: [],
+        defaultCountryId: null
     }
 };
 
@@ -50,7 +56,8 @@ const rootReducer = persistCombineReducers(config, {
     institution,
     centers,
     milkCollections,
-    suppliers
+    suppliers,
+    countries
 });
 
 export default rootReducer
