@@ -12,10 +12,6 @@ import {verifyPhoneNumber} from '../../utils/phoneNumberHandling'
 import {BLANK_USER_ID, BLANK_PASSWORD, INVALID_PHONE_NUMBER} from '../../constants/errors'
 
 import {connect} from 'react-redux'
-import { bindActionCreators } from 'redux';
-
-import * as actions from '../../actions'
-import {countryList} from "../../data/countries"
 
 export class LoginForm extends Component {
 
@@ -30,10 +26,6 @@ export class LoginForm extends Component {
         }
     }
 
-    componentDidMount(){
-        const {actions} = this.props
-        actions.saveCountries(countryList)
-    }
     static propTypes = {
         onSubmit: PropTypes.func.isRequired,
     }
@@ -48,14 +40,23 @@ export class LoginForm extends Component {
 
     handleSubmit = () =>{
         if(this.validate()){
-            const {phoneNumber, password} = this.state
+            const {phoneNumber, password, countryId} = this.state
             const {onSubmit} = this.props
             if (!onSubmit) throw new Error('No onSubmit function provided')
             else {
-                alert(`${phoneNumber} ${password}`)
-                // onSubmit(phoneNumber, password)
+                const {countries} = this.props
+                const country = countries.countriesById[countryId]
+                const verifiedFullPhoneNumber = `${country.dialingCode}${verifyPhoneNumber(phoneNumber, country)}`
+                const userId = this.getUserId(verifiedFullPhoneNumber)
+                alert(`${userId} ${password}`)
+                // onSubmit(userId, password)
             }
         }
+    }
+
+    getUserId = baseUserId => {
+        //TODO expand to deal with email case
+        return `${baseUserId}@boresha.tech`
     }
 
     validate = () => {
@@ -111,10 +112,8 @@ export class LoginForm extends Component {
     }
 }
 
-const mapDispatchToPros = dispatch => ({
-    actions: bindActionCreators(actions, dispatch)
-})
 const mapStateToProps = state => ({
     countries: state.countries
 })
-export default connect (mapStateToProps, mapDispatchToPros)(LoginForm)
+
+export default connect (mapStateToProps)(LoginForm)
