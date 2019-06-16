@@ -8,15 +8,32 @@ import PropTypes from 'prop-types';
 
 //form validation
 import {fieldValueIsNotBlank} from '../../utils/formValidation'
-import {BLANK_USER_ID, BLANK_PASSWORD} from '../../constants/errors'
-export default class LoginForm extends Component {
+import {verifyPhoneNumber} from '../../utils/phoneNumberHandling'
+import {BLANK_USER_ID, BLANK_PASSWORD, INVALID_PHONE_NUMBER} from '../../constants/errors'
 
-    state = {
-        userId: "",
-        password: "",
-        errors: {}
+import {connect} from 'react-redux'
+import { bindActionCreators } from 'redux';
+
+import * as actions from '../../actions'
+import {countryList} from "../../data/countries"
+
+export class LoginForm extends Component {
+
+    constructor(props){
+        super(props)
+        this.state = {
+            phoneNumber: "",
+            password: "",
+            countryId: props.countries && props.countries.defaultCountryId ? 
+                                props.countries.defaultCountryId : "ug" ,
+            errors: {}
+        }
     }
 
+    componentDidMount(){
+        const {actions} = this.props
+        actions.saveCountries(countryList)
+    }
     static propTypes = {
         onSubmit: PropTypes.func.isRequired,
     }
@@ -31,23 +48,27 @@ export default class LoginForm extends Component {
 
     handleSubmit = () =>{
         if(this.validate()){
-            const {userId, password} = this.state
+            const {phoneNumber, password} = this.state
             const {onSubmit} = this.props
             if (!onSubmit) throw new Error('No onSubmit function provided')
             else {
-                onSubmit(userId, password)
+                alert(`${phoneNumber} ${password}`)
+                // onSubmit(phoneNumber, password)
             }
         }
     }
 
     validate = () => {
-        const {userId, password} = this.state
+        const {phoneNumber, password, countryId} = this.state
         const errors = {
-            userId: null,
+            phoneNumber: null,
             password: null
         }
-        if (!fieldValueIsNotBlank(userId)) errors.userId = BLANK_USER_ID
+        if (!fieldValueIsNotBlank(phoneNumber)) errors.phoneNumber = BLANK_USER_ID
         if (!fieldValueIsNotBlank(password)) errors.password = BLANK_PASSWORD
+        const {countries} = this.props
+        const country = countries.countriesById[countryId]
+        if (!errors.phoneNumber && !verifyPhoneNumber(phoneNumber, country)) errors.phoneNumber = INVALID_PHONE_NUMBER
         if (Object.values(errors).every(error => !error)) return true
         else {
             this.setState({errors})
@@ -55,17 +76,17 @@ export default class LoginForm extends Component {
         }
     }
     render (){
-        const {userId, password, errors} = this.state 
+        const {phoneNumber, password, errors} = this.state 
         return (
             <div className={styles.container}>
                 <LogoTitle title="Boresha Dashboard"/>
                 <div className={styles.fields}>
                     <FormField 
-                        error={errors.userId}
-                        label='Phone / Email' 
+                        error={errors.phoneNumber}
+                        label='Phone' 
                         icon='person'
-                        name="userId"
-                        value={userId}
+                        name="phoneNumber"
+                        value={phoneNumber}
                         onChange={this.handleChange}
                     />
                     <FormField 
@@ -89,3 +110,11 @@ export default class LoginForm extends Component {
         )
     }
 }
+
+const mapDispatchToPros = dispatch => ({
+    actions: bindActionCreators(actions, dispatch)
+})
+const mapStateToProps = state => ({
+    countries: state.countries
+})
+export default connect (mapStateToProps, mapDispatchToPros)(LoginForm)
