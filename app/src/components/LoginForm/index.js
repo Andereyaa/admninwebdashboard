@@ -85,10 +85,11 @@ export class LoginForm extends Component {
                     <FormField 
                         error={errors.phoneNumber}
                         label='Phone' 
-                        icon='person'
+                        icon='phone'
                         name="phoneNumber"
                         value={phoneNumber}
                         onChange={this.handleChange}
+                        type='tel'
                     />
                     <FormField 
                         error={errors.password}
