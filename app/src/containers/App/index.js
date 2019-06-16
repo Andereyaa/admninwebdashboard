@@ -1,46 +1,38 @@
 import React, {Component} from 'react';
-import styles from './App.module.css';
-import Login from '../../screens/Login'
-import Dashboard from '../../screens/Dashboard'
-
-import ScreenContent from '../ScreenContent'
+import Main from '../Main'
 
 import {connect} from "react-redux"
 import {bindActionCreators} from "redux";
 import * as actions from "../../actions";
 
-import { Route, Redirect, Switch } from 'react-router-dom';
+import {countryList} from "../../data/countries"
+
+import Login from '../../screens/Login'
+
+import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom'
+import {INDEX} from '../../constants/screenPathnames'
 
 export class App extends Component {
-  render(){
-    const {users, location} = this.props
-    if (!users) return null
-    if (!location) return null
 
-    if (
-      !users.authenticatedUserId || 
-      !users.authenticatedUserIsAuthorized
-    ) {
-      return <Redirect to="/login" />;
-    }
+  componentDidMount(){
+    const {actions} = this.props
+    actions.saveCountries(countryList)
+  }
+
+  render(){
     return (
-      <div className={styles.container}>
-          <ScreenContent currentScreenPathname={location.pathname}>
-            <Switch>
-              <Route exact path="/" component={Dashboard} />
-            </Switch>
-          </ScreenContent>
-      </div>
+      <Router>
+          <Switch>
+              <Route path="/login" component={Login} />
+              <Route path={INDEX} component={Main}/>
+          </Switch>
+      </Router>
     );
   }
 }
-
-const mapStateToProps = state => ({
-  users: state.users
-});
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);
