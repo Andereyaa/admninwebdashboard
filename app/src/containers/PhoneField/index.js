@@ -6,6 +6,8 @@ import styles from './PhoneField.module.css'
 
 import {connect} from 'react-redux'
 
+import {fieldValueIsANonNegativeNumber} from "../../utils/formValidation"
+
 export class PhoneField extends Component {
 
     handleChangeCountry = countryId => {
@@ -14,8 +16,10 @@ export class PhoneField extends Component {
     }
 
     handleChangePhoneNumber = (event) => {
-        const {onChangePhoneNumber, name} = this.props
-        onChangePhoneNumber(event.target.value, name)
+        if (fieldValueIsANonNegativeNumber(event.target.value)){
+            const {onChangePhoneNumber, name} = this.props
+            onChangePhoneNumber(event.target.value, name)
+        }
     }
 
     
