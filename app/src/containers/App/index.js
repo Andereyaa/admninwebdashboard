@@ -17,6 +17,7 @@ export class App extends Component {
   componentDidMount(){
     const {actions} = this.props
     actions.saveCountries(countryList)
+    actions.selectDefaultCountry("ug")
   }
 
   render(){

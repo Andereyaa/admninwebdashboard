@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import styles from './LoginForm.module.css'
 import FormField from '../FormField'
+import PhoneField from '../../containers/PhoneField'
+
 import LogoTitle from '../LogoTitle'
 import RoundedButton from '../RoundedButton'
 import Link from '../Link'
@@ -82,7 +84,7 @@ export class LoginForm extends Component {
             <div className={styles.container}>
                 <LogoTitle title="Boresha Dashboard"/>
                 <div className={styles.fields}>
-                    <FormField 
+                    <PhoneField 
                         error={errors.phoneNumber}
                         label='Phone' 
                         icon='phone'
