@@ -6,7 +6,6 @@ import styles from './PhoneField.module.css'
 
 import {connect} from 'react-redux'
 
-import {fieldValueIsANonNegativeNumber} from "../../utils/formValidation"
 import {fieldValueIsAPhoneNumber} from "../../utils/phoneNumberHandling"
 export class PhoneField extends Component {
 
