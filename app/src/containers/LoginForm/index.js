@@ -56,8 +56,7 @@ export class LoginForm extends Component {
                 const country = countries.countriesById[countryId]
                 const verifiedFullPhoneNumber = `${country.dialingCode}${verifyPhoneNumber(phoneNumber, country)}`
                 const userId = this.getUserId(verifiedFullPhoneNumber)
-                alert(`${userId} ${password}`)
-                // onSubmit(userId, password)
+                onSubmit(userId, password)
             }
         }
     }
