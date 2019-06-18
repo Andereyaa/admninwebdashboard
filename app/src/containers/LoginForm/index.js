@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import styles from './LoginForm.module.css'
-import FormField from '../FormField'
-import PhoneField from '../../containers/PhoneField'
+import FormField from '../../components/FormField'
+import PhoneField from '../PhoneField'
 
-import LogoTitle from '../LogoTitle'
-import RoundedButton from '../RoundedButton'
-import Link from '../Link'
+import LogoTitle from '../../components/LogoTitle'
+import RoundedButton from '../../components/RoundedButton'
+import Link from '../../components/Link'
 import PropTypes from 'prop-types';
 
 //form validation

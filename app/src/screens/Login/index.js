@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import LoginForm from '../../components/LoginForm'
+import LoginForm from '../../containers/LoginForm'
 import styles  from './Login.module.css'
 import {INCORRECT_PASSWORD, INCORRECT_USER, USER_LOGIN_NOT_ALLOWED} from '../../constants/errors'
 

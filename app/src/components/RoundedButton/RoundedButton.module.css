@@ -4,7 +4,8 @@
     color: var(--white);
     padding: 7px 45px; 
     border-radius: 20px;
-    font-size: 1rem
+    font-size: 1rem;
+    outline: none;
 }
 
 .container:hover {
