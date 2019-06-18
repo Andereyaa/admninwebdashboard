@@ -19,11 +19,12 @@ export class LoginForm extends Component {
 
     constructor(props){
         super(props)
+        const {countries} = props
+        const defaultCountryId = countries.defaultCountryId ? countries.defaultCountryId : "ug"
         this.state = {
             phoneNumber: "",
+            countryId: defaultCountryId,
             password: "",
-            countryId: props.countries && props.countries.defaultCountryId ? 
-                                props.countries.defaultCountryId : "ug" ,
             errors: {}
         }
     }
@@ -36,8 +37,13 @@ export class LoginForm extends Component {
         if (!name && (name !== 0)) throw new Error('Cannot update state, no name value specified')
         else if (!(name in this.state)) throw new Error(`The name "${name}" is not a key in state`) 
         else{
-            this.setState({[name]: value})
+            this.setState({[name]: value, errors:{}})
         }
+    }
+
+    handleChangeCountry = countryId => {
+        if (!countryId) return
+        this.setState({ countryId })
     }
 
     handleSubmit = () =>{
@@ -79,19 +85,21 @@ export class LoginForm extends Component {
         }
     }
     render (){
-        const {phoneNumber, password, errors} = this.state 
+        const {phoneNumber, password, errors, countryId} = this.state 
+        const {countries} = this.props
         return (
             <div className={styles.container}>
                 <LogoTitle title="Boresha Dashboard"/>
                 <div className={styles.fields}>
                     <PhoneField 
                         error={errors.phoneNumber}
-                        label='Phone' 
-                        icon='phone'
+                        label='Phone Number' 
                         name="phoneNumber"
                         value={phoneNumber}
-                        onChange={this.handleChange}
-                        type='tel'
+                        onChangePhoneNumber={this.handleChange}
+                        onChangeCountry={this.handleChangeCountry}
+                        includedCountryIds={countries.countryIds}
+                        countryId={countryId}
                     />
                     <FormField 
                         error={errors.password}
