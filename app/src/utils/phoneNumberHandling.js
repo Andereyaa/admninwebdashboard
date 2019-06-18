@@ -1,4 +1,5 @@
 import {logError} from "./errorHandling"
+import {fieldValueIsANonNegativeNumber} from './formValidation'
 
 const phoneRegex = /^\+?[0-9]+$/g
 
@@ -64,3 +65,5 @@ export const verifyPhoneNumber = (phoneNumberWithoutDialingCode, country) => {
     }
     return verifiedPhoneNumber
 }
+
+export const fieldValueIsAPhoneNumber = value => fieldValueIsANonNegativeNumber(value) && (!String(value).match(/^.*( |\.)/))

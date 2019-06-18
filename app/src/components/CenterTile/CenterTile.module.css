@@ -5,6 +5,7 @@
     width: 14em;
     padding: 0.5em;
     margin: 0 0 0.5em 0.5em;
+    box-shadow: var(--translucent-dark) 1px 2px;
 }
 
 .innerContainer {
