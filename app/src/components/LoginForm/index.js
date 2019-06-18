@@ -109,6 +109,7 @@ export class LoginForm extends Component {
                         name='password'
                         value={password}
                         onChange={this.handleChange}
+                        onEnterPress={this.handleSubmit}
                     />
                     <div className={styles.buttonContainer}>
                     <RoundedButton 
