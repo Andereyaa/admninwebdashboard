@@ -10,10 +10,21 @@ import * as actions from "../../actions";
 
 import styles from "./ScreenContent.module.css";
 
+import {logError} from '../../utils/errorHandling'
+
 export class ScreenContent extends Component {
 
-    componentDidMount = () => {
-        this.loadContent()
+    componentDidMount = async () => {
+        await this.loadContent()
+        const {centers, actions} = this.props
+        //select a default center if none is selected
+        if (
+            (!centers.selectedId) && //if there is no center selected and
+            (centers.centerIds.length > 0) //there are centers for this institution 
+          ){
+            const firstCenterId = centers.centerIds[0]
+            actions.selectCenter(firstCenterId)
+          }
     }
 
     loadContent = async () => {
@@ -25,7 +36,7 @@ export class ScreenContent extends Component {
             if (!response.success) throw new Error(`Something went wrong`)
             response = await actions.fetchCenters()
         } catch (error){
-
+            logError(error)
         }
     }
     
@@ -52,7 +63,8 @@ export class ScreenContent extends Component {
 } 
 
 const mapStateToProps = state => ({
-    users: state.users
+    users: state.users,
+    centers: state.centers
 });
   
 const mapDispatchToProps = dispatch => ({
