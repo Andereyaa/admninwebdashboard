@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import styles from './SupplierImportModal.module.css'
 import Button from '../Button'
+import FileInput from '../FileInput'
 
 Modal.setAppElement("#root")
 
@@ -29,7 +30,7 @@ export class SupplierImportModal extends Component {
                 <div className={styles.title}>Import Suppliers</div>
                 <div>
                     <div className={styles.instructions}>To import suppliers, select a CSV file</div>
-                    <Button text="Select File" />
+                    <FileInput acceptedFiletype='.csv'/>
                 </div>
                 <div className={styles.buttonHolder}>
                     <Button text="Cancel" onClick={onRequestClose}/> 
