@@ -1,15 +1,32 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import styles from './SideBarItem.module.css'
 
 import Icon from '../Icon'
 import {capitalizeFirstLetterOfAllWords} from '../../utils/formatting'
 
-export default ({text="", icon="", onClick=()=>{}, selected=false}) => {
+import { Link } from 'react-router-dom';
+
+export default ({text="", icon="", pathname, onClick, selected=false}) => {
     const containerStyle = selected ? `${styles.container} ${styles.selected}` : styles.container
     return (
-        <div className={containerStyle} onClick={onClick}>
-            <Icon icon={icon} />
-            <span className={styles.text}>{capitalizeFirstLetterOfAllWords(text)}</span>
-        </div>
+        <Fragment>
+            {
+                onClick ?
+
+                <div className={containerStyle} onClick={onClick}>
+                    <Icon icon={icon} />
+                    <span className={styles.text}>{capitalizeFirstLetterOfAllWords(text)}</span>
+                </div>
+
+                :
+                <Link 
+                    className={containerStyle}
+                    to={{pathname}}
+                >
+                    <Icon icon={icon} />
+                    <span className={styles.text}>{capitalizeFirstLetterOfAllWords(text)}</span>
+                </Link>
+            }
+        </Fragment>
     )
 }

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import styles from './Main.module.css';
 import Login from '../../screens/Login'
 import Dashboard from '../../screens/Dashboard'
+import Suppliers from '../../screens/Suppliers'
 
 import ScreenContent from '../ScreenContent'
 
@@ -28,6 +29,7 @@ export class Main extends Component {
           <ScreenContent currentScreenPathname={location.pathname}>
             <Switch>
               <Route exact path="/" component={Dashboard} />
+              <Route path="/suppliers" component={Suppliers} />
             </Switch>
           </ScreenContent>
       </div>

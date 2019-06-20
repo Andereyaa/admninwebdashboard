@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 import styles from './SideBar.module.css'
 import SideBarItem from '../../components/SideBarItem'
-import {INDEX} from '../../constants/screenPathnames'
+import {INDEX, SUPPLIERS} from '../../constants/screenPathnames'
 
 import {connect} from "react-redux"
 import {bindActionCreators} from "redux";
@@ -13,7 +13,8 @@ export class SideBar extends PureComponent {
         if (!actions) return null
         return (
             <div className={styles.container}>
-                <SideBarItem text="dashboard" selected={currentScreenPathname==INDEX}/>
+                <SideBarItem text="dashboard" pathname={INDEX} selected={currentScreenPathname==INDEX}/>
+                <SideBarItem text="suppliers" icon="group" pathname={SUPPLIERS} selected={currentScreenPathname==SUPPLIERS}/>
                 <SideBarItem text="logout" icon="arrow-back" onClick={actions.logout}/>
             </div>
         )   

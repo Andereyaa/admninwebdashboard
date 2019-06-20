@@ -2,11 +2,13 @@ import React from 'react'
 import styles from './Icon.module.css'
 
 import ArrowBack from '@material-ui/icons/ArrowBack'
+import Business from '@material-ui/icons/Business'
 import Dashboard from '@material-ui/icons/Dashboard'
+import Group from '@material-ui/icons/Group'
+import Lock from '@material-ui/icons/Lock'
 import Person from '@material-ui/icons/Person'
 import Phone from '@material-ui/icons/Phone'
-import Lock from '@material-ui/icons/Lock'
-import Business from '@material-ui/icons/Business'
+
 
 /**
  * Documentation here: https://www.npmjs.com/package/@material-ui/icons
@@ -28,6 +30,7 @@ export default ({icon="dashboard", customStyles={}}) => {
         case 'arrow-back': SelectedIcon = ArrowBack; break;
         case 'business': SelectedIcon = Business; break;
         case 'dashboard' : SelectedIcon = Dashboard; break;
+        case 'group' : SelectedIcon = Group; break;
         case 'lock' : SelectedIcon = Lock; break;
         case 'person' : SelectedIcon = Person; break;
         case 'phone' : SelectedIcon = Phone; break;
