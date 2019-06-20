@@ -1,3 +1,19 @@
 .container {
-    
+    border: 2px solid var(--primary);
+    background-color: var(--white);
+    padding: 5px 10px;
+    display: inline-block;
+    text-decoration: none;
+    color: var(--primary);
+    border-radius: 4px;
+    font-size: var(--small-font)
+}
+
+.container:hover {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.container:active {
+    border-style: inset;
 }
