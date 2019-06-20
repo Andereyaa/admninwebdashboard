@@ -24,6 +24,7 @@ export class PhoneField extends Component {
     
     render () {
         const {countryId, error, label, value, countries} = this.props
+        if (!countries) return null
         const country = countryId ? countries.countriesById[countryId] : countries.countriesById["ug"]
         const includedCountryIds = this.props.includedCountryIds.map(countryId => countryId.toUpperCase())
         return (

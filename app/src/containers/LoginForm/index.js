@@ -20,7 +20,7 @@ export class LoginForm extends Component {
     constructor(props){
         super(props)
         const {countries} = props
-        const defaultCountryId = countries.defaultCountryId ? countries.defaultCountryId : "ug"
+        const defaultCountryId = countries && countries.defaultCountryId ? countries.defaultCountryId : "ug"
         this.state = {
             phoneNumber: "",
             countryId: defaultCountryId,
@@ -86,6 +86,7 @@ export class LoginForm extends Component {
     render (){
         const {phoneNumber, password, errors, countryId} = this.state 
         const {countries} = this.props
+        if (!countries) return null
         return (
             <div className={styles.container}>
                 <LogoTitle title="Boresha Dashboard"/>
