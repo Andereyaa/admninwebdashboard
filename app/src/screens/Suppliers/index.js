@@ -7,6 +7,7 @@ import {bindActionCreators} from "redux";
 import * as actions from "../../actions";
 
 import SupplierTable from '../../containers/SuppliersTable'
+import Button from '../../components/Button'
 
 export class Suppliers extends Component {
     render(){
@@ -17,6 +18,9 @@ export class Suppliers extends Component {
         })
         return (
             <div className={styles.container}>
+                <div className={styles.importButtonContainer}>
+                    <Button text="Import Suppliers" onClick={()=>{}}/>                    
+                </div>
                 <SupplierTable suppliersArray={suppliersArray}/>
             </div>
             
