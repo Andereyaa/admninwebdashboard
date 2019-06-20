@@ -43,6 +43,20 @@ const centersReducer = (state = initialState.centers, action = {}) => {
             }
         }
 
+        case types.UNSUBSCRIBE_FROM_CENTER: {
+            const center = {...centersById[payload.id]}
+            if (center.unsubscribeFunction){
+                center.unsubscribeFunction()
+                delete center.unsubscribeFunction
+            }
+            return {
+                ...state,
+                centersById: {
+                    ...centersById,
+                    [payload.id]: center
+                }
+            }
+        }
         case types.SELECT_CENTER: {
             return {
                 ...state,

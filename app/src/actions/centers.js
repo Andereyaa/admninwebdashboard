@@ -3,6 +3,7 @@ import {logError} from '../utils/errorHandling'
 
 export const SAVE_CENTER = 'SAVE_CENTER'
 export const SELECT_CENTER = 'SELECT_CENTER'
+export const UNSUBSCRIBE_FROM_CENTER = 'UNSUBSCRIBE_FROM_CENTER'
 
 export const saveCenter = (id, center) => {
     return {
@@ -17,6 +18,15 @@ export const saveCenter = (id, center) => {
 export const selectCenter = id => {
     return {
         type: SELECT_CENTER,
+        payload: {
+            id
+        }
+    }
+}
+
+export const unsubscribeFromCenter = id => {
+    return {
+        type: UNSUBSCRIBE_FROM_CENTER,
         payload: {
             id
         }

@@ -11,6 +11,9 @@ export class CenterSelect extends Component {
     
     handleSelectCenter = id => {
         const {centers, actions} = this.props
+        if (centers.selectedId && (centers.selectedId !== id)){
+            actions.unsubscribeFromCenter(centers.selectedId)
+        }
         actions.selectCenter(id)
         const center = centers.centersById[id]
         if (!center.unsubscribeFunction){
