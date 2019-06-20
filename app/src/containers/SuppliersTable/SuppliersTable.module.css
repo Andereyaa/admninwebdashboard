@@ -1,0 +1,14 @@
+.container {
+    height: 40vh;
+    border: 1px solid var(--light-grey);
+    overflow-y: auto;
+    min-width: 490px;
+}
+
+.noData{
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--large-font);
+}

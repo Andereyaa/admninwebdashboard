@@ -6,17 +6,26 @@ import {connect} from "react-redux"
 import {bindActionCreators} from "redux";
 import * as actions from "../../actions";
 
+import SupplierTable from '../../containers/SuppliersTable'
+
 export class Suppliers extends Component {
     render(){
+        const {suppliers} = this.props
+        if(!suppliers) return null
+        const suppliersArray = suppliers.supplierIds.map(supplierId => {
+            return suppliers.suppliersById[supplierId]
+        })
         return (
-            <div>ze Suppliers</div>
+            <div className={styles.container}>
+                <SupplierTable suppliersArray={suppliersArray}/>
+            </div>
+            
         )
     }
 }
 
 const mapStateToProps = state => ({
-    milkCollections: state.milkCollections,
-    centers: state.centers
+    suppliers: state.suppliers,
 });
 
 const mapDispatchToProps = dispatch => ({
