@@ -43,3 +43,29 @@ export const fetchCenters = () => {
         })
     }
 }
+
+export const fetchSubscribeToCenter = (centerId) => {
+    /**
+     * Purpose: retrieve the a center from the firestore database
+     * Note: the onSnapshot below watches for changes to the center on the server
+     */
+    
+    return (dispatch, getState) => {
+        const {institution} = getState()
+        const centerRef = firestore.collection("institutions").doc(institution.id)
+            .collection("centers").doc(centerId)
+        const unsubscribeFunction = centerRef
+            .onSnapshot( docRef => {
+                const center = {id:docRef.id,...docRef.data(), unsubscribeFunction}
+                dispatch(saveCenter(center.id, center))
+                return true
+            },
+            error => {
+                error.message = `Failed to fetch the center - centerId: ${centerId} institutionId ${institution.id}: ${error.message}`
+                logError(error)
+                return false
+            });
+
+        return unsubscribeFunction
+    }
+}

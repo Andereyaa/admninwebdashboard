@@ -8,18 +8,28 @@ import * as actions from "../../actions";
 import styles from './CenterSelect.module.css'
 
 export class CenterSelect extends Component {
+    
+    handleSelectCenter = id => {
+        const {centers, actions} = this.props
+        actions.selectCenter(id)
+        const center = centers.centersById[id]
+        if (!center.unsubscribeFunction){
+            actions.fetchSubscribeToCenter(id)
+        }
+    }
 
     getCenterTileForEachCenter = () => {
-        const {centers, actions} = this.props
+        const {centers} = this.props
         if (!centers) return null
         return centers.centerIds.map(centerId => {
             const center = centers.centersById[centerId]    
+
             return <CenterTile 
                         key={center.id}
                         id={center.id} 
                         centerName={center.centerName}
                         selected={center.id === centers.selectedId}
-                        onClick={id => actions.selectCenter(id)}
+                        onClick={this.handleSelectCenter}
                     />
         })
         

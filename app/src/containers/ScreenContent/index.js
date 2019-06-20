@@ -18,12 +18,14 @@ export class ScreenContent extends Component {
         await this.loadContent()
         const {centers, actions} = this.props
         //select a default center if none is selected
-        if (
-            (!centers.selectedId) && //if there is no center selected and
-            (centers.centerIds.length > 0) //there are centers for this institution 
-          ){
-            const firstCenterId = centers.centerIds[0]
-            actions.selectCenter(firstCenterId)
+        const selectedId = centers.selectedId ? centers.selectedId : 
+                            (centers.centerIds.length > 0) ? centers.centerIds[0] : null
+        if (selectedId){
+            actions.selectCenter(selectedId)
+            const selectedCenter = centers.centersById[selectedId]
+            if (!selectedCenter.unsubscribeFunction){
+                actions.fetchSubscribeToCenter(selectedId)
+            }
           }
     }
 
