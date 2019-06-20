@@ -13,14 +13,11 @@ const centersReducer = (state = initialState.centers, action = {}) => {
     const {type, payload} = action;
     const centersById = {...state.centersById};
     switch (type) {
-
-        //from rn app
-        // case types.LOGOUT: {
-        //     if (state.unsubscribeFunction) state.unsubscribeFunction()
-        //     return initialState.center
-        // }
-
         case types.LOGOUT:
+            state.centerIds.forEach(centerId => {
+                const center = centersById[centerId]
+                if (center.unsubscribeFunction) center.unsubscribeFunction()
+            })
             return initialState.centers;
         
         case types.SAVE_CENTER: {
