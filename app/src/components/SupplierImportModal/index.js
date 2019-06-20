@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
+import styles from './SupplierImportModal.module.css'
+import Button from '../Button'
 
 Modal.setAppElement("#root")
 
@@ -19,9 +21,21 @@ export class SupplierImportModal extends Component {
             isOpen={isOpen}
             onAfterOpen={onAfterOpen}
             onRequestClose={onRequestClose}
-            contentLabel="Import Suppliers"
+            contentLabel="Import Suppliers" 
+            className={styles.modal}
+            overlayClassName={styles.overlay}
         >
-            <div>Import Suppliers</div>
+            <div className={styles.container}>
+                <div className={styles.title}>Import Suppliers</div>
+                <div>
+                    <div className={styles.instructions}>To import suppliers, select a CSV file</div>
+                    <Button text="Select File" />
+                </div>
+                <div className={styles.buttonHolder}>
+                    <Button text="Cancel" onClick={onRequestClose}/> 
+                    <Button text="Import" />
+                </div>
+            </div>
         </Modal>
         )
     }

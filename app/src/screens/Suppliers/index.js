@@ -15,6 +15,9 @@ export class Suppliers extends Component {
     state = {
         supplierImportModalIsOpen: false
     }
+
+    handleOpenModal = () => this.setState({supplierImportModalIsOpen: true})
+    handleCloseModal = () => this.setState({supplierImportModalIsOpen: false})
     render(){
         const {suppliers} = this.props
         if(!suppliers) return null
@@ -25,10 +28,11 @@ export class Suppliers extends Component {
         return (
             <div className={styles.container}>
                 <div className={styles.importButtonContainer}>
-                    <Button text="Import Suppliers" onClick={()=>this.setState({supplierImportModalIsOpen: true})}/>                    
+                    <Button text="Import Suppliers" onClick={this.handleOpenModal}/>                    
                 </div>
                 <SupplierImportModal 
                     isOpen={supplierImportModalIsOpen}
+                    onRequestClose={this.handleCloseModal}
                 />
                 <SupplierTable suppliersArray={suppliersArray}/>
             </div>
