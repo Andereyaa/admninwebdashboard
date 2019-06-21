@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import SideBar from '../SideBar'
 import TopBar from '../../components/TopBar'
 
-import {INDEX} from '../../constants/screenPathnames'
+import {INDEX, SUPPLIERS} from '../../constants/screenPathnames'
 
 import {connect} from "react-redux"
 import {bindActionCreators} from "redux";
@@ -46,6 +46,7 @@ export class ScreenContent extends Component {
         const {currentScreenPathname} = this.props
         switch (currentScreenPathname){
             case INDEX: return 'Dashboard';
+            case SUPPLIERS: return 'Suppliers'
             default: return ""
         }
     } 
