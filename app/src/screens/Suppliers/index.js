@@ -8,7 +8,7 @@ import * as actions from "../../actions";
 
 import SupplierTable from '../../containers/SuppliersTable'
 import Button from '../../components/Button'
-import SupplierImportModal from '../../components/SupplierImportModal'
+import SupplierImportModal from '../../containers/SupplierImportModal'
 
 export class Suppliers extends Component {
 

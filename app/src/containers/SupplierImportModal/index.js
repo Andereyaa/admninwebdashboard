@@ -2,27 +2,33 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import styles from './SupplierImportModal.module.css'
-import Button from '../Button'
-import FileInput from '../FileInput'
+import Button from '../../components/Button'
+import FileInput from '../../components/FileInput'
+import SuppliersTable from '../SuppliersTable'
 
 import {parseCsvStringToNewSuppliers} from '../../utils/csvHandling'
 
 Modal.setAppElement("#root")
 
 export class SupplierImportModal extends Component {
+
+    state = {
+        newSuppliers: []
+    }
+
     static defaultProps = {
         isOpen: false,
         onAfterOpen: ()=>{},
-        onRequestClose: ()=>{}
+        onRequestClose: ()=>{},
     }
 
     handleFileRead = csvString => {
-        console.log(parseCsvStringToNewSuppliers(csvString))
+        this.setState({newSuppliers: parseCsvStringToNewSuppliers(csvString)})
     }
 
     render(){
         const {isOpen, onAfterOpen, onRequestClose, contentLabel} = this.props
-
+        const {newSuppliers} = this.state
         return (
         <Modal 
             isOpen={isOpen}
@@ -37,6 +43,12 @@ export class SupplierImportModal extends Component {
                 <div>
                     <div className={styles.instructions}>To import suppliers, select a CSV file</div>
                     <FileInput acceptedFiletype='.csv' onFileRead={this.handleFileRead}/>
+                    {
+                        newSuppliers.length > 0?
+                        <SuppliersTable suppliersArray={newSuppliers}/>
+                        :
+                        null
+                    }
                 </div>
                 <div className={styles.buttonHolder}>
                     <Button text="Cancel" onClick={onRequestClose}/> 
