@@ -29,20 +29,23 @@ export class SupplierImportModal extends Component {
     render(){
         const {isOpen, onAfterOpen, onRequestClose, contentLabel} = this.props
         const {newSuppliers} = this.state
+        const modalStyle = newSuppliers.length > 0 ? styles.large : null
         return (
         <Modal 
             isOpen={isOpen}
             onAfterOpen={onAfterOpen}
             onRequestClose={onRequestClose}
             contentLabel="Import Suppliers" 
-            className={styles.modal}
+            className={[styles.modal, modalStyle].join(' ')}
             overlayClassName={styles.overlay}
         >
             <div className={styles.container}>
                 <div className={styles.title}>Import Suppliers</div>
                 <div>
                     <div className={styles.instructions}>To import suppliers, select a CSV file</div>
-                    <FileInput acceptedFiletype='.csv' onFileRead={this.handleFileRead}/>
+                    <div className={styles.fileInput}>
+                        <FileInput acceptedFiletype='.csv' onFileRead={this.handleFileRead}/>
+                    </div>
                     {
                         newSuppliers.length > 0?
                         <SuppliersTable suppliersArray={newSuppliers}/>

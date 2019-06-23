@@ -4,6 +4,7 @@
     justify-content: space-between;
     flex-direction: column;
     height: 100%;
+    overflow: auto;
 }
 
 .title {
@@ -17,10 +18,15 @@
 .buttonHolder {
     display: flex;
     justify-content: flex-end;
+    margin-top: 1em;
 }
 
 .buttonHolder > button {
     border: none;
+}
+
+.fileInput {
+    margin-bottom: 1em;
 }
 .modal {
     position: absolute;
@@ -29,6 +35,14 @@
     right: 30%;
     bottom: 35%;
     background-color: var(--white);
+    transition: top 0.25s, bottom 0.25s, left 1s, right 1s;
+  }
+
+  .modal.large {
+    top: 10%;
+    left: 10%;
+    right: 10%;
+    bottom: 10%;
   }
 
   .overlay {
