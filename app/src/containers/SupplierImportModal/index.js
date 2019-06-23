@@ -7,6 +7,9 @@ import FileInput from '../../components/FileInput'
 import SuppliersTable from '../SuppliersTable'
 
 import {parseCsvStringToNewSuppliers} from '../../utils/csvHandling'
+import {connect} from 'react-redux'
+import * as actions from '../../actions'
+import {bindActionCreators} from 'redux'
 
 Modal.setAppElement("#root")
 
@@ -31,6 +34,25 @@ export class SupplierImportModal extends Component {
         this.setState({newSuppliers: []})
         onRequestClose()
     }
+
+    supplierType = "farmer"
+
+    handleAddNewSuppliers = async () => {
+        const {newSuppliers} = this.state
+        const {actions} = this.props
+        newSuppliers.forEach(async newSupplier => {
+            const {supplierName, phoneNumber, locationName} = newSupplier
+            const success = await actions.fetchAddSupplier(
+                supplierName, 
+                phoneNumber, 
+                locationName,
+                this.supplierType //TODO let user specify supplier type
+            )
+            console.log("success is ", success)
+        })
+        this.handleCloseModal()
+    }
+
     render(){
         const {isOpen, onAfterOpen, onRequestClose, contentLabel} = this.props
         const {newSuppliers} = this.state
@@ -60,7 +82,7 @@ export class SupplierImportModal extends Component {
                 </div>
                 <div className={styles.buttonHolder}>
                     <Button text="Cancel" onClick={this.handleCloseModal}/> 
-                    <Button text="Import" />
+                    <Button text="Import" onClick={this.handleAddNewSuppliers}/>
                 </div>
             </div>
         </Modal>
@@ -68,4 +90,7 @@ export class SupplierImportModal extends Component {
     }
 }
 
-export default SupplierImportModal
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(actions, dispatch)
+})
+export default connect(null, mapDispatchToProps)(SupplierImportModal)

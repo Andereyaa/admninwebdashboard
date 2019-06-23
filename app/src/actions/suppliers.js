@@ -7,21 +7,22 @@ import {v4 as uuid4} from 'uuid'
 export const SAVE_SUPPLIERS = 'SAVE_SUPPLIERS'
 
 
-export const fetchAddSupplier = (supplierName, phoneNumber, locationName, supplierType, timeTakenOnScreenInMilliseconds) => {
+export const fetchAddSupplier = (supplierName, phoneNumber, locationName, supplierType, supplierId = uuid4()) => {
 
     return async (dispatch, getState) => {
-        const {user} = getState()
+        const {users, centers} = getState()
+        const user = users.usersById[users.authenticatedUserId]
         //TODO deal with other usertypes, admin, owner etc whoever is able to login??
-        const {institutionId, centerIds} = user.owner
-        const centerId = centerIds[0] 
+        const institutionId = user.owner.institutionIds[0] //TODO will this work for all user types?
+        const centerId = centers.selectedId //TODO allow the user to better choose 
+                                            //which center the suppliers are assigned to! 
         const currentMoment = moment.utc()
         const supplierPayload = {
-            id: uuid4(),
+            id: supplierId,
             supplierName,
             phoneNumber,
             supplierType,
             locationName,
-            timeTakenOnScreenInMilliseconds,
             createdByUserId: user.id,
             // createdByAppVersion: system.version,
             createdByInstitutionId: institutionId,
