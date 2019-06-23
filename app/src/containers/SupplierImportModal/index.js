@@ -26,6 +26,11 @@ export class SupplierImportModal extends Component {
         this.setState({newSuppliers: parseCsvStringToNewSuppliers(csvString)})
     }
 
+    handleCloseModal = () => {
+        const { onRequestClose } = this.props
+        this.setState({newSuppliers: []})
+        onRequestClose()
+    }
     render(){
         const {isOpen, onAfterOpen, onRequestClose, contentLabel} = this.props
         const {newSuppliers} = this.state
@@ -34,7 +39,7 @@ export class SupplierImportModal extends Component {
         <Modal 
             isOpen={isOpen}
             onAfterOpen={onAfterOpen}
-            onRequestClose={onRequestClose}
+            onRequestClose={this.handleCloseModal}
             contentLabel="Import Suppliers" 
             className={[styles.modal, modalStyle].join(' ')}
             overlayClassName={styles.overlay}
@@ -54,7 +59,7 @@ export class SupplierImportModal extends Component {
                     }
                 </div>
                 <div className={styles.buttonHolder}>
-                    <Button text="Cancel" onClick={onRequestClose}/> 
+                    <Button text="Cancel" onClick={this.handleCloseModal}/> 
                     <Button text="Import" />
                 </div>
             </div>
