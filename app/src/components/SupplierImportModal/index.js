@@ -5,6 +5,8 @@ import styles from './SupplierImportModal.module.css'
 import Button from '../Button'
 import FileInput from '../FileInput'
 
+import {parseCsvStringToNewSuppliers} from '../../utils/csvHandling'
+
 Modal.setAppElement("#root")
 
 export class SupplierImportModal extends Component {
@@ -12,6 +14,10 @@ export class SupplierImportModal extends Component {
         isOpen: false,
         onAfterOpen: ()=>{},
         onRequestClose: ()=>{}
+    }
+
+    handleFileRead = csvString => {
+        console.log(parseCsvStringToNewSuppliers(csvString))
     }
 
     render(){
@@ -30,7 +36,7 @@ export class SupplierImportModal extends Component {
                 <div className={styles.title}>Import Suppliers</div>
                 <div>
                     <div className={styles.instructions}>To import suppliers, select a CSV file</div>
-                    <FileInput acceptedFiletype='.csv'/>
+                    <FileInput acceptedFiletype='.csv' onFileRead={this.handleFileRead}/>
                 </div>
                 <div className={styles.buttonHolder}>
                     <Button text="Cancel" onClick={onRequestClose}/> 
