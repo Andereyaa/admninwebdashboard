@@ -13,7 +13,7 @@ export class SideBar extends PureComponent {
         if (!actions) return null
         return (
             <div className={styles.container}>
-                <MenuItem text="donut-small" pathname={INDEX} selected={currentScreenPathname==INDEX}/>
+                <MenuItem text="dashboard" pathname={INDEX} selected={currentScreenPathname==INDEX}/>
                 <MenuItem text="suppliers" icon="group" pathname={SUPPLIERS} selected={currentScreenPathname==SUPPLIERS}/>
                 <MenuItem text="logout" icon="arrow-back" onClick={actions.logout}/>
             </div>
