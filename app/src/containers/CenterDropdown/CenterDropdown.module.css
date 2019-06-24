@@ -1,0 +1,6 @@
+.container {
+    padding: 4px;
+    border: 2px outset var(--primary);
+    border-radius: 20px;
+    outline: none;
+}
