@@ -6,10 +6,10 @@ import Button from '../../components/Button'
 import FileInput from '../../components/FileInput'
 import SuppliersTable from '../SuppliersTable'
 
-import {parseCsvStringToNewSuppliers} from '../../utils/csvHandling'
 import {connect} from 'react-redux'
 import * as actions from '../../actions'
 import {bindActionCreators} from 'redux'
+import {parse} from 'papaparse'
 
 Modal.setAppElement("#root")
 
@@ -18,6 +18,7 @@ export class SupplierImportModal extends Component {
     state = {
         newSuppliers: []
     }
+    supplierType = "farmer"
 
     static defaultProps = {
         isOpen: false,
@@ -26,7 +27,7 @@ export class SupplierImportModal extends Component {
     }
 
     handleFileRead = csvString => {
-        this.setState({newSuppliers: parseCsvStringToNewSuppliers(csvString)})
+        this.setState({newSuppliers: this.parseCsvStringToNewSuppliers(csvString)})
     }
 
     handleCloseModal = () => {
@@ -35,20 +36,33 @@ export class SupplierImportModal extends Component {
         onRequestClose()
     }
 
-    supplierType = "farmer"
+    parseCsvStringToNewSuppliers = csvString => {
+        const results = parse(csvString)
+        const newSuppliers = []
+        results.data.forEach(supplierData => {
+            if (supplierData.length >= 3){
+                const newSupplier = {}
+                newSupplier.supplierName = supplierData[0] ? supplierData[0] : null
+                newSupplier.phoneNumber = supplierData[1] ? supplierData[1] : null
+                newSupplier.locationName = supplierData[2] ? supplierData[2] : null
+                newSuppliers.push(newSupplier)
+            }
+        })
+        return newSuppliers
+    }
 
     handleAddNewSuppliers = async () => {
         const {newSuppliers} = this.state
         const {actions} = this.props
         newSuppliers.forEach(async newSupplier => {
             const {supplierName, phoneNumber, locationName} = newSupplier
-            const success = await actions.fetchAddSupplier(
-                supplierName, 
-                phoneNumber, 
-                locationName,
-                this.supplierType //TODO let user specify supplier type
-            )
-            console.log("success is ", success)
+            // const success = await actions.fetchAddSupplier(
+            //     supplierName, 
+            //     phoneNumber, 
+            //     locationName,
+            //     this.supplierType //TODO let user specify supplier type
+            // )
+            console.log("success is ", newSupplier)
         })
         this.handleCloseModal()
     }
