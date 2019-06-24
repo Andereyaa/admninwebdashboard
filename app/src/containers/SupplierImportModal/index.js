@@ -10,6 +10,7 @@ import {connect} from 'react-redux'
 import * as actions from '../../actions'
 import {bindActionCreators} from 'redux'
 import {parse} from 'papaparse'
+import {v4 as uuid4} from 'uuid'
 
 Modal.setAppElement("#root")
 
@@ -41,10 +42,10 @@ export class SupplierImportModal extends Component {
         const newSuppliers = []
         results.data.forEach(supplierData => {
             if (supplierData.length >= 3){
-                const newSupplier = {}
-                newSupplier.supplierName = supplierData[0] ? supplierData[0] : null
-                newSupplier.phoneNumber = supplierData[1] ? supplierData[1] : null
-                newSupplier.locationName = supplierData[2] ? supplierData[2] : null
+                const supplierName = supplierData[0].trim() ? supplierData[0].trim().toLowerCase() : null
+                const phoneNumber = supplierData[1].trim() ? supplierData[1].trim() : null
+                const locationName = supplierData[2].trim() ? supplierData[2].trim().toLowerCase() : null
+                const newSupplier = {supplierName,phoneNumber,locationName,id: uuid4()}
                 newSuppliers.push(newSupplier)
             }
         })
@@ -55,12 +56,13 @@ export class SupplierImportModal extends Component {
         const {newSuppliers} = this.state
         const {actions} = this.props
         newSuppliers.forEach(async newSupplier => {
-            const {supplierName, phoneNumber, locationName} = newSupplier
+            const {supplierName, phoneNumber, locationName, id} = newSupplier
             // const success = await actions.fetchAddSupplier(
             //     supplierName, 
             //     phoneNumber, 
             //     locationName,
-            //     this.supplierType //TODO let user specify supplier type
+            //     this.supplierType, //TODO let user specify supplier type
+            //     id
             // )
             console.log("success is ", newSupplier)
         })
