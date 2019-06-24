@@ -20,7 +20,7 @@ export class SupplierImportModal extends Component {
         newSuppliers: [],
         errors: {}
     }
-    supplierType = "farmer"
+    defaultSupplierType = "farmer"
 
     static defaultProps = {
         isOpen: false,
@@ -48,7 +48,11 @@ export class SupplierImportModal extends Component {
                 const supplierName = supplierData[0].trim() ? supplierData[0].trim().toLowerCase() : null
                 const phoneNumber = supplierData[1].trim() ? supplierData[1].trim() : null
                 const locationName = supplierData[2].trim() ? supplierData[2].trim().toLowerCase() : null
-                const newSupplier = {supplierName,phoneNumber,locationName,id: uuid4()}
+                const supplierType = (supplierData.length >= 4 && supplierData[3] && supplierData[3].trim()) ?
+                                    supplierData[3].trim().toLowerCase()
+                                    :
+                                    this.defaultSupplierType
+                const newSupplier = {supplierName,phoneNumber,locationName, supplierType, id: uuid4()}
                 newSuppliers.push(newSupplier)
             }
         })
@@ -60,6 +64,8 @@ export class SupplierImportModal extends Component {
         newSuppliers.forEach(newSupplier => {
             if (!newSupplier.supplierName) errors[newSupplier.id] = 'Suppliers must have a name'
             if (!newSupplier.locationName) errors[newSupplier.id] = 'Suppliers must have an address'
+            //TODO take these constants from elsewhere
+            if (!["farmer", "cooperative"].includes(newSupplier.supplierType)) errors[newSupplier.id] = '"farmer" and "cooperative" are the only supported supplier types'
         })
         this.setState({errors})
         return (Object.keys(errors).length === 0)
@@ -70,12 +76,12 @@ export class SupplierImportModal extends Component {
         const {actions} = this.props
         if (this.validate(newSuppliers)){
             newSuppliers.forEach(async newSupplier => {
-                const {supplierName, phoneNumber, locationName, id} = newSupplier
+                const {supplierName, phoneNumber, locationName, supplierType, id} = newSupplier
                 // const success = await actions.fetchAddSupplier(
                 //     supplierName, 
                 //     phoneNumber, 
                 //     locationName,
-                //     this.supplierType, //TODO let user specify supplier type
+                //     supplierType,
                 //     id
                 // )
                 console.log("success is ", newSupplier)
