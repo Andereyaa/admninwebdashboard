@@ -17,7 +17,8 @@ Modal.setAppElement("#root")
 export class SupplierImportModal extends Component {
 
     state = {
-        newSuppliers: []
+        newSuppliers: [],
+        errors: {}
     }
     supplierType = "farmer"
 
@@ -28,7 +29,9 @@ export class SupplierImportModal extends Component {
     }
 
     handleFileRead = csvString => {
-        this.setState({newSuppliers: this.parseCsvStringToNewSuppliers(csvString)})
+        const newSuppliers = this.parseCsvStringToNewSuppliers(csvString)
+        this.setState({newSuppliers})
+        this.validate(newSuppliers)
     }
 
     handleCloseModal = () => {
@@ -52,26 +55,39 @@ export class SupplierImportModal extends Component {
         return newSuppliers
     }
 
+    validate = newSuppliers => {
+        const errors = {}
+        newSuppliers.forEach(newSupplier => {
+            if (!newSupplier.supplierName) errors[newSupplier.id] = 'Suppliers must have a name'
+            if (!newSupplier.locationName) errors[newSupplier.id] = 'Suppliers must have an address'
+        })
+        this.setState({errors})
+        return (Object.keys(errors).length === 0)
+    }
+
     handleAddNewSuppliers = async () => {
         const {newSuppliers} = this.state
         const {actions} = this.props
-        newSuppliers.forEach(async newSupplier => {
-            const {supplierName, phoneNumber, locationName, id} = newSupplier
-            // const success = await actions.fetchAddSupplier(
-            //     supplierName, 
-            //     phoneNumber, 
-            //     locationName,
-            //     this.supplierType, //TODO let user specify supplier type
-            //     id
-            // )
-            console.log("success is ", newSupplier)
-        })
-        this.handleCloseModal()
+        if (this.validate(newSuppliers)){
+            newSuppliers.forEach(async newSupplier => {
+                const {supplierName, phoneNumber, locationName, id} = newSupplier
+                // const success = await actions.fetchAddSupplier(
+                //     supplierName, 
+                //     phoneNumber, 
+                //     locationName,
+                //     this.supplierType, //TODO let user specify supplier type
+                //     id
+                // )
+                console.log("success is ", newSupplier)
+            })
+            this.handleCloseModal()
+        }
     }
 
     render(){
         const {isOpen, onAfterOpen, onRequestClose, contentLabel} = this.props
-        const {newSuppliers} = this.state
+        const {newSuppliers, errors} = this.state
+        console.log("errors are ", errors)
         const modalStyle = newSuppliers.length > 0 ? styles.large : null
         return (
         <Modal 
@@ -91,7 +107,7 @@ export class SupplierImportModal extends Component {
                     </div>
                     {
                         newSuppliers.length > 0?
-                        <SuppliersTable suppliersArray={newSuppliers}/>
+                        <SuppliersTable suppliersArray={newSuppliers} errors={errors}/>
                         :
                         null
                     }

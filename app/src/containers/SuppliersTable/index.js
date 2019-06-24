@@ -8,13 +8,20 @@ import SuppliersTableRow from '../../components/SuppliersTableRow'
 import SuppliersTableHeader from '../../components/SuppliersTableHeader'
 
 export class SuppliersTable extends Component{
+
+    static defaultProps = {
+        errors: {}
+    }
+    
     getRows = (milkCollectionsArray) => {
-        const {suppliersArray} = this.props
+        const {suppliersArray, errors} = this.props
         return suppliersArray.map((supplier,index) => {
+            const error = errors[supplier.id]
             return <SuppliersTableRow 
                         key={supplier.id} 
                         supplier={supplier}
                         even={((index % 2) > 0)}
+                        error={error}
                      />
         })
     }

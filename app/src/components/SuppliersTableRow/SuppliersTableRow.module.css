@@ -12,3 +12,7 @@
 .container.even {
     background-color: var(--light-grey)
 }
+
+.container.error {
+    background-color: var(--translucent-accent)
+}
