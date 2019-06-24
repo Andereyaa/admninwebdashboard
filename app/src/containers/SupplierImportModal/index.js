@@ -87,8 +87,8 @@ export class SupplierImportModal extends Component {
     render(){
         const {isOpen, onAfterOpen, onRequestClose, contentLabel} = this.props
         const {newSuppliers, errors} = this.state
-        console.log("errors are ", errors)
         const modalStyle = newSuppliers.length > 0 ? styles.large : null
+        const importDisabled = (!((newSuppliers.length > 0) && (Object.keys(errors).length === 0)))
         return (
         <Modal 
             isOpen={isOpen}
@@ -113,8 +113,8 @@ export class SupplierImportModal extends Component {
                     }
                 </div>
                 <div className={styles.buttonHolder}>
-                    <Button text="Cancel" onClick={this.handleCloseModal}/> 
-                    <Button text="Import" onClick={this.handleAddNewSuppliers}/>
+                    <Button className={styles.cancelButton} text="Cancel" onClick={this.handleCloseModal}/> 
+                    <Button text="Create Suppliers" onClick={this.handleAddNewSuppliers} disabled={importDisabled}/>
                 </div>
             </div>
         </Modal>

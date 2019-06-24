@@ -21,8 +21,9 @@
     margin-top: 1em;
 }
 
-.buttonHolder > button {
+.buttonHolder > button:first-of-type {
     border: none;
+    margin-right: 0.5em;
 }
 
 .fileInput {

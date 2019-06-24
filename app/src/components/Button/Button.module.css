@@ -9,6 +9,12 @@
     font-size: var(--small-font)
 }
 
+.container.disabled, .container.container.disabled:hover {
+    background: var(--disabled);
+    color: var(--disabled-text);
+    border: none;
+}
+
 .container:hover {
     background-color: var(--primary);
     color: var(--white);
