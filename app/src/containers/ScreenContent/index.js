@@ -55,7 +55,7 @@ export class ScreenContent extends Component {
         const {currentScreenPathname} = this.props
         return (
             <div>
-                <TopBar text={this.getTopBarName()}/>
+                <TopBar text={this.getTopBarName()} currentScreenPathname={currentScreenPathname}/>
                 <SideBar currentScreenPathname={currentScreenPathname} />
                 <div className={styles.screenContainer}>
                     {this.props.children}

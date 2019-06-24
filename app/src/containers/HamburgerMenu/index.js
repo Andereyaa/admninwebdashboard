@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import styles from './HamburgerMenu.module.css' 
-import Icon from '../Icon'
-import SideBarItem from '../SideBarItem'
+import Icon from '../../components/Icon'
+import SideBarItem from '../../components/SideBarItem'
 import {INDEX, SUPPLIERS} from '../../constants/screenPathnames'
 
 import {connect} from "react-redux"
@@ -17,6 +17,7 @@ export class HamburgerMenu extends Component {
     toggleMenu = () => this.setState({menuOpen: !this.state.menuOpen})
     render (){
         const {menuOpen} = this.state
+        const {currentScreenPathname, actions} = this.props
         const menuStyle = menuOpen ? styles.open : null
         return (
             <div className={styles.container}>
@@ -24,8 +25,8 @@ export class HamburgerMenu extends Component {
                     <Icon icon="menu"/>
                 </span>
                 <div className={[styles.dropdown, menuStyle].join(" ")}>
-                    <SideBarItem text="dashboard" pathname={INDEX} selected={false}/>
-                    <SideBarItem text="suppliers" icon="group" pathname={SUPPLIERS} selected={true}/>
+                    <SideBarItem text="dashboard" pathname={INDEX} selected={currentScreenPathname==INDEX}/>
+                    <SideBarItem text="suppliers" icon="group" pathname={SUPPLIERS} selected={currentScreenPathname==SUPPLIERS}/>
                     <SideBarItem text="logout" icon="arrow-back" onClick={actions.logout}/>
                 </div>
             </div>

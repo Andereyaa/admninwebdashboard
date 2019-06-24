@@ -3,12 +3,12 @@ import styles from './TopBar.module.css'
 
 import {capitalizeFirstLetterOfAllWords} from '../../utils/formatting'
 
-import HamburgerMenu from '../HamburgerMenu'
+import HamburgerMenu from '../../containers/HamburgerMenu'
 
-export default ({text=''}) => (
+export default ({text='', currentScreenPathname=""}) => (
     <div className={styles.container}>
         <div className={styles.menu}>
-            <HamburgerMenu />
+            <HamburgerMenu currentScreenPathname={currentScreenPathname}/>
         </div>
         {capitalizeFirstLetterOfAllWords(text)}
     </div>
