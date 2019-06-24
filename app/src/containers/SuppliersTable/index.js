@@ -31,12 +31,14 @@ export class SuppliersTable extends Component{
         return (
             <div className={styles.container}>
                 <SuppliersTableHeader />
+                <div className={styles.rowContainer}>
                 {
                     suppliersArray.length > 0 ?
                     this.getRows(suppliersArray)
                     :
                     <div className={styles.noData}>No Data</div>
                 }
+                </div>
             </div>
         )
     }

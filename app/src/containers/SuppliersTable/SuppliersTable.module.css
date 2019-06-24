@@ -1,8 +1,9 @@
 .container {
     height: 40vh;
     border: 1px solid var(--light-grey);
-    overflow-y: auto;
     min-width: 490px;
+    display: flex;
+    flex-direction: column;
 }
 
 .noData{
@@ -11,4 +12,9 @@
     justify-content: center;
     align-items: center;
     font-size: var(--large-font);
+}
+
+.rowContainer {
+    overflow-y: auto;
+    height: 100%;
 }

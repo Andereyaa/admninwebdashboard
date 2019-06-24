@@ -26,12 +26,14 @@ export class MilkCollectionsTable extends Component{
         return (
             <div className={styles.container}>
                 <MilkCollectionsTableHeader />
+                <div className={styles.rowContainer}>
                 {
                     milkCollectionsArray.length > 0 ?
                     this.getRows(milkCollectionsArray)
                     :
                     <div className={styles.noData}>No Data</div>
                 }
+                </div>
             </div>
         )
     }
