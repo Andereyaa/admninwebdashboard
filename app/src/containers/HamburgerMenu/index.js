@@ -15,6 +15,7 @@ export class HamburgerMenu extends Component {
     }
 
     toggleMenu = () => this.setState({menuOpen: !this.state.menuOpen})
+
     render (){
         const {menuOpen} = this.state
         const {currentScreenPathname, actions} = this.props
@@ -25,8 +26,8 @@ export class HamburgerMenu extends Component {
                     <Icon icon="menu"/>
                 </span>
                 <div className={[styles.dropdown, menuStyle].join(" ")}>
-                    <SideBarItem text="dashboard" pathname={INDEX} selected={currentScreenPathname==INDEX}/>
-                    <SideBarItem text="suppliers" icon="group" pathname={SUPPLIERS} selected={currentScreenPathname==SUPPLIERS}/>
+                    <SideBarItem text="dashboard" pathname={INDEX} selected={currentScreenPathname ===INDEX} afterClick={this.toggleMenu}/>
+                    <SideBarItem text="suppliers" icon="group" pathname={SUPPLIERS} selected={currentScreenPathname===SUPPLIERS} afterClick={this.toggleMenu}/>
                     <SideBarItem text="logout" icon="arrow-back" onClick={actions.logout}/>
                 </div>
             </div>

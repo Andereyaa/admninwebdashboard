@@ -25,7 +25,7 @@
     position: absolute;
     right: 0;
     top: 110%;
-    transition: min-height 0.5s;
+    transition: min-height 0.3s;
     overflow: hidden;
 }
 
@@ -34,7 +34,6 @@
     overflow: auto;
 }
 
-.dropdown.open > a, .dropdown.dropdown.open > div {
-    /* background-color: red; */
-    padding: 0.75em;
+.dropdown > a, .dropdown > div {
+    padding: 0.5em;
 }
