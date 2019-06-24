@@ -6,6 +6,7 @@ import Business from '@material-ui/icons/Business'
 import Dashboard from '@material-ui/icons/Dashboard'
 import Group from '@material-ui/icons/Group'
 import Lock from '@material-ui/icons/Lock'
+import Menu from '@material-ui/icons/Menu'
 import Person from '@material-ui/icons/Person'
 import Phone from '@material-ui/icons/Phone'
 
@@ -32,6 +33,7 @@ export default ({icon="dashboard", customStyles={}}) => {
         case 'dashboard' : SelectedIcon = Dashboard; break;
         case 'group' : SelectedIcon = Group; break;
         case 'lock' : SelectedIcon = Lock; break;
+        case 'menu' : SelectedIcon = Menu; break;
         case 'person' : SelectedIcon = Person; break;
         case 'phone' : SelectedIcon = Phone; break;
         default: SelectedIcon = Dashboard

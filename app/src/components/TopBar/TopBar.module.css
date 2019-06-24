@@ -6,3 +6,9 @@
     justify-content: center;
     align-items: center;
 }
+
+.menu {
+    position: absolute;
+    right: 0;
+    display: flex;
+}
