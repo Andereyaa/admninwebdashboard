@@ -11,8 +11,8 @@ export default class FileInput extends Component {
         const content = this.fileReader.result
         onFileRead(content)
     }
-    uploadFile = (event) => {
-        let file = event.target.files[0];
+    uploadFile = e => {
+        let file = e.target.files[0];
         if (file) {
           this.fileReader = new FileReader()
           this.fileReader.onloadend = this.handleFileRead
@@ -22,6 +22,8 @@ export default class FileInput extends Component {
     
     render() {
         const {acceptedFiletype} = this.props
+        //setting the value to a blank string ensures the current file can be re-read
+        //as the value of the file-input is reset with every render
         return(
             <span className={styles.container}> 
                 <input 
@@ -30,6 +32,7 @@ export default class FileInput extends Component {
                     name="file"
                     id="file"
                     onChange={this.uploadFile}
+                    value={""} 
                     accept={acceptedFiletype} 
                 />
                 <label htmlFor="file" >Select File</label>
