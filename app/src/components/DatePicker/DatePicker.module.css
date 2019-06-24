@@ -2,4 +2,5 @@
     padding: 4px;
     outline: none;
     border-radius: 15px;
+    border-style: outset;
 }

@@ -26,9 +26,10 @@
     margin-right: 0.5em;
 }
 
-.fileInput {
+.fileInput, .foundSuppliers {
     margin-bottom: 1em;
 }
+
 .modal {
     position: absolute;
     top: 35%;

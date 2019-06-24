@@ -1,10 +1,11 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import styles from './SupplierImportModal.module.css'
 import Button from '../../components/Button'
 import FileInput from '../../components/FileInput'
 import SuppliersTable from '../SuppliersTable'
+import CenterDropdown from '../CenterDropdown'
 
 import {connect} from 'react-redux'
 import * as actions from '../../actions'
@@ -113,7 +114,13 @@ export class SupplierImportModal extends Component {
                     </div>
                     {
                         newSuppliers.length > 0?
-                        <SuppliersTable suppliersArray={newSuppliers} errors={errors}/>
+                        <Fragment>
+                            <div className={styles.foundSuppliers}>
+                                {`Found ${newSuppliers.length} new suppliers to add to `}
+                                <CenterDropdown /> Centre
+                            </div>
+                            <SuppliersTable suppliersArray={newSuppliers} errors={errors}/>
+                        </Fragment>
                         :
                         null
                     }

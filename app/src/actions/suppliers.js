@@ -14,8 +14,7 @@ export const fetchAddSupplier = (supplierName, phoneNumber, locationName, suppli
         const user = users.usersById[users.authenticatedUserId]
         //TODO deal with other usertypes, admin, owner etc whoever is able to login??
         const institutionId = user.owner.institutionIds[0] //TODO will this work for all user types?
-        const centerId = centers.selectedId //TODO allow the user to better choose 
-                                            //which center the suppliers are assigned to! 
+        const centerId = centers.selectedId
         const currentMoment = moment.utc()
         const supplierPayload = {
             id: supplierId,
