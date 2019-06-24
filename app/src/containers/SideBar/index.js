@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react'
 import styles from './SideBar.module.css'
-import SideBarItem from '../../components/SideBarItem'
+import MenuItem from '../../components/MenuItem'
 import {INDEX, SUPPLIERS} from '../../constants/screenPathnames'
 
 import {connect} from "react-redux"
@@ -13,9 +13,9 @@ export class SideBar extends PureComponent {
         if (!actions) return null
         return (
             <div className={styles.container}>
-                <SideBarItem text="dashboard" pathname={INDEX} selected={currentScreenPathname==INDEX}/>
-                <SideBarItem text="suppliers" icon="group" pathname={SUPPLIERS} selected={currentScreenPathname==SUPPLIERS}/>
-                <SideBarItem text="logout" icon="arrow-back" onClick={actions.logout}/>
+                <MenuItem text="dashboard" pathname={INDEX} selected={currentScreenPathname==INDEX}/>
+                <MenuItem text="suppliers" icon="group" pathname={SUPPLIERS} selected={currentScreenPathname==SUPPLIERS}/>
+                <MenuItem text="logout" icon="arrow-back" onClick={actions.logout}/>
             </div>
         )   
     }

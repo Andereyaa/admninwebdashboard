@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react'
-import styles from './SideBarItem.module.css'
+import styles from './MenuItem.module.css'
 
 import Icon from '../Icon'
 import {capitalizeFirstLetterOfAllWords} from '../../utils/formatting'

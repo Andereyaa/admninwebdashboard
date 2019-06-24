@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import styles from './HamburgerMenu.module.css' 
 import Icon from '../../components/Icon'
-import SideBarItem from '../../components/SideBarItem'
+import MenuItem from '../../components/MenuItem'
 import {INDEX, SUPPLIERS} from '../../constants/screenPathnames'
 
 import {connect} from "react-redux"
@@ -26,9 +26,9 @@ export class HamburgerMenu extends Component {
                     <Icon icon="menu"/>
                 </span>
                 <div className={[styles.dropdown, menuStyle].join(" ")}>
-                    <SideBarItem text="dashboard" pathname={INDEX} selected={currentScreenPathname ===INDEX} afterClick={this.toggleMenu}/>
-                    <SideBarItem text="suppliers" icon="group" pathname={SUPPLIERS} selected={currentScreenPathname===SUPPLIERS} afterClick={this.toggleMenu}/>
-                    <SideBarItem text="logout" icon="arrow-back" onClick={actions.logout}/>
+                    <MenuItem text="dashboard" pathname={INDEX} selected={currentScreenPathname ===INDEX} afterClick={this.toggleMenu}/>
+                    <MenuItem text="suppliers" icon="group" pathname={SUPPLIERS} selected={currentScreenPathname===SUPPLIERS} afterClick={this.toggleMenu}/>
+                    <MenuItem text="logout" icon="arrow-back" onClick={actions.logout}/>
                 </div>
             </div>
         )
