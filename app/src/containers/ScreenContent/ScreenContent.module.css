@@ -4,4 +4,11 @@
     width: 80%;
     height: calc(100vh - (40px + 2em));
     overflow: auto;
+    transition: width 0.25s
+}
+
+@media(max-width: 850px){
+    .screenContainer {
+        width: 100%;
+    }
 }

@@ -10,4 +10,10 @@
 
 .hidden {
     margin: 0 -100vw;
-} 
+}
+
+@media(max-width: 850px){
+    .container {
+        margin-left: -20%
+    }
+}
