@@ -10,21 +10,33 @@ import styles from './CenterDropdown.module.css'
 
 export class CenterDropdown extends Component {
 
+    handleSelectCenter = id => {
+        const {centers, actions} = this.props
+        if (centers.selectedId && (centers.selectedId !== id)){
+            actions.unsubscribeFromCenter(centers.selectedId)
+        }
+        actions.selectCenter(id)
+        const center = centers.centersById[id]
+        if (!center.unsubscribeFunction){
+            actions.fetchSubscribeToCenter(id)
+        }
+    }
+
     getOptions = centersArray => {
-        return centersArray.map(center => <option value={center.id}>
+        return centersArray.map(center => <option key={center.id} value={center.id}>
                                             {capitalizeFirstLetterOfAllWords(center.centerName)}
                                         </option>
                                 )
     }
 
     render(){
-        const {centers, actions} = this.props
+        const {centers} = this.props
         const centersArray = centers.centerIds.map(centerId => centers.centersById[centerId])
         return (
             <select
                 className={styles.container} 
                 value={centers.selectedId}
-                onChange={e => actions.selectCenter(e.target.value)}
+                onChange={e => this.handleSelectCenter(e.target.value)}
             >
                 {
                     this.getOptions(centersArray)

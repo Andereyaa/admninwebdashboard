@@ -78,14 +78,14 @@ export class SupplierImportModal extends Component {
         if (this.validate(newSuppliers)){
             newSuppliers.forEach(async newSupplier => {
                 const {supplierName, phoneNumber, locationName, supplierType, id} = newSupplier
-                // const success = await actions.fetchAddSupplier(
-                //     supplierName, 
-                //     phoneNumber, 
-                //     locationName,
-                //     supplierType,
-                //     id
-                // )
-                console.log("success is ", newSupplier)
+                const success = await actions.fetchAddSupplier(
+                    supplierName, 
+                    phoneNumber, 
+                    locationName,
+                    supplierType,
+                    id
+                )
+                //TODO if not success
             })
             this.handleCloseModal()
         }
