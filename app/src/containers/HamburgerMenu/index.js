@@ -26,7 +26,7 @@ export class HamburgerMenu extends Component {
                     <Icon icon="menu"/>
                 </span>
                 <div className={[styles.dropdown, menuStyle].join(" ")}>
-                    <MenuItem text="dashboard" pathname={INDEX} selected={currentScreenPathname ===INDEX} afterClick={this.toggleMenu}/>
+                    <MenuItem text="donut-small" pathname={INDEX} selected={currentScreenPathname ===INDEX} afterClick={this.toggleMenu}/>
                     <MenuItem text="suppliers" icon="group" pathname={SUPPLIERS} selected={currentScreenPathname===SUPPLIERS} afterClick={this.toggleMenu}/>
                     <MenuItem text="logout" icon="arrow-back" onClick={actions.logout}/>
                 </div>
