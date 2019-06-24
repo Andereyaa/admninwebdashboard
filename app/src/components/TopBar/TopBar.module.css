@@ -1,7 +1,7 @@
 .container {
     background: var(--dark);
     color: var(--white);
-    height: 4vh;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
