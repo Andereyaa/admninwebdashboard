@@ -1,7 +1,6 @@
 .container {
     height: 40vh;
     border: 1px solid var(--light-grey);
-    min-width: 490px;
     display: flex;
     flex-direction: column;
 }
@@ -17,4 +16,10 @@
 .rowContainer {
     overflow-y: auto;
     height: 100%;
+}
+
+@media(max-width: 450px){
+    .container {
+        font-size: var(--small-font)
+    }
 }
