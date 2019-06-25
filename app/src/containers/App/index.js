@@ -14,7 +14,7 @@ import {INDEX} from '../../constants/screenPathnames'
 
 export class App extends Component {
 
-  componentDidMount(){
+  componentWillMount(){
     const {actions} = this.props
     actions.saveCountries(countryList)
     actions.selectDefaultCountry("ug")
