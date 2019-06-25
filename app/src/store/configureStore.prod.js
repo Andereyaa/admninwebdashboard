@@ -16,6 +16,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = createStore(
   persistedReducer,
+  undefined,
   middleware
 )
 

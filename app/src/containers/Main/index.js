@@ -14,14 +14,15 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 
 export class Main extends Component {
   render(){
-    const {users, location} = this.props
+    const {users, location, _persist} = this.props
     if (!users) return null
     if (!location) return null
-
     if (
-      !users.authenticatedUserId || 
-      !users.authenticatedUserIsAuthorized
-    ) {
+        (
+          !users.authenticatedUserId || 
+          !users.authenticatedUserIsAuthorized
+        ) 
+    && _persist.rehydrated) {
       return <Redirect to="/login" />;
     }
     return (
@@ -38,7 +39,8 @@ export class Main extends Component {
 }
 
 const mapStateToProps = state => ({
-  users: state.users
+  users: state.users,
+  _persist: state._persist
 });
 
 const mapDispatchToProps = dispatch => ({

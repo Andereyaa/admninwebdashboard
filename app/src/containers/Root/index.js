@@ -5,9 +5,10 @@ import App from '../App'
 
 export default class Root extends Component {
     render(){
+        const {store, persistor} = this.props
         return (
-            <Provider store={this.props.store}>
-                <PersistGate loading={null} persistor={this.props.persistor}>
+            <Provider store={store}>
+                <PersistGate loading={null} persistor={persistor}>
                     <App />
                 </PersistGate>
             </Provider>
