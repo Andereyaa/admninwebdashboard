@@ -56,4 +56,20 @@
     background-color: var(--translucent-dark);
   }
 
-  
+  @media(max-width: 850px){
+      .modal, .modal.large {
+          left: 5%;
+          right:5%;
+      }
+      .modal.large {
+        top: 5%;
+        bottom: 5%;
+      }
+  }
+
+@media(max-height: 350px){
+      .modal {
+          top: 15%;
+          bottom: 15%;
+      }
+}

@@ -37,3 +37,9 @@
 .dropdown > a, .dropdown > div {
     padding: 0.5em;
 }
+
+@media(max-height: 350px){
+    .dropdown.open {
+        min-height: 50vh;
+    }
+}
