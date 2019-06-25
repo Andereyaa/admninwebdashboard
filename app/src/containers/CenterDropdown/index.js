@@ -20,6 +20,9 @@ export class CenterDropdown extends Component {
         if (!center.unsubscribeFunction){
             actions.fetchSubscribeToCenter(id)
         }
+        if (!center.historicalDataLoaded){
+            actions.fetchMilkCollections(id)
+        }
     }
 
     getOptions = centersArray => {
