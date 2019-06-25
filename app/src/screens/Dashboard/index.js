@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import CenterSelect from '../../containers/CenterSelect'
+import CenterDropdown from '../../containers/CenterDropdown'
 import DailyStatisticsPanel from '../../containers/DailyStatisticsPanel'
 import MilkCollectionsTable from '../../containers/MilkCollectionsTable'
 import CenterDateSelect from '../../containers/CenterDateSelect'
@@ -48,7 +49,13 @@ export class Dashboard extends Component {
 
         return (
             <div className={styles.container}>
-                <CenterSelect />
+                
+                <div className={styles.centerSelect}>
+                    <CenterSelect />
+                </div>
+                <div className={styles.centerDropdown}>
+                    <CenterDropdown/>
+                </div>
                 <CenterDateSelect value={date} onSelect={this.handleDateChange}/>
                 <DailyStatisticsPanel milkCollectionsArray={milkCollectionsForSelectedCenter}/>
                 <MilkCollectionsTable milkCollectionsArray={milkCollectionsForSelectedCenter}/>
