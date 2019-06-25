@@ -26,6 +26,8 @@ export class ScreenContent extends Component {
             if (!selectedCenter.unsubscribeFunction){
                 actions.fetchSubscribeToCenter(selectedId)
             }
+            //TODO do not load unnecessarily
+            actions.fetchMilkCollections(selectedId)
           }
     }
 

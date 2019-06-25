@@ -14,7 +14,8 @@ const milkCollectionsReducer = (state = initialState.milkCollections, action = {
     let milkCollectionsById = {...state.milkCollectionsById}
     let milkCollectionIds = [...state.milkCollectionIds]
     let milkCollectionIdsBySupplierId = {...state.milkCollectionIdsBySupplierId}
-    
+    let updatedState
+
     switch (type) {
 
         case types.LOGOUT:
@@ -23,7 +24,7 @@ const milkCollectionsReducer = (state = initialState.milkCollections, action = {
         case types.SAVE_CENTER: {
             let deletedMilkCollectionMap = payload.center.deletedMilkCollections ? payload.center.deletedMilkCollections : {}
             let milkCollections = payload.center.milkCollectionsToday ? Object.values(payload.center.milkCollectionsToday) : []
-            let updatedState = addListOfMilkCollectionsToState(milkCollections, milkCollectionsById, milkCollectionIdsBySupplierId)
+            updatedState = addListOfMilkCollectionsToState(milkCollections, milkCollectionsById, milkCollectionIdsBySupplierId)
             milkCollectionsById = Object.keys(updatedState.milkCollectionsById).reduce((milkCollections, milkCollectionId) => {
                 //remove all milk collections in the deleted map
                 if (!deletedMilkCollectionMap[milkCollectionId]) milkCollections[milkCollectionId] = updatedState.milkCollectionsById[milkCollectionId]
@@ -41,7 +42,16 @@ const milkCollectionsReducer = (state = initialState.milkCollections, action = {
             }
         }
         
-        
+        case types.SAVE_MILK_COLLECTIONS: {
+            updatedState = addListOfMilkCollectionsToState(payload.milkCollections, milkCollectionsById, milkCollectionIdsBySupplierId)
+            return {
+                ...state,
+                milkCollectionIds: Object.keys(updatedState.milkCollectionsById),
+                milkCollectionIdsBySupplierId: updatedState.milkCollectionIdsBySupplierId,
+                milkCollectionsById: updatedState.milkCollectionsById
+            }
+        }
+
         default:
             return state
     }
