@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "boresha-mrl-v2"
+    "default": "boresha-mrl-v2",
+    "dashboard-temp": "boresha-dashboard"
   }
 }
