@@ -1,5 +1,6 @@
 import {firestore} from '../firebase'
 import {logError} from '../utils/errorHandling'
+import {fetchMilkCollections} from './milkCollections'
 
 export const SAVE_CENTER = 'SAVE_CENTER'
 export const SELECT_CENTER = 'SELECT_CENTER'
@@ -77,5 +78,19 @@ export const fetchSubscribeToCenter = (centerId) => {
             });
 
         return unsubscribeFunction
+    }
+}
+
+export const fetchLoadCenter = (centerId) => {
+    return async (dispatch, getState) =>{
+        const {centers} = getState()
+        const center = centers.centersById[centerId]
+        if (!center) return false
+        if (!center.unsubscribeFunction){
+            dispatch(fetchSubscribeToCenter(centerId))
+        }
+        if (!center.historicalDataLoaded){
+            dispatch(fetchMilkCollections(centerId))
+        }
     }
 }

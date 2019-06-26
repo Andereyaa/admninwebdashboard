@@ -22,17 +22,12 @@ export class ScreenContent extends Component {
                             (centers.centerIds.length > 0) ? centers.centerIds[0] : null
         if (selectedId){
             actions.selectCenter(selectedId)
-            const selectedCenter = centers.centersById[selectedId]
-            if (!selectedCenter.unsubscribeFunction){
-                actions.fetchSubscribeToCenter(selectedId)
-            }
-            if (!selectedCenter.historicalDataLoaded){
-                actions.fetchMilkCollections(selectedId)
-            }
+            await actions.fetchLoadCenter(selectedId)
           }
     }
 
     loadContent = async () => {
+        //save an institution and its centers
         const {actions, users} = this.props
         const authenticatedUser = users.usersById[users.authenticatedUserId]
         const institutionId = authenticatedUser.owner.institutionIds[0]

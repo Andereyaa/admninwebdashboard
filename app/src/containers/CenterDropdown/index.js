@@ -10,19 +10,13 @@ import styles from './CenterDropdown.module.css'
 
 export class CenterDropdown extends Component {
 
-    handleSelectCenter = id => {
+    handleSelectCenter = async id => {
         const {centers, actions} = this.props
         if (centers.selectedId && (centers.selectedId !== id)){
             actions.unsubscribeFromCenter(centers.selectedId)
         }
         actions.selectCenter(id)
-        const center = centers.centersById[id]
-        if (!center.unsubscribeFunction){
-            actions.fetchSubscribeToCenter(id)
-        }
-        if (!center.historicalDataLoaded){
-            actions.fetchMilkCollections(id)
-        }
+        await actions.fetchLoadCenter(id)
     }
 
     getOptions = centersArray => {
@@ -38,7 +32,7 @@ export class CenterDropdown extends Component {
         return (
             <select
                 className={styles.container} 
-                value={centers.selectedId}
+                value={centers.selectedId ? centers.selectedId : ""}
                 onChange={e => this.handleSelectCenter(e.target.value)}
             >
                 {

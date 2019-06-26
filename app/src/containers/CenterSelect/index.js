@@ -9,19 +9,13 @@ import styles from './CenterSelect.module.css'
 
 export class CenterSelect extends Component {
     
-    handleSelectCenter = id => {
+    handleSelectCenter = async id => {
         const {centers, actions} = this.props
         if (centers.selectedId && (centers.selectedId !== id)){
             actions.unsubscribeFromCenter(centers.selectedId)
         }
         actions.selectCenter(id)
-        const center = centers.centersById[id]
-        if (!center.unsubscribeFunction){
-            actions.fetchSubscribeToCenter(id)
-        }
-        if (!center.historicalDataLoaded){
-            actions.fetchMilkCollections(id)
-        }
+        await actions.fetchLoadCenter(id)
     }
 
     getCenterTileForEachCenter = () => {
