@@ -1,6 +1,7 @@
 import {firestore} from '../firebase'
 import {logError} from '../utils/errorHandling'
 import {fetchMilkCollections} from './milkCollections'
+import moment from 'moment'
 
 export const SAVE_CENTER = 'SAVE_CENTER'
 export const SELECT_CENTER = 'SELECT_CENTER'
@@ -89,7 +90,15 @@ export const fetchLoadCenter = (centerId) => {
         if (!center.unsubscribeFunction){
             dispatch(fetchSubscribeToCenter(centerId))
         }
-        if (!center.historicalDataLoaded){
+
+        const dateLastLoaded = center.historicalDataLastLoaded ? 
+                                moment(center.historicalDataLastLoaded)
+                                : 
+                                null
+        if ( 
+            (!dateLastLoaded) || //if the data has not been loaded or 
+            (!moment().isSame(dateLastLoaded, 'day')) //the data was not loaded today
+        ){
             dispatch(fetchMilkCollections(centerId))
         }
     }

@@ -33,7 +33,7 @@ const centersReducer = (state = initialState.centers, action = {}) => {
             delete center.activeSuppliersToday
             center.id = payload.id
             const previousCenter = centersById[payload.id]
-            center.historicalDataLoaded = previousCenter ? previousCenter.historicalDataLoaded : false
+            center.historicalDataLastLoaded = previousCenter ? previousCenter.historicalDataLastLoaded : false
             centersById[payload.id] = center
             return {
                 ...state,
@@ -65,7 +65,7 @@ const centersReducer = (state = initialState.centers, action = {}) => {
 
         case types.SAVE_MILK_COLLECTIONS: {
             const center = {...centersById[payload.centerId]}
-            center.historicalDataLoaded = true
+            center.historicalDataLastLoaded = Date.now()
             return {
                 ...state,
                 centersById:{
