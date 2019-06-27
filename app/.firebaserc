@@ -1,6 +1,7 @@
 {
   "projects": {
     "default": "boresha-mrl-v2",
-    "dashboard-temp": "boresha-dashboard"
+    "dashboard-temp": "boresha-dashboard",
+    "production": "prdadasdsa-242355"
   }
 }
