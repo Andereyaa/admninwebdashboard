@@ -21,3 +21,9 @@
     display: flex;
     font-size: var(--large-font)
 }
+
+@media(max-width: 450px){
+    .valueContainer {
+        font-size: var(--large-font-phone)
+    }
+}
