@@ -53,5 +53,5 @@ const environments = {
     }
 }
 
-export const selectedEnvironment = "production"
+export const selectedEnvironment = "development"
 export default environments[selectedEnvironment]
