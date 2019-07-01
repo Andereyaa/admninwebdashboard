@@ -1,3 +1,5 @@
+import {DEVELOPMENT, SANDBOX, STAGING, PRODUCTION} from "../constants/environments"
+
 const environments = {
     development: {
         /*
@@ -53,5 +55,5 @@ const environments = {
     }
 }
 
-export const selectedEnvironment = "staging"
+export const selectedEnvironment = STAGING
 export default environments[selectedEnvironment]
