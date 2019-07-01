@@ -51,3 +51,9 @@ code {
   background-color: var(--translucent-light);
   text-transform: capitalize;
 }
+
+@media(max-width: 450px){
+  .badge {
+      font-size: var(--small-font);
+  }
+}

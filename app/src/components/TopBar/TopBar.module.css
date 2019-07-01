@@ -26,3 +26,11 @@
         display: flex
     }
 }
+
+@media(max-width: 450px){
+    .versionBadge {
+        margin-left: 2px;
+        
+    }
+  }
+  
