@@ -16,6 +16,7 @@ export class Login extends Component {
 
     authenticate = async (email, password) => {
         const {actions} = this.props
+        actions.toggleLoading(true)
         let response = await actions.fetchLogin(email, password)
         if (response.success){
            response = await actions.fetchUser(response.userId, true)
@@ -29,7 +30,7 @@ export class Login extends Component {
                 default: alert(`Login Failed`)
             } 
         }
-         
+        actions.toggleLoading(false)
     }
     render (){
         const {users} = this.props

@@ -53,6 +53,7 @@ export const initialState = {
     system: {
         name: "boresha dashboard",
         version: "1.0.0",
+        isLoading: false
     }   
 };
 

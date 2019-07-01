@@ -22,6 +22,13 @@ const systemReducer = (state = initialState.system, action) => {
             }
         }
 
+        case types.TOGGLE_LOADING: {
+            return {
+                ...state,
+                isLoading: payload.isLoading
+            }
+        }
+
         default:
             return state
         
