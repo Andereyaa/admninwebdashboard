@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import LoginForm from '../../containers/LoginForm'
+import EnvironmentBadge from '../../containers/EnvironmentBadge'
+
 import styles  from './Login.module.css'
 import {INCORRECT_PASSWORD, INCORRECT_USER, USER_LOGIN_NOT_ALLOWED} from '../../constants/errors'
 
@@ -40,6 +42,7 @@ export class Login extends Component {
 
         return (
         <div className={styles.container}>
+            <EnvironmentBadge />
             <LoginForm onSubmit={this.authenticate}/>
         </div>
         )

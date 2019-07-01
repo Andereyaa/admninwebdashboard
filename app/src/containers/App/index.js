@@ -16,8 +16,11 @@ export class App extends Component {
 
   componentWillMount(){
     const {actions} = this.props
+    actions.setEnvironment()
+    actions.setVersion()
     actions.saveCountries(countryList)
     actions.selectDefaultCountry("ug")
+    
   }
 
   render(){
