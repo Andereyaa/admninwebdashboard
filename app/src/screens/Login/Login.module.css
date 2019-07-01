@@ -7,7 +7,7 @@
     background-color: var(--primary)
 }
 
-.environmentBadge {
+.badges {
     position: absolute;
     top: 0;
     padding: 1em;

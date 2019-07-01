@@ -13,6 +13,14 @@
     display: none;
 }
 
+.badges {
+    position: absolute;
+    left: 0;
+}
+.versionBadge {
+    margin-left: 1em;
+}
+
 @media(max-width: 850px){
     .menu {
         display: flex

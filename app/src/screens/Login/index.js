@@ -43,7 +43,7 @@ export class Login extends Component {
 
         return (
         <div className={styles.container}>
-            <div className={styles.environmentBadge}>
+            <div className={styles.badges}>
                 <EnvironmentBadge />
 
                 <span className={styles.versionBadge}><VersionBadge /></span>
