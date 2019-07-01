@@ -42,7 +42,9 @@ export class Login extends Component {
 
         return (
         <div className={styles.container}>
-            <EnvironmentBadge />
+            <div className={styles.environmentBadge}>
+                <EnvironmentBadge />
+            </div>
             <LoginForm onSubmit={this.authenticate}/>
         </div>
         )

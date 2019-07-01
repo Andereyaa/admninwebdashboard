@@ -6,3 +6,10 @@
     height: 100%;
     background-color: var(--primary)
 }
+
+.environmentBadge {
+    position: absolute;
+    top: 0;
+    padding: 1em;
+    left: 0;
+}

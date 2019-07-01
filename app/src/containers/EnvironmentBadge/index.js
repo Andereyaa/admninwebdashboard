@@ -1,12 +1,14 @@
 import React, {Component} from "react"
 
+import styles from './EnvironmentBadge.module.css'
+
 import {connect} from 'react-redux'
 
 export class EnvironmentBadge extends Component {
     render(){
         const {system} = this.props
         return (
-            <div>{system.environment}</div>
+            <div className="badge">{system.environment}</div>
         )
     }
 }
