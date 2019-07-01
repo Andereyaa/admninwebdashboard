@@ -1,0 +1,25 @@
+.container {
+    background: var(--translucent-dark);
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner {
+    border: 5px solid var(--translucent-light);
+    border-top: 5px solid var( --secondary);
+    border-radius: 50%;
+    width: 15vw;
+    height: 15vw;
+    animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+    0% {transform: rotate(0deg); }
+    100% {transform: rotate(360deg); }
+}
