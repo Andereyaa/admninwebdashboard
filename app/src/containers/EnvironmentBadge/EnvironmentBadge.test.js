@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {HamburgerMenu} from './index';
+import {EnvironmentBadge} from './index';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<HamburgerMenu />, div);
+  ReactDOM.render(<EnvironmentBadge />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
