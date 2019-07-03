@@ -18,8 +18,13 @@ import moment from 'moment'
 export class Dashboard extends Component {
 
     state = {
-        date: moment()
+        date: moment(),
+        selectedViewOption: "daily"
     }
+
+    viewOptions=[{text: "Daily View", value:"daily"},{text: "Period View", value: "period"}]
+    
+    handleSelectViewOption = selectedViewOption => this.setState({selectedViewOption})
 
     getMilkCollectionsForSpecifiedDate = (milkCollectionsArray) => {
         const {date} = this.state
@@ -39,7 +44,7 @@ export class Dashboard extends Component {
     }
 
     render (){
-        const {date} = this.state
+        const {date, selectedViewOption} = this.state
         const {milkCollections} = this.props
         if(!milkCollections) return null
         const milkCollectionsArray = milkCollections.milkCollectionIds.map(milkCollectionId => {
@@ -54,13 +59,26 @@ export class Dashboard extends Component {
                 <div className={styles.centerSelect}>
                     <CenterSelect />
                 </div>
-                <Switch options={[{text: "Daily View", value:"daily"},{text: "Period View", value: "period"}]}/>
                 <div className={styles.centerDropdown}>
                     <CenterDropdown/>
                 </div>
-                <CenterDateSelect value={date} onSelect={this.handleDateChange}/>
-                <DailyStatisticsPanel milkCollectionsArray={milkCollectionsForSelectedCenter}/>
-                <MilkCollectionsTable milkCollectionsArray={milkCollectionsForSelectedCenter}/>
+                <Switch options={this.viewOptions} 
+                        selectedValue={selectedViewOption} 
+                        onSelect={this.handleSelectViewOption}/>
+                {
+                    selectedViewOption === 'daily' ?
+                <React.Fragment>
+                    
+                    <CenterDateSelect value={date} onSelect={this.handleDateChange}/>
+                    <DailyStatisticsPanel milkCollectionsArray={milkCollectionsForSelectedCenter}/>
+                    <MilkCollectionsTable milkCollectionsArray={milkCollectionsForSelectedCenter}/>
+                </React.Fragment>
+                :
+                selectedViewOption === "period" ?
+                <div></div>
+                :
+                null
+                }
             </div>
         )
     }
