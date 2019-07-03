@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 
 import Switch from '../../components/Switch'
 import CenterSelect from '../../containers/CenterSelect'
+import PeriodReportTable from '../../containers/PeriodReportTable'
 import CenterDropdown from '../../containers/CenterDropdown'
 import DailyStatisticsPanel from '../../containers/DailyStatisticsPanel'
 import MilkCollectionsTable from '../../containers/MilkCollectionsTable'
@@ -19,7 +20,7 @@ export class Dashboard extends Component {
 
     state = {
         date: moment(),
-        selectedViewOption: "daily"
+        selectedViewOption: "period"
     }
 
     viewOptions=[{text: "Daily View", value:"daily"},{text: "Period View", value: "period"}]
@@ -50,8 +51,8 @@ export class Dashboard extends Component {
         const milkCollectionsArray = milkCollections.milkCollectionIds.map(milkCollectionId => {
             return milkCollections.milkCollectionsById[milkCollectionId]
         })
-        const milkCollectionsOnDate = this.getMilkCollectionsForSpecifiedDate(milkCollectionsArray)
-        const milkCollectionsForSelectedCenter = this.getMilkCollectionsForSelectedCenter(milkCollectionsOnDate)
+        const milkCollectionsForSelectedCenter = this.getMilkCollectionsForSelectedCenter(milkCollectionsArray)
+        const milkCollectionsOnDate = this.getMilkCollectionsForSpecifiedDate(milkCollectionsForSelectedCenter)
 
 
         return (
@@ -70,12 +71,14 @@ export class Dashboard extends Component {
                 <React.Fragment>
                     
                     <CenterDateSelect value={date} onSelect={this.handleDateChange}/>
-                    <DailyStatisticsPanel milkCollectionsArray={milkCollectionsForSelectedCenter}/>
-                    <MilkCollectionsTable milkCollectionsArray={milkCollectionsForSelectedCenter}/>
+                    <DailyStatisticsPanel milkCollectionsArray={milkCollectionsOnDate}/>
+                    <MilkCollectionsTable milkCollectionsArray={milkCollectionsOnDate}/>
                 </React.Fragment>
                 :
                 selectedViewOption === "period" ?
-                <div></div>
+                <div>
+                    <PeriodReportTable  milkCollectionsArray={milkCollectionsForSelectedCenter}/>
+                </div>
                 :
                 null
                 }
