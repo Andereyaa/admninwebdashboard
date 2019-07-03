@@ -1,0 +1,13 @@
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.option {
+    height: 20px;
+}
+
+.option.selected {
+
+}

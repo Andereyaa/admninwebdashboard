@@ -1,4 +1,6 @@
 import React, {Component} from 'react'
+
+import Switch from '../../components/Switch'
 import CenterSelect from '../../containers/CenterSelect'
 import CenterDropdown from '../../containers/CenterDropdown'
 import DailyStatisticsPanel from '../../containers/DailyStatisticsPanel'
@@ -49,10 +51,10 @@ export class Dashboard extends Component {
 
         return (
             <div className={styles.container}>
-                
                 <div className={styles.centerSelect}>
                     <CenterSelect />
                 </div>
+                <Switch options={[{text: "Daily View", value:"daily"},{text: "Period View", value: "period"}]}/>
                 <div className={styles.centerDropdown}>
                     <CenterDropdown/>
                 </div>
