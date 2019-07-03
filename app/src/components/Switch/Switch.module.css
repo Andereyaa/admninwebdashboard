@@ -2,12 +2,23 @@
     width: 100%;
     display: flex;
     justify-content: space-evenly;
+    border-radius: 50em;
+    overflow: hidden;
 }
 
 .option {
-    height: 20px;
+    padding: 0.5em;
+    background-color: var(--primary-light);
+    flex: 1 1;
+    text-align: center;
+    border: 1px outset var(--primary);
 }
 
+.option:hover, .option.selected {
+    background-color: var(--secondary);
+    border-color: var(--secondary)
+}
 .option.selected {
-
+    color: var(--white);
+    font-weight: 700;
 }
