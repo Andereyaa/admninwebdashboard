@@ -8,6 +8,7 @@ export default ({options=[{text: '', value: ""}], selectedValue, onSelect=()=>{}
                 options.map(option => {
                     const selectedStyle = option.value === selectedValue ? styles.selected : ""
                     return <span 
+                                key={option.value}
                                 className={[styles.option, selectedStyle].join(" ")}
                                 onClick={() => onSelect(option.value)}
                             >

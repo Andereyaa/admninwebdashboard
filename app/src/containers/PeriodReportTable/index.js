@@ -3,7 +3,6 @@ import React, {Component} from "react"
 import {connect} from "react-redux"
 import moment from "moment"
 
-  {/* <div>{milkCollectionsArray.map(m => <div>{m.id}</div>)}</div> */}
 export class PeriodReportTable extends Component {
 
     constructor(props){
@@ -26,6 +25,41 @@ export class PeriodReportTable extends Component {
         }
         return periodRange
     }
+
+    getPeriodRows = supplierIds => {
+        const {selectedPeriod} = this.state
+        const {suppliers, milkCollections, centers} = this.props
+        //for each supplier
+        return supplierIds.map(supplierId => {
+            const supplier = suppliers.suppliersById[supplierId]
+            //get its milk collections
+            const milkCollectionIds = milkCollections.milkCollectionIdsBySupplierId[supplierId]
+            const milkCollectionsByDate = {}
+            if (milkCollectionIds) {
+                milkCollectionIds.forEach(
+                    milkCollectionId => {
+                        const milkCollection = milkCollections.milkCollectionsById[milkCollectionId]
+                        if (milkCollection.dateCollected >= selectedPeriod.startDate &&
+                            milkCollection.dateCollected <= selectedPeriod.endDate && 
+                            milkCollection.centerId === centers.selectedId    
+                        ){
+                            const dateCollected = moment(milkCollection.dateCollected)
+                            const day = dateCollected.date()
+                            if (!milkCollectionsByDate[day]) milkCollectionsByDate[day] = []
+                            milkCollectionsByDate[day].push(milkCollection)
+                        }
+                    }
+                )   
+            }
+            return <PeriodTableRow 
+                        key={supplierId} 
+                        supplier={supplier} 
+                        milkCollectionsByDate={milkCollectionsByDate}
+                        periodStartDate={selectedPeriod.startDate}
+                        periodEndDate={selectedPeriod.endDate}
+                    />
+        })
+    }
     render(){
         const {milkCollectionsArray, suppliers, centers} = this.props
         const {selectedPeriod} = this.state
@@ -38,24 +72,48 @@ export class PeriodReportTable extends Component {
           
             <div>
                 {
-                    suppliers.supplierIds.map(supplierId => {
-                        const supplier = suppliers.suppliersById[supplierId]
-                        return <PeriodTableRow supplier={supplier} />
-                    })
+                    this.getPeriodRows(suppliers.supplierIds)
                 }
             </div>
         )
     }
 }
 
-const PeriodTableRow = ({supplier}) => (
+const PeriodTableRow = ({supplier, milkCollectionsByDate = {}, periodStartDate, periodEndDate}) => {
+    const numberOfDays = periodEndDate.date() - periodStartDate.date() + 1
+    const dayArray = [...Array(numberOfDays).keys()].map(day => day + periodStartDate.date())
+    let totalVolume = 0
+    let sumPrice = 0
+    let milkCollectionCount = 0
+    Object.keys(milkCollectionsByDate).forEach(day => {
+        const milkCollections = milkCollectionsByDate[day]
+        milkCollections.forEach(milkCollection => {
+            totalVolume = totalVolume + milkCollection.volumeInLitres
+            sumPrice = sumPrice + milkCollection.rateInShillings
+            milkCollectionCount += 1
+        })
+    })
+    const avgPrice = milkCollectionCount > 0 ? sumPrice/milkCollectionCount : 0
+    const amount = milkCollectionCount > 0 ? avgPrice * totalVolume : 0
+    return (
     <div>
         {supplier.supplierName}
+        {
+        dayArray.map(day => {
+            const dailyTotal = milkCollectionsByDate[day] ? milkCollectionsByDate[day][0].volumeInLitres : 0     
+            return <span>{dailyTotal}</span>
+        })
+        }
+        <span>total: {totalVolume}</span>
+        <span>price: {avgPrice}</span>
+        <span>amount: {amount}</span>
     </div>
-)
+    )
+}
 const mapStateToProps = state => ({
     suppliers: state.suppliers,
-    centers: state.centers
+    centers: state.centers,
+    milkCollections: state.milkCollections
 })
 
 export default connect(mapStateToProps)(PeriodReportTable)
