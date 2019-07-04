@@ -6,29 +6,12 @@ import moment from "moment"
 
 import PeriodReportTableRow from "../../components/PeriodReportTableRow"
 import {getIntegerRange} from '../../utils/numberHandling'
-import {integerToOrdinalNumber} from '../../utils/dateHandling'
+import {integerToOrdinalNumber, findPeriodRangeForDate} from '../../utils/dateHandling'
 import {capitalizeFirstLetterOfAllWords} from '../../utils/formatting'
 export class PeriodReportTable extends Component {
 
-    constructor(props){
-        super(props)
-        this.state = {
-            selectedPeriod: this.findPeriodRangeForDate(Date.now()),
-        }
-    }
-
-    findPeriodRangeForDate = timestamp => {
-        const dateInRange = moment(timestamp)
-        const day = dateInRange.date()
-        const periodRange = {}
-        if (day <=15) { 
-            periodRange.startDate = moment([dateInRange.year(), dateInRange.month(), 1])
-            periodRange.endDate = moment([dateInRange.year(), dateInRange.month(), 15])
-        } else {
-            periodRange.startDate = moment([dateInRange.year(), dateInRange.month(), 16])
-            periodRange.endDate = moment(dateInRange).endOf('month');
-        }
-        return periodRange
+    state = {
+        selectedPeriod: findPeriodRangeForDate(Date.now()),
     }
 
     getPeriodHeaders = () => {
@@ -78,8 +61,7 @@ export class PeriodReportTable extends Component {
         })
     }
     render(){
-        const {milkCollectionsArray, suppliers, centers} = this.props
-        const {selectedPeriod} = this.state
+        const {suppliers, centers} = this.props
         if (!centers || !centers.selectedId) return null
         if (!suppliers) return null
         //TODO pull out suppliers by center from redux, need to keep all suppliers in state across center changes

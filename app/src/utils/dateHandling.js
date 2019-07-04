@@ -1,3 +1,5 @@
+import moment from "moment"
+
 export const getLocalStartOfDayTimestamp = () => new Date().setHours(0, 0, 0, 0);
 
 export const integerToOrdinalNumber = int => {
@@ -11,4 +13,18 @@ export const integerToOrdinalNumber = int => {
         default: ending = "th"; break;
     }
     return `${int}${ending}`
+}
+
+export const findPeriodRangeForDate = timestamp => {
+    const dateInRange = moment(timestamp)
+    const day = dateInRange.date()
+    const periodRange = {}
+    if (day <=15) { 
+        periodRange.startDate = moment([dateInRange.year(), dateInRange.month(), 1])
+        periodRange.endDate = moment([dateInRange.year(), dateInRange.month(), 15])
+    } else {
+        periodRange.startDate = moment([dateInRange.year(), dateInRange.month(), 16])
+        periodRange.endDate = moment(dateInRange).endOf('month');
+    }
+    return periodRange
 }
