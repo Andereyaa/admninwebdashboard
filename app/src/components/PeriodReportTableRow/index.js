@@ -1,9 +1,10 @@
 import React from 'react'
 import styles from './PeriodReportTableRow.module.css'
 
+import {getIntegerRange} from '../../utils/numberHandling'
+
 export default ({milkCollectionsByDate = {}, periodStartDate, periodEndDate}) => {
-    const numberOfDays = periodEndDate.date() - periodStartDate.date() + 1
-    const dayArray = [...Array(numberOfDays).keys()].map(day => day + periodStartDate.date())
+    const dayArray = getIntegerRange(periodStartDate.date(), periodEndDate.date())
     let totalVolume = 0
     let sumPrice = 0
     let milkCollectionCount = 0

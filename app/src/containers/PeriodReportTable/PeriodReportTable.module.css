@@ -4,7 +4,23 @@
     position: relative;
 }
 
-.supplierRow {
+.container th {
+    background: var(--primary);
+    color: var(--white);
+    font-size: var(--small-font);
+    padding: 0.4em 0;
+    border: 0.5px solid var( --white);
+    width: 35px;
+}
+
+.container th.summaryHeader {
+    width: 70px; 
+}
+
+.container .supplierHeader {
+    width: 150px;
+}
+.supplierData {
     border: 0.5px solid var(--dark);
     width: 150px;
     padding: 0.4em 0 0.4em 0.4em;
@@ -12,6 +28,7 @@
     white-space: nowrap;
     font-size: var(--small-font);
     font-weight: 700;
+    box-shadow: 1px 0px 1px var(--dark);
 }
 
 .supplierTable {

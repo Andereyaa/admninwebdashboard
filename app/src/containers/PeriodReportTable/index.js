@@ -5,7 +5,9 @@ import {connect} from "react-redux"
 import moment from "moment"
 
 import PeriodReportTableRow from "../../components/PeriodReportTableRow"
-
+import {getIntegerRange} from '../../utils/numberHandling'
+import {integerToOrdinalNumber} from '../../utils/dateHandling'
+import {capitalizeFirstLetterOfAllWords} from '../../utils/formatting'
 export class PeriodReportTable extends Component {
 
     constructor(props){
@@ -29,6 +31,18 @@ export class PeriodReportTable extends Component {
         return periodRange
     }
 
+    getPeriodHeaders = () => {
+        const {startDate, endDate} = this.state.selectedPeriod
+        const dayArray = getIntegerRange(startDate.date(), endDate.date())
+        const ordinalNumbers = dayArray.map(dayInteger => integerToOrdinalNumber(dayInteger))
+        const summaryHeaders =["Total", "Price", "Amount"]
+        return( 
+            <tr>
+                {ordinalNumbers.map(header => <th key={header}>{header}</th>)}
+                {summaryHeaders.map(header => <th key={header} className={styles.summaryHeader}>{header}</th>)}
+            </tr>
+        )
+    }
     getPeriodRows = supplierIds => {
         const {selectedPeriod} = this.state
         const {suppliers, milkCollections, centers} = this.props
@@ -73,12 +87,20 @@ export class PeriodReportTable extends Component {
         return (
           <div className={styles.container}>
             <table className={styles.supplierTable}>
+                <thead>
+                    <tr><th className={styles.supplierHeader}>Suppliers</th></tr>
+                </thead>
                 <tbody>
-                {suppliers.supplierIds.map(supplierId => <tr><td key={supplierId} className={styles.supplierRow}>{suppliers.suppliersById[supplierId].supplierName}</td></tr>)}
+                {suppliers.supplierIds.map(supplierId => <tr><td key={supplierId} className={styles.supplierData}>{capitalizeFirstLetterOfAllWords(suppliers.suppliersById[supplierId].supplierName)}</td></tr>)}
                 </tbody>
             </table>
             <div className={styles.milkRecordTableContainer}>
             <table className={styles.milkRecordTable}>
+                <thead>
+                    {
+                        this.getPeriodHeaders()
+                    }
+                </thead>
                 <tbody>
                 {
                     this.getPeriodRows(suppliers.supplierIds)
