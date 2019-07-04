@@ -1,3 +1,9 @@
+.container {
+    border-top: 2px solid var(--dark)
+}
+.container:hover {
+    border: 2px solid var(--secondary)
+}
 .cellBig, .cell {
     text-align: center;
     border: 0.5px solid var(--dark);

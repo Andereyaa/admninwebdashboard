@@ -91,7 +91,7 @@ export class PeriodReportTable extends Component {
                     <tr><th className={styles.supplierHeader}>Suppliers</th></tr>
                 </thead>
                 <tbody>
-                {suppliers.supplierIds.map(supplierId => <tr><td key={supplierId} className={styles.supplierData}>{capitalizeFirstLetterOfAllWords(suppliers.suppliersById[supplierId].supplierName)}</td></tr>)}
+                {suppliers.supplierIds.map(supplierId => <tr className={styles.supplierRow}><td key={supplierId} className={styles.supplierData}>{capitalizeFirstLetterOfAllWords(suppliers.suppliersById[supplierId].supplierName)}</td></tr>)}
                 </tbody>
             </table>
             <div className={styles.milkRecordTableContainer}>

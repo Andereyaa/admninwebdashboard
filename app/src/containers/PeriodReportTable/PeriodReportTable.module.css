@@ -32,6 +32,10 @@
     box-shadow: 1px 0px 1px var(--dark);
 }
 
+.supplierRow {
+    border: 2px solid var(--dark)
+}
+
 .supplierTable {
     border-collapse: collapse;
     table-layout: fixed;
@@ -45,7 +49,6 @@
     overflow-x: scroll;
     margin-left: 150px;
     width: calc(100% - 150px);
-    cursor: all-scroll;
 }
 
 .milkRecordTable{
