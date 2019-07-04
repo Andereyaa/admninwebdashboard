@@ -3,7 +3,7 @@ import styles from './PeriodReportTableRow.module.css'
 
 import {getIntegerRange} from '../../utils/numberHandling'
 
-export default ({milkCollectionsByDate = {}, periodStartDate, periodEndDate}) => {
+export default ({supplierId, milkCollectionsByDate = {}, periodStartDate, periodEndDate}) => {
     const dayArray = getIntegerRange(periodStartDate.date(), periodEndDate.date())
     let totalVolume = 0
     let sumPrice = 0
@@ -23,7 +23,7 @@ export default ({milkCollectionsByDate = {}, periodStartDate, periodEndDate}) =>
         {
         dayArray.map(day => {
             const dailyTotal = milkCollectionsByDate[day] ? milkCollectionsByDate[day][0].volumeInLitres : 0     
-            return <td className={styles.cell}>{dailyTotal}</td>
+            return <td key={`${supplierId}${day}`} className={styles.cell}>{dailyTotal}</td>
         })
         }
         <td className={styles.cellBig}>{totalVolume}</td>

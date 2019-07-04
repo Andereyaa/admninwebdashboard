@@ -11,21 +11,29 @@ import {getIntegerRange} from '../../utils/numberHandling'
 import {integerToOrdinalNumber, findPeriodRangeForDate} from '../../utils/dateHandling'
 import {capitalizeFirstLetterOfAllWords} from '../../utils/formatting'
 
+import xlsx from 'xlsx'
+
 export class PeriodReportTable extends Component {
 
     state = {
         selectedPeriod: findPeriodRangeForDate(Date.now()),
     }
 
-    getPeriodHeaders = () => {
+    supplierHeaderName = "Supplier Name"
+    summaryHeaderNames =["Total", "Price", "Amount"]
+
+    getDateHeaderNamesForPeriod = () => {
         const {startDate, endDate} = this.state.selectedPeriod
         const dayArray = getIntegerRange(startDate.date(), endDate.date())
-        const ordinalNumbers = dayArray.map(dayInteger => integerToOrdinalNumber(dayInteger))
-        const summaryHeaders =["Total", "Price", "Amount"]
+        return dayArray.map(dayInteger => integerToOrdinalNumber(dayInteger))
+    }
+
+    getPeriodHeaders = () => {  
+        const ordinalNumbers = this.getDateHeaderNamesForPeriod() 
         return( 
             <tr>
                 {ordinalNumbers.map(header => <th key={header}>{header}</th>)}
-                {summaryHeaders.map(header => <th key={header} className={styles.summaryHeader}>{header}</th>)}
+                {this.summaryHeaderNames.map(header => <th key={header} className={styles.summaryHeader}>{header}</th>)}
             </tr>
         )
     }
@@ -56,7 +64,7 @@ export class PeriodReportTable extends Component {
             }
             return <PeriodReportTableRow 
                         key={supplierId} 
-                        supplier={supplier} 
+                        supplierId={supplierId} 
                         milkCollectionsByDate={milkCollectionsByDate}
                         periodStartDate={selectedPeriod.startDate}
                         periodEndDate={selectedPeriod.endDate}
@@ -65,9 +73,61 @@ export class PeriodReportTable extends Component {
     }
 
     generateReport = () => {
-
-    } 
+        const workbook = xlsx.utils.book_new()
+        workbook.Props = {
+            Title: "Period Report",
+            Subject: "Period Report",
+            Author: "Boresha Technologies Ltd",
+            CreatedDate: new Date()
+        }
+        workbook.SheetNames.push("Period Report")
     
+        const headerNamesForPeriod = this.getDateHeaderNamesForPeriod()
+        const header = [this.supplierHeaderName].concat(headerNamesForPeriod).concat(this.summaryHeaderNames)
+        const data = []
+        const {suppliers, milkCollections, centers} = this.props
+        const {selectedPeriod} = this.state
+        //TODO change this when suppliers from multiple centers can be in redux
+        const startDateTimestamp = selectedPeriod.startDate.format('x')
+        const endDateTimestamp = selectedPeriod.endDate.format('x')
+        suppliers.supplierIds.forEach(supplierId => {
+            const supplier = suppliers.suppliersById[supplierId]
+            const dataRow = {[this.supplierHeaderName]: capitalizeFirstLetterOfAllWords(supplier.supplierName)}
+            //set every date to the value 0
+            let total = 0
+            let sumPrice = 0
+            let count = 0 
+            headerNamesForPeriod.forEach(headerName => dataRow[headerName] = 0)
+            const milkCollectionIds = milkCollections.milkCollectionIdsBySupplierId[supplierId]
+            if (milkCollectionIds){
+                milkCollectionIds.forEach(milkCollectionId => {
+                    const milkCollection = milkCollections.milkCollectionsById[milkCollectionId]
+                    if (milkCollection.dateCollected >= startDateTimestamp &&
+                        milkCollection.dateCollected <= endDateTimestamp &&
+                        milkCollection.centerId === centers.selectedId)
+                        {
+                            //get the ordinal number as an index
+                            const dateCollected = moment(milkCollection.dateCollected)
+                            const ordinalNumber = integerToOrdinalNumber(dateCollected.date())
+                            //add the volumeInLitres of the current milk collection to the day
+                            dataRow[ordinalNumber] += milkCollection.volumeInLitres
+                            total += milkCollection.volumeInLitres
+                            sumPrice += milkCollection.rateInShillings
+                            count += 1 
+                        }
+                })
+            }
+            const avgPrice = count > 0 ? sumPrice/count : 0
+            dataRow[this.summaryHeaderNames[0]] = total
+            dataRow[this.summaryHeaderNames[1]] = avgPrice
+            dataRow[this.summaryHeaderNames[2]] = avgPrice * total
+            data.push(dataRow)
+        })
+        const worksheet = xlsx.utils.json_to_sheet(data, {header})
+        workbook.Sheets["Period Report"] = worksheet
+        xlsx.writeFile(workbook, "period_report.xlsx")
+    } 
+
     render(){
         const {suppliers, centers} = this.props
         if (!centers || !centers.selectedId) return null
@@ -82,10 +142,10 @@ export class PeriodReportTable extends Component {
             <div className={styles.tableContainer}>
                 <table className={styles.supplierTable}>
                     <thead>
-                        <tr><th className={styles.supplierHeader}>Suppliers</th></tr>
+                        <tr><th className={styles.supplierHeader}>{this.supplierHeaderName}</th></tr>
                     </thead>
                     <tbody>
-                    {suppliers.supplierIds.map(supplierId => <tr className={styles.supplierRow}><td key={supplierId} className={styles.supplierData}>{capitalizeFirstLetterOfAllWords(suppliers.suppliersById[supplierId].supplierName)}</td></tr>)}
+                    {suppliers.supplierIds.map(supplierId => <tr key={`${supplierId}SupplierRow` } className={styles.supplierRow}><td className={styles.supplierData}>{capitalizeFirstLetterOfAllWords(suppliers.suppliersById[supplierId].supplierName)}</td></tr>)}
                     </tbody>
                 </table>
                 <div className={styles.milkRecordTableContainer}>

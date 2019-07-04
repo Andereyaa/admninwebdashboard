@@ -17,6 +17,8 @@ export const integerToOrdinalNumber = int => {
     return `${int}${ending}`
 }
 
+export const ordinalNumberToInteger = ordinalNumberString => Number(ordinalNumberString.slice(0, -2))
+
 export const findPeriodRangeForDate = timestamp => {
     const dateInRange = moment(timestamp)
     const day = dateInRange.date()
