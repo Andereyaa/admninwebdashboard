@@ -1,10 +1,15 @@
-.container {
+.tableTop {
+    display:flex;
+    justify-content: flex-end;
+    padding: 0.5em;
+}
+.tableContainer {
     height: 50vh;
     overflow-y: auto;
     position: relative;
 }
 
-.container th {
+.tableContainer th {
     background: var(--primary);
     color: var(--white);
     font-size: var(--small-font);
@@ -13,11 +18,11 @@
     width: 35px;
 }
 
-.container th.summaryHeader {
+.tableContainer th.summaryHeader {
     width: 70px; 
 }
 
-.container .supplierHeader {
+.tableContainer .supplierHeader {
     width: 150px;
     box-shadow: 1px 0px 1px var(--dark);
 }

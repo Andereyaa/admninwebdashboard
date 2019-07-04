@@ -5,9 +5,12 @@ import {connect} from "react-redux"
 import moment from "moment"
 
 import PeriodReportTableRow from "../../components/PeriodReportTableRow"
+import Button from '../../components/Button'
+
 import {getIntegerRange} from '../../utils/numberHandling'
 import {integerToOrdinalNumber, findPeriodRangeForDate} from '../../utils/dateHandling'
 import {capitalizeFirstLetterOfAllWords} from '../../utils/formatting'
+
 export class PeriodReportTable extends Component {
 
     state = {
@@ -60,6 +63,11 @@ export class PeriodReportTable extends Component {
                     />
         })
     }
+
+    generateReport = () => {
+
+    } 
+    
     render(){
         const {suppliers, centers} = this.props
         if (!centers || !centers.selectedId) return null
@@ -68,27 +76,32 @@ export class PeriodReportTable extends Component {
         //temporarily use all suppliers as it works for now
         return (
           <div className={styles.container}>
-            <table className={styles.supplierTable}>
-                <thead>
-                    <tr><th className={styles.supplierHeader}>Suppliers</th></tr>
-                </thead>
-                <tbody>
-                {suppliers.supplierIds.map(supplierId => <tr className={styles.supplierRow}><td key={supplierId} className={styles.supplierData}>{capitalizeFirstLetterOfAllWords(suppliers.suppliersById[supplierId].supplierName)}</td></tr>)}
-                </tbody>
-            </table>
-            <div className={styles.milkRecordTableContainer}>
-            <table className={styles.milkRecordTable}>
-                <thead>
+            <div className={styles.tableTop}>
+                <Button text="Download Report" onClick={this.generateReport}/>
+            </div>
+            <div className={styles.tableContainer}>
+                <table className={styles.supplierTable}>
+                    <thead>
+                        <tr><th className={styles.supplierHeader}>Suppliers</th></tr>
+                    </thead>
+                    <tbody>
+                    {suppliers.supplierIds.map(supplierId => <tr className={styles.supplierRow}><td key={supplierId} className={styles.supplierData}>{capitalizeFirstLetterOfAllWords(suppliers.suppliersById[supplierId].supplierName)}</td></tr>)}
+                    </tbody>
+                </table>
+                <div className={styles.milkRecordTableContainer}>
+                <table className={styles.milkRecordTable}>
+                    <thead>
+                        {
+                            this.getPeriodHeaders()
+                        }
+                    </thead>
+                    <tbody>
                     {
-                        this.getPeriodHeaders()
+                        this.getPeriodRows(suppliers.supplierIds)
                     }
-                </thead>
-                <tbody>
-                {
-                    this.getPeriodRows(suppliers.supplierIds)
-                }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+                </div>
             </div>
         </div>
         )
