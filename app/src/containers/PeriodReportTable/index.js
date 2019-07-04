@@ -1,7 +1,10 @@
 import React, {Component} from "react"
+import styles from "./PeriodReportTable.module.css"
 
 import {connect} from "react-redux"
 import moment from "moment"
+
+import PeriodReportTableRow from "../../components/PeriodReportTableRow"
 
 export class PeriodReportTable extends Component {
 
@@ -51,7 +54,7 @@ export class PeriodReportTable extends Component {
                     }
                 )   
             }
-            return <PeriodTableRow 
+            return <PeriodReportTableRow 
                         key={supplierId} 
                         supplier={supplier} 
                         milkCollectionsByDate={milkCollectionsByDate}
@@ -63,53 +66,32 @@ export class PeriodReportTable extends Component {
     render(){
         const {milkCollectionsArray, suppliers, centers} = this.props
         const {selectedPeriod} = this.state
-        console.log(selectedPeriod)
         if (!centers || !centers.selectedId) return null
         if (!suppliers) return null
         //TODO pull out suppliers by center from redux, need to keep all suppliers in state across center changes
         //temporarily use all suppliers as it works for now
         return (
-          
-            <div>
+          <div className={styles.container}>
+            <table className={styles.supplierTable}>
+                <tbody>
+                {suppliers.supplierIds.map(supplierId => <tr><td key={supplierId} className={styles.supplierRow}>{suppliers.suppliersById[supplierId].supplierName}</td></tr>)}
+                </tbody>
+            </table>
+            <div className={styles.milkRecordTableContainer}>
+            <table className={styles.milkRecordTable}>
+                <tbody>
                 {
                     this.getPeriodRows(suppliers.supplierIds)
                 }
+                </tbody>
+            </table>
             </div>
+        </div>
         )
     }
 }
 
-const PeriodTableRow = ({supplier, milkCollectionsByDate = {}, periodStartDate, periodEndDate}) => {
-    const numberOfDays = periodEndDate.date() - periodStartDate.date() + 1
-    const dayArray = [...Array(numberOfDays).keys()].map(day => day + periodStartDate.date())
-    let totalVolume = 0
-    let sumPrice = 0
-    let milkCollectionCount = 0
-    Object.keys(milkCollectionsByDate).forEach(day => {
-        const milkCollections = milkCollectionsByDate[day]
-        milkCollections.forEach(milkCollection => {
-            totalVolume = totalVolume + milkCollection.volumeInLitres
-            sumPrice = sumPrice + milkCollection.rateInShillings
-            milkCollectionCount += 1
-        })
-    })
-    const avgPrice = milkCollectionCount > 0 ? sumPrice/milkCollectionCount : 0
-    const amount = milkCollectionCount > 0 ? avgPrice * totalVolume : 0
-    return (
-    <div>
-        {supplier.supplierName}
-        {
-        dayArray.map(day => {
-            const dailyTotal = milkCollectionsByDate[day] ? milkCollectionsByDate[day][0].volumeInLitres : 0     
-            return <span>{dailyTotal}</span>
-        })
-        }
-        <span>total: {totalVolume}</span>
-        <span>price: {avgPrice}</span>
-        <span>amount: {amount}</span>
-    </div>
-    )
-}
+
 const mapStateToProps = state => ({
     suppliers: state.suppliers,
     centers: state.centers,

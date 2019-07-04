@@ -1,0 +1,37 @@
+.container {
+    height: 50vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.supplierRow {
+    border: 0.5px solid var(--dark);
+    width: 150px;
+    padding: 0.4em 0 0.4em 0.4em;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: var(--small-font);
+    font-weight: 700;
+}
+
+.supplierTable {
+    border-collapse: collapse;
+    table-layout: fixed;
+    position: absolute;
+    background: var(--white);
+    top: 0;
+    left: 0;
+}
+
+.milkRecordTableContainer {
+    overflow-x: scroll;
+    margin-left: 150px;
+    width: calc(100% - 150px);
+    cursor: all-scroll;
+}
+
+.milkRecordTable{
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+}
