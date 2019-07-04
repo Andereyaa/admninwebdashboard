@@ -27,6 +27,7 @@
     top: 110%;
     transition: min-height 0.3s;
     overflow: hidden;
+    z-index: 5;
 }
 
 .dropdown.open {
