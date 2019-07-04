@@ -19,6 +19,7 @@
 
 .container .supplierHeader {
     width: 150px;
+    box-shadow: 1px 0px 1px var(--dark);
 }
 .supplierData {
     border: 0.5px solid var(--dark);
