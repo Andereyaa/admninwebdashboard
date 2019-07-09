@@ -64,6 +64,7 @@ export const fetchSubscribeToCenter = (centerId) => {
     
     return (dispatch, getState) => {
         const {institution} = getState()
+        if (!institution || !institution.id) return
         const centerRef = firestore.collection("institutions").doc(institution.id)
             .collection("centers").doc(centerId)
         const unsubscribeFunction = centerRef

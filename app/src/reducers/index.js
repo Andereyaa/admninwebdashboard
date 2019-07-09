@@ -7,6 +7,7 @@ import milkCollections from './milkCollections'
 import suppliers from './suppliers'
 import countries from './countries'
 import system from './system'
+import periods from './periods'
 
 const config = {
     key: 'primary',
@@ -50,6 +51,11 @@ export const initialState = {
         countryIds: [],
         defaultCountryId: null
     },
+    periods: {
+        periodsById: {},
+        periodIds: [],
+        selectedId: null
+    },
     system: {
         name: "boresha dashboard",
         version: "1.0.0",
@@ -64,7 +70,8 @@ const rootReducer = persistCombineReducers(config, {
     milkCollections,
     suppliers,
     countries,
-    system
+    system,
+    periods
 });
 
 export default rootReducer
