@@ -15,15 +15,14 @@ import xlsx from 'xlsx'
 
 export class PeriodReportTable extends Component {
 
-    state = {
-        selectedPeriod: findPeriodRangeForDate(Date.now()),
-    }
-
     supplierHeaderName = "Supplier Name"
     summaryHeaderNames =["Total", "Price", "Amount"]
 
     getDateHeaderNamesForPeriod = () => {
-        const {startDate, endDate} = this.state.selectedPeriod
+        const {selectedPeriod} = this.props
+        const startDate = moment(selectedPeriod.startDate)
+        //TODO revisit in tests across timezones to ensure dates do not cause crash -1 fix
+        const endDate = moment(selectedPeriod.endDate - 1)
         const dayArray = getIntegerRange(startDate.date(), endDate.date())
         return dayArray.map(dayInteger => integerToOrdinalNumber(dayInteger))
     }
@@ -38,8 +37,7 @@ export class PeriodReportTable extends Component {
         )
     }
     getPeriodRows = supplierIds => {
-        const {selectedPeriod} = this.state
-        const {suppliers, milkCollections, centers} = this.props
+        const {suppliers, milkCollections, centers, selectedPeriod} = this.props
         //for each supplier
         return supplierIds.map(supplierId => {
             const supplier = suppliers.suppliersById[supplierId]
@@ -85,11 +83,10 @@ export class PeriodReportTable extends Component {
         const headerNamesForPeriod = this.getDateHeaderNamesForPeriod()
         const header = [this.supplierHeaderName].concat(headerNamesForPeriod).concat(this.summaryHeaderNames)
         const data = []
-        const {suppliers, milkCollections, centers} = this.props
-        const {selectedPeriod} = this.state
+        const {suppliers, milkCollections, centers, selectedPeriod} = this.props
         //TODO change this when suppliers from multiple centers can be in redux
-        const startDateTimestamp = selectedPeriod.startDate.format('x')
-        const endDateTimestamp = selectedPeriod.endDate.format('x')
+        const startDateTimestamp = selectedPeriod.startDate
+        const endDateTimestamp = selectedPeriod.endDate - 1
         suppliers.supplierIds.forEach(supplierId => {
             const supplier = suppliers.suppliersById[supplierId]
             const dataRow = {[this.supplierHeaderName]: capitalizeFirstLetterOfAllWords(supplier.supplierName)}

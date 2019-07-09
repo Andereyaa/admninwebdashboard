@@ -2,9 +2,11 @@ import React from 'react'
 import styles from './PeriodReportTableRow.module.css'
 
 import {getIntegerRange} from '../../utils/numberHandling'
+import moment from 'moment'
 
 export default ({supplierId, milkCollectionsByDate = {}, periodStartDate, periodEndDate}) => {
-    const dayArray = getIntegerRange(periodStartDate.date(), periodEndDate.date())
+    //TODO revisit in tests across timezones to ensure dates do not cause crash -1 fix
+    const dayArray = getIntegerRange(moment(periodStartDate).date(), moment(periodEndDate - 1).date())
     let totalVolume = 0
     let sumPrice = 0
     let milkCollectionCount = 0
