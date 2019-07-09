@@ -5,12 +5,13 @@ import {MONTH_IN_MILLISECONDS} from '../constants/time'
 
 export const SAVE_MILK_COLLECTIONS = 'SAVE_MILK_COLLECTIONS'
 
-export const saveMilkCollections = (milkCollections, centerId) => {
+export const saveMilkCollections = (milkCollections, centerId, periodId) => {
     return {
         type: SAVE_MILK_COLLECTIONS,
         payload: {
             milkCollections,
-            centerId
+            centerId,
+            periodId
         }
     }
 }
@@ -32,7 +33,8 @@ export const fetchMilkCollections = (centerId, period = null) => {
         .then(querySnapshot => {
             //get an array of milkCollections from the snapshot
             const milkCollections = querySnapshot.docs.map(docRef => ({...docRef.data(), id: docRef.id}));
-            dispatch(saveMilkCollections(milkCollections, centerId))
+            const periodId = period ? period.id : null
+            dispatch(saveMilkCollections(milkCollections, centerId, periodId))
             return true
         })
         .catch(error => {
