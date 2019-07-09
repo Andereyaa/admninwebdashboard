@@ -23,7 +23,13 @@ const periodsReducer = (state = initialState.periods, action = {}) => {
                 const startDate = period.startDate.valueOf()
                 const endDate = period.endDate.valueOf()
                 const existingPeriod = state.periodsById[startDate]
-                periodsById[startDate] = {...existingPeriod, startDate, endDate, id: startDate, dateLoadedByCenterId: {}}
+                periodsById[startDate] = {
+                    ...existingPeriod, 
+                    startDate, 
+                    endDate, 
+                    id: startDate, 
+                    dateLoadedByCenterId: existingPeriod && existingPeriod.dateLoadedByCenterId ? existingPeriod.dateLoadedByCenterId : {}
+                }
                 return periodsById
             }, {})
             const periodIds = Object.keys(periodsById)
