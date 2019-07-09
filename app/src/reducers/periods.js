@@ -36,6 +36,13 @@ const periodsReducer = (state = initialState.periods, action = {}) => {
                 selectedId
             }
         }
+
+        case types.SELECT_PERIOD: {
+            return {
+                ...state,
+                selectedId: payload.id
+            }
+        }
         default:
             return state
     }
