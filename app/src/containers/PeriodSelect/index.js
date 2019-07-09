@@ -8,8 +8,15 @@ import PeriodPicker from '../../components/PeriodPicker'
 
 export class PeriodSelect extends Component {
 
-    handleSelectPeriod = id => {
-        const {actions} = this.props
+    handleSelectPeriod = async id => {
+        const {actions, periods, centers} = this.props
+        const selectedPeriod = periods.periodsById[id]
+        actions.toggleLoading(true)
+        const success = await actions.fetchMilkCollections(
+            centers.selectedId,
+            selectedPeriod
+        )
+        actions.toggleLoading(false)
         actions.selectPeriod(id)
     }
 
@@ -25,7 +32,8 @@ export class PeriodSelect extends Component {
 }
 
 const mapStateToProps = state => ({
-    periods: state.periods
+    periods: state.periods,
+    centers: state.centers
 })
 
 const mapDispatchToProps = dispatch => ({
