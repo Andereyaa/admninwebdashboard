@@ -25,7 +25,7 @@ export default ({supplierId, milkCollectionsByDate = {}, periodStartDate, period
     <tr className={styles.container}>
         {
         dayArray.map(day => {
-            const dailyTotal = milkCollectionsByDate[day] ? milkCollectionsByDate[day][0].volumeInLitres : 0     
+            const dailyTotal = milkCollectionsByDate[day] ? milkCollectionsByDate[day].reduce( (sum, milkCollection) => (sum + milkCollection.volumeInLitres), 0) : 0     
             const cellStyle = dailyTotal == 0 ? styles.highlight : null
             return <td key={`${supplierId}${day}`} className={[styles.cell, cellStyle].join(" ")}>{dailyTotal}</td>
         })
