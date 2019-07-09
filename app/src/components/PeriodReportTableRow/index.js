@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './PeriodReportTableRow.module.css'
 
 import {getIntegerRange} from '../../utils/numberHandling'
+import {numberToCommaSeparatedString} from '../../utils/formatting'
 import moment from 'moment'
 
 export default ({supplierId, milkCollectionsByDate = {}, periodStartDate, periodEndDate}) => {
@@ -25,12 +26,13 @@ export default ({supplierId, milkCollectionsByDate = {}, periodStartDate, period
         {
         dayArray.map(day => {
             const dailyTotal = milkCollectionsByDate[day] ? milkCollectionsByDate[day][0].volumeInLitres : 0     
-            return <td key={`${supplierId}${day}`} className={styles.cell}>{dailyTotal}</td>
+            const cellStyle = dailyTotal == 0 ? styles.highlight : null
+            return <td key={`${supplierId}${day}`} className={[styles.cell, cellStyle].join(" ")}>{dailyTotal}</td>
         })
         }
         <td className={styles.cellBig}>{totalVolume}</td>
-        <td className={styles.cellBig}>{avgPrice}</td>
-        <td className={styles.cellBig}>{amount}</td>
+        <td className={styles.cellBig}>{Math.trunc(avgPrice)} /=</td>
+        <td className={styles.cellBig}>{numberToCommaSeparatedString(Math.trunc(amount))} /=</td>
     </tr>
     )
 }
