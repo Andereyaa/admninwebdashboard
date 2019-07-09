@@ -2,12 +2,11 @@ import React, {Component} from 'react'
 
 import Switch from '../../components/Switch'
 import CenterSelect from '../../containers/CenterSelect'
-import PeriodReportTable from '../../containers/PeriodReportTable'
 import CenterDropdown from '../../containers/CenterDropdown'
 import DailyStatisticsPanel from '../../containers/DailyStatisticsPanel'
 import MilkCollectionsTable from '../../containers/MilkCollectionsTable'
 import CenterDateSelect from '../../containers/CenterDateSelect'
-import PeriodSelect from '../../containers/PeriodSelect'
+import DashboardPeriodView from '../../containers/DashboardPeriodView' 
 
 import styles from './Dashboard.module.css'
 
@@ -77,10 +76,7 @@ export class Dashboard extends Component {
                 </React.Fragment>
                 :
                 selectedViewOption === "period" ?
-                <div>
-                    <PeriodSelect />
-                    <PeriodReportTable  milkCollectionsArray={milkCollectionsForSelectedCenter}/>
-                </div>
+                <DashboardPeriodView />
                 :
                 null
                 }
