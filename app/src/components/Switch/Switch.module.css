@@ -23,3 +23,9 @@
     font-weight: 700;
     border-style: inset
 }
+
+@media(max-width: 450px){
+    .option {
+        font-size: var(--small-font)
+    }
+}

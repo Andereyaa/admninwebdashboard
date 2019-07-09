@@ -20,10 +20,10 @@ export class Dashboard extends Component {
 
     state = {
         date: moment(),
-        selectedViewOption: "period"
+        selectedViewOption: "daily"
     }
 
-    viewOptions=[{text: "Daily View", value:"daily"},{text: "Period View", value: "period"}]
+    viewOptions=[{text: "Daily Milk Records", value:"daily"},{text: "Milk Records By Period", value: "period"}]
     
     handleSelectViewOption = selectedViewOption => this.setState({selectedViewOption})
 

@@ -18,7 +18,7 @@ export class CenterDateSelect extends Component {
                 {
                     centers.selectedId ?
                     <div>
-                        {`Milk received at ${capitalizeFirstLetterOfAllWords(centerName)} on `} 
+                        {`${capitalizeFirstLetterOfAllWords(centerName)} Daily Milk Records for `} 
                         <DatePicker value={value} onSelect={onSelect} max={moment()}/>
                     </div>
                     :
