@@ -21,8 +21,10 @@ const periodsReducer = (state = initialState.periods, action = {}) => {
         case types.SAVE_INSTITUTION: {
             const institutionPeriods = getPeriodsBetweenTwoDatesInclusive(payload.institution.creationDate, Date.now())
             const periodsById = institutionPeriods.reduce((periodsById, period) =>{
-                const existingPeriod = state.periodsById[period.startDate.valueOf()]
-                periodsById[period.startDate.valueOf()] = {...existingPeriod, ...period}
+                const startDate = period.startDate.valueOf()
+                const endDate = period.endDate.valueOf()
+                const existingPeriod = state.periodsById[startDate]
+                periodsById[startDate] = {...existingPeriod, startDate, endDate, id: startDate}
                 return periodsById
             }, {})
             const periodIds = Object.keys(periodsById)

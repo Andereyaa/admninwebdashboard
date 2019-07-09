@@ -7,6 +7,7 @@ import CenterDropdown from '../../containers/CenterDropdown'
 import DailyStatisticsPanel from '../../containers/DailyStatisticsPanel'
 import MilkCollectionsTable from '../../containers/MilkCollectionsTable'
 import CenterDateSelect from '../../containers/CenterDateSelect'
+import PeriodSelect from '../../containers/PeriodSelect'
 
 import styles from './Dashboard.module.css'
 
@@ -77,6 +78,7 @@ export class Dashboard extends Component {
                 :
                 selectedViewOption === "period" ?
                 <div>
+                    <PeriodSelect />
                     <PeriodReportTable  milkCollectionsArray={milkCollectionsForSelectedCenter}/>
                 </div>
                 :
