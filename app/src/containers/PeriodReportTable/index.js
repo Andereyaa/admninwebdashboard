@@ -4,6 +4,7 @@ import styles from "./PeriodReportTable.module.css"
 import {connect} from "react-redux"
 import moment from "moment"
 
+import {COMPANY_NAME} from "../../constants/companyInfo"
 import PeriodReportTableRow from "../../components/PeriodReportTableRow"
 import Button from '../../components/Button'
 
@@ -71,11 +72,15 @@ export class PeriodReportTable extends Component {
     }
 
     generateReport = () => {
+        const {suppliers, milkCollections, centers, selectedPeriod, institution} = this.props
+        const center = centers.centersById[centers.selectedId]
+        const format = "Do MMMM YYYY"
+        const title = `${capitalizeFirstLetterOfAllWords(institution.institutionName)} - ${capitalizeFirstLetterOfAllWords(center.centerName)} Report - ${moment(selectedPeriod.startDate).format(format)} to ${moment(selectedPeriod.endDate).format(format)}`
         const workbook = xlsx.utils.book_new()
         workbook.Props = {
-            Title: "Period Report",
+            Title: title,
             Subject: "Period Report",
-            Author: "Boresha Technologies Ltd",
+            Author: COMPANY_NAME,
             CreatedDate: new Date()
         }
         workbook.SheetNames.push("Period Report")
@@ -83,7 +88,14 @@ export class PeriodReportTable extends Component {
         const headerNamesForPeriod = this.getDateHeaderNamesForPeriod()
         const header = [this.supplierHeaderName].concat(headerNamesForPeriod).concat(this.summaryHeaderNames)
         const data = []
-        const {suppliers, milkCollections, centers, selectedPeriod} = this.props
+        
+        //create the object that will track the totals for each day
+        const dailyTotals = {[this.supplierHeaderName]: "TOTAL"}
+        dailyTotals[this.summaryHeaderNames[0]] = 0
+        dailyTotals[this.summaryHeaderNames[1]] = 0
+        dailyTotals[this.summaryHeaderNames[2]] = 0
+        headerNamesForPeriod.forEach(headerName => dailyTotals[headerName] = 0)
+
         //TODO change this when suppliers from multiple centers can be in redux
         const startDateTimestamp = selectedPeriod.startDate
         const endDateTimestamp = selectedPeriod.endDate - 1
@@ -97,17 +109,22 @@ export class PeriodReportTable extends Component {
             headerNamesForPeriod.forEach(headerName => dataRow[headerName] = 0)
             const milkCollectionIds = milkCollections.milkCollectionIdsBySupplierId[supplierId]
             if (milkCollectionIds){
+                //if the supplier has milk collections
                 milkCollectionIds.forEach(milkCollectionId => {
+                    //loop through each id
                     const milkCollection = milkCollections.milkCollectionsById[milkCollectionId]
                     if (milkCollection.dateCollected >= startDateTimestamp &&
                         milkCollection.dateCollected <= endDateTimestamp &&
                         milkCollection.centerId === centers.selectedId)
                         {
+                            //if the milk collection is in the right date range for the right center
                             //get the ordinal number as an index
                             const dateCollected = moment(milkCollection.dateCollected)
                             const ordinalNumber = integerToOrdinalNumber(dateCollected.date())
                             //add the volumeInLitres of the current milk collection to the day
                             dataRow[ordinalNumber] += milkCollection.volumeInLitres
+                            //add the volumeInLitres to the daily total
+                            dailyTotals[ordinalNumber] += milkCollection.volumeInLitres
                             total += milkCollection.volumeInLitres
                             sumPrice += milkCollection.rateInShillings
                             count += 1 
@@ -118,11 +135,17 @@ export class PeriodReportTable extends Component {
             dataRow[this.summaryHeaderNames[0]] = total
             dataRow[this.summaryHeaderNames[1]] = avgPrice
             dataRow[this.summaryHeaderNames[2]] = avgPrice * total
+            //add it to the daily totals
+            dailyTotals[this.summaryHeaderNames[0]] += total
+            dailyTotals[this.summaryHeaderNames[2]] += avgPrice * total
             data.push(dataRow)
         })
+        //add the daily totals row
+        dailyTotals[this.summaryHeaderNames[1]] = (dailyTotals[this.summaryHeaderNames[0]] === 0) ? 0 : dailyTotals[this.summaryHeaderNames[2]]/dailyTotals[this.summaryHeaderNames[0]]
+        data.push(dailyTotals)
         const worksheet = xlsx.utils.json_to_sheet(data, {header})
         workbook.Sheets["Period Report"] = worksheet
-        xlsx.writeFile(workbook, "period_report.xlsx")
+        xlsx.writeFile(workbook, `${title}.xlsx`)
     } 
 
     render(){
@@ -169,7 +192,8 @@ export class PeriodReportTable extends Component {
 const mapStateToProps = state => ({
     suppliers: state.suppliers,
     centers: state.centers,
-    milkCollections: state.milkCollections
+    milkCollections: state.milkCollections,
+    institution: state.institution
 })
 
 export default connect(mapStateToProps)(PeriodReportTable)
