@@ -1,7 +1,7 @@
 import {firestore} from '../firebase'
 import {logError} from '../utils/errorHandling'
+import {DAY_IN_MILLISECONDS} from '../constants/time'
 import {fetchMilkCollections} from './milkCollections'
-import moment from 'moment'
 
 export const SAVE_CENTER = 'SAVE_CENTER'
 export const SELECT_CENTER = 'SELECT_CENTER'
@@ -85,22 +85,22 @@ export const fetchSubscribeToCenter = (centerId) => {
 
 export const fetchLoadCenter = (centerId) => {
     return async (dispatch, getState) =>{
-        const {centers} = getState()
+        const {centers, periods} = getState()
         const center = centers.centersById[centerId]
         if (!center) return false
         if (!center.unsubscribeFunction){
             dispatch(fetchSubscribeToCenter(centerId))
         }
 
-        const dateLastLoaded = center.historicalDataLastLoaded ? 
-                                moment(center.historicalDataLastLoaded)
-                                : 
-                                null
+        const selectedPeriod = periods.selectedId ? 
+                                periods.periodsById[periods.selectedId]
+                                : periods.periodsById[periods.periodIds[periods.periodIds.length - 1]]
+
         if ( 
-            (!dateLastLoaded) || //if the data has not been loaded or 
-            (!moment().isSame(dateLastLoaded, 'day')) //the data was not loaded today
+            (!selectedPeriod.dateLoadedByCenterId[centerId]) || //if the data has not been loaded or 
+            (selectedPeriod.dateLoadedByCenterId[centerId] < (Date.now() - DAY_IN_MILLISECONDS)) //the data was loaded more than 24 hours ago
         ){
-            dispatch(fetchMilkCollections(centerId))
+            dispatch(fetchMilkCollections(centerId, selectedPeriod))
         }
     }
 }
