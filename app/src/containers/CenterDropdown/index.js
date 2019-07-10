@@ -16,7 +16,9 @@ export class CenterDropdown extends Component {
             actions.unsubscribeFromCenter(centers.selectedId)
         }
         actions.selectCenter(id)
+        actions.toggleLoading(true)
         await actions.fetchLoadCenter(id)
+        actions.toggleLoading(false)
     }
 
     getOptions = centersArray => {

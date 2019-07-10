@@ -15,7 +15,9 @@ export class CenterSelect extends Component {
             actions.unsubscribeFromCenter(centers.selectedId)
         }
         actions.selectCenter(id)
+        actions.toggleLoading(true)
         await actions.fetchLoadCenter(id)
+        actions.toggleLoading(false)
     }
 
     getCenterTileForEachCenter = () => {
