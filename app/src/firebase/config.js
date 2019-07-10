@@ -55,5 +55,5 @@ const environments = {
     }
 }
 
-export const selectedEnvironment = SANDBOX
+export const selectedEnvironment = DEVELOPMENT
 export default environments[selectedEnvironment]
