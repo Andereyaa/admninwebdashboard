@@ -2,45 +2,32 @@ import React, {Component} from 'react'
 
 import {connect} from "react-redux"
 
-import styles from './MilkCollectionsTable.module.css'
-
-import MilkCollectionsTableRow from '../../components/MilkCollectionsTableRow'
-import MilkCollectionsTableHeader from '../../components/MilkCollectionsTableHeader'
-
+import DataTable from '../../components/DataTable'
 export class MilkCollectionsTable extends Component{
-    getRows = (milkCollectionsArray) => {
-        const {suppliers} = this.props
-        return milkCollectionsArray.map((milkCollection,index) => {
-            const supplier = suppliers.suppliersById[milkCollection.supplierId]
-            return <MilkCollectionsTableRow 
-                        key={milkCollection.id} 
-                        milkCollection={milkCollection}
-                        supplier={supplier}
-                        even={((index % 2) > 0)}
-                     />
-        })
-    }
+
     render(){
-        const {milkCollectionsArray} = this.props
+        const {milkCollectionsArray, suppliers} = this.props
         if (!milkCollectionsArray) return null
+        const dataArray = milkCollectionsArray.map(milkCollection => {
+            const supplier = suppliers.suppliersById[milkCollection.supplierId]
+            return {...milkCollection, supplierName: supplier.supplierName}
+        })
         return (
-            <div className={styles.container}>
-                <MilkCollectionsTableHeader />
-                <div className={styles.rowContainer}>
-                {
-                    milkCollectionsArray.length > 0 ?
-                    this.getRows(milkCollectionsArray)
-                    :
-                    <div className={styles.noData}>No Data</div>
-                }
-                </div>
-            </div>
+
+            <DataTable 
+                dataArray={dataArray}
+                fields={['supplierName', 'volumeInLitres', 'rateInShillings']}
+                headings={{
+                    supplierName: "Supplier Name",
+                    volumeInLitres: "Volume (Litres)",
+                    rateInShillings: "Price (UGX)"
+                }}
+            />
         )
     }
 }
 
 const mapStateToProps = state => ({
-    milkCollections: state.milkCollections,
     suppliers: state.suppliers
 });
 
