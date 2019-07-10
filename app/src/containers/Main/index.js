@@ -25,6 +25,7 @@ export class Main extends Component {
     && _persist.rehydrated) {
       return <Redirect to="/login" />;
     }
+    if (!_persist.rehydrated) return null
     return (
       <div className={styles.container}>
           <ScreenContent currentScreenPathname={location.pathname}>
