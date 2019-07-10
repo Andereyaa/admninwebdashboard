@@ -1,14 +1,48 @@
 import React, {Component} from 'react'
 
 import {connect} from "react-redux"
+import {bindActionCreators} from 'redux'
+import * as actions from "../../actions"
 
 import DatePicker from '../../components/DatePicker'
 import moment from 'moment'
 
+import {DAY_IN_MILLISECONDS} from '../../constants/time'
 import {capitalizeFirstLetterOfAllWords} from '../../utils/formatting'
+import {findPeriodRangeForDate} from '../../utils/dateHandling'
 export class CenterDateSelect extends Component {
+
+    constructor(props){
+        super(props)
+        const {periods} = this.props
+        const firstPeriodId = periods.periodIds[0]
+        const firstPeriod = periods.periodsById[firstPeriodId]
+        this.state = {
+            today: moment(),
+            registrationDate: moment(firstPeriod.startDate)
+        }
+    }
+
+    handleSelect = async date => {
+        const {onSelect, periods, centers, actions} = this.props
+        const momentPeriod = findPeriodRangeForDate(date.valueOf())
+        const periodId = momentPeriod.startDate.valueOf()
+        const selectedPeriod = periods.periodsById[periodId]
+        if (!selectedPeriod) return //TODO throw appropriate error here
+        if(
+            !selectedPeriod.dateLoadedByCenterId[centers.selectedId] ||
+            selectedPeriod.dateLoadedByCenterId[centers.selectedId] < (Date.now() - DAY_IN_MILLISECONDS)
+        ){
+            actions.toggleLoading(true)
+            await actions.fetchMilkCollections(centers.selectedId, selectedPeriod)
+            actions.toggleLoading(false)
+        }
+        onSelect(date)
+    }
+
     render(){
-        const {centers, value, onSelect} = this.props
+        const {centers, value} = this.props
+        const {today, registrationDate} = this.state
         const centerName = centers.selectedId ?
                             centers.centersById[centers.selectedId].centerName
                             :
@@ -19,7 +53,7 @@ export class CenterDateSelect extends Component {
                     centers.selectedId ?
                     <div>
                         {`${capitalizeFirstLetterOfAllWords(centerName)} Daily Milk Records for `} 
-                        <DatePicker value={value} onSelect={onSelect} max={moment()}/>
+                        <DatePicker value={value} onSelect={this.handleSelect} max={today} min={registrationDate}/>
                     </div>
                     :
                     null
@@ -30,8 +64,12 @@ export class CenterDateSelect extends Component {
 }
 
 const mapStateToProps = state => ({
-    centers: state.centers
+    centers: state.centers,
+    periods: state.periods
 });
 
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(actions, dispatch)
+})
 
-export default connect(mapStateToProps)(CenterDateSelect)
+export default connect(mapStateToProps, mapDispatchToProps)(CenterDateSelect)

@@ -7,6 +7,8 @@ import DashboardPeriodView from '../../containers/DashboardPeriodView'
 import DashboardDailyView from '../../containers/DashboardDailyView'
 import styles from './Dashboard.module.css'
 
+import {connect} from "react-redux"
+
 class Dashboard extends Component {
 
     state = {
@@ -19,7 +21,7 @@ class Dashboard extends Component {
 
     render (){
         const {selectedViewOption} = this.state
-        
+        const {institution} = this.props
         return (
             <div className={styles.container}>
                 <div className={styles.centerSelect}>
@@ -32,17 +34,28 @@ class Dashboard extends Component {
                         selectedValue={selectedViewOption} 
                         onSelect={this.handleSelectViewOption}/>
                 {
-                    selectedViewOption === 'daily' ?
-                <DashboardDailyView />
-                :
-                selectedViewOption === "period" ?
-                <DashboardPeriodView />
-                :
-                null
+                    institution && institution.id ?
+                    <React.Fragment>
+                        {
+                            selectedViewOption === 'daily' ?
+                        <DashboardDailyView />
+                        :
+                        selectedViewOption === "period" ?
+                        <DashboardPeriodView />
+                        :
+                        null
+                        }
+                    </React.Fragment>
+                    :
+                    null
                 }
             </div>
         )
     }
 }
 
-export default Dashboard
+const mapStateToProps = state => ({
+    institution: state.institution
+})
+
+export default connect(mapStateToProps)(Dashboard)
