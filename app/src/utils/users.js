@@ -1,4 +1,4 @@
-import {OWNER, ACCOUTANT, MANAGER, userTypesAllowedToLoginToApp, ACCOUNTANT} from "../constants/userTypes"
+import {OWNER, MANAGER, userTypesAllowedToLoginToApp, ACCOUNTANT} from "../constants/userTypes"
 
 export const verifyUserHasTypeThatIsAllowedToLoginToDashboard = (userTypes = []) => {
     return userTypes.some(userType => {
@@ -9,7 +9,7 @@ export const verifyUserHasTypeThatIsAllowedToLoginToDashboard = (userTypes = [])
 export const getActiveUserType = (userTypes = []) => {
     if (userTypes.includes(OWNER)) return OWNER
     else if (userTypes.includes(MANAGER)) return MANAGER
-    else if (userTypes.includes(ACCOUTANT)) return ACCOUTANT
+    else if (userTypes.includes(ACCOUNTANT)) return ACCOUNTANT
 }
 
 export const getInstitutionIdFromUser = user => {
