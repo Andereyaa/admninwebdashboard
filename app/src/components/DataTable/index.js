@@ -20,7 +20,10 @@ export default class DataTable extends Component {
         const {sortBy, sortDirection} = this.state
         if (!sortBy) return dataArray
 
-        const formatString = str => str.trim().toLowerCase()
+        const formatString = str => {
+            if (!str) return ""
+            return str.trim().toLowerCase()
+        }
         const sortedArray = [...dataArray]
         sortedArray.sort((a, b) => {
             if (typeof a[sortBy] === "number"){
