@@ -16,7 +16,31 @@ export default class DataTable extends Component {
         fieldTransformFunctions: {},
     }
     
-    sortData = dataArray => dataArray
+    sortData = dataArray => {
+        const {sortBy, sortDirection} = this.state
+        if (!sortBy) return dataArray
+
+        const formatString = str => str.trim().toLowerCase()
+        const sortedArray = [...dataArray]
+        sortedArray.sort((a, b) => {
+            if (typeof a[sortBy] === "number"){
+                if (sortDirection === SORT_DIRECTION_DESC) return b[sortBy] - a[sortBy]
+                else if (sortDirection === SORT_DIRECTION_ASC) return a[sortBy] - b[sortBy]
+            }
+            else if (typeof a[sortBy] === "string") {
+                if (sortDirection === SORT_DIRECTION_ASC){
+                    if(formatString(a[sortBy]) < formatString(b[sortBy])) { return -1; }
+                    if(formatString(a[sortBy]) > formatString(b[sortBy])) { return 1; }
+                    return 0;
+                } else if (sortDirection === SORT_DIRECTION_DESC){
+                    if(formatString(a[sortBy]) > formatString(b[sortBy])) { return -1; }
+                    if(formatString(a[sortBy]) < formatString(b[sortBy])) { return 1; }
+                    return 0;
+                }
+            }
+        })
+        return sortedArray
+    }
 
     handleSortButtonPress = field => {
         const {sortBy, sortDirection} = this.state
