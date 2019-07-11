@@ -11,3 +11,7 @@
 .bottom  svg{
     margin-top: -8px;
 }
+
+.hidden {
+    visibility: hidden;
+}

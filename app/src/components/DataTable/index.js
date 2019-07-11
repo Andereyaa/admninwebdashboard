@@ -2,23 +2,52 @@ import React, {Component} from 'react'
 import styles from './DataTable.module.css'
 import DataTableRow from './DataTableRow'
 import SortButton from '../SortButton'
+import {SORT_DIRECTION_ASC, SORT_DIRECTION_DESC} from '../../constants/misc'
 export default class DataTable extends Component {
+
+    state ={
+        sortBy: null,
+        sortDirection: SORT_DIRECTION_ASC
+    }
 
     static defaultProps = {
         errors: {},
         headings: {},
-        fieldTransformFunctions: {}
+        fieldTransformFunctions: {},
     }
     
+    sortData = dataArray => dataArray
+
+    handleSortButtonPress = field => {
+        const {sortBy, sortDirection} = this.state
+        const newSortDirection = (sortBy !== field) ? 
+                                SORT_DIRECTION_ASC
+                                :
+                                (sortDirection !== SORT_DIRECTION_ASC) ?
+                                SORT_DIRECTION_ASC
+                                :
+                                SORT_DIRECTION_DESC
+
+        const newSortBy = ((sortBy === field ) && 
+                            (sortDirection === SORT_DIRECTION_DESC) &&
+                            (newSortDirection === SORT_DIRECTION_ASC)) ? null : field
+        this.setState({sortBy: newSortBy, sortDirection: newSortDirection})
+    }
+
     getHeader = () => {
         const {headings, fields} = this.props
+        const {sortBy, sortDirection} = this.state
         return (
         <div className={styles.headerContainer}>
             {
                 fields.map(
                     field => <div key={`${field}header`} className={styles.th}>
                                 {headings[field] ? headings[field] : field}
-                                <SortButton />
+                                <SortButton
+                                    isSorting={field === sortBy} 
+                                    sortDirection={sortDirection}
+                                    onClick={() => this.handleSortButtonPress(field)} 
+                                />
                             </div>
                 )
             }
@@ -50,7 +79,7 @@ export default class DataTable extends Component {
                 <div className={styles.rowContainer}>
                 {
                     dataArray.length > 0 ?
-                    this.getRows(dataArray)
+                    this.getRows(this.sortData(dataArray))
                     :
                     <div className={styles.noData}>No Data</div>
                 }
