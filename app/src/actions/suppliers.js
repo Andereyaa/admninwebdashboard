@@ -10,7 +10,7 @@ export const SAVE_SUPPLIERS = 'SAVE_SUPPLIERS'
 export const fetchAddSupplier = (supplierName, phoneNumber, locationName, supplierType, supplierId = uuid4()) => {
 
     return async (dispatch, getState) => {
-        const {users, centers} = getState()
+        const {users, centers, system} = getState()
         const user = users.usersById[users.authenticatedUserId]
         //TODO deal with other usertypes, admin, owner etc whoever is able to login??
         const institutionId = user.owner.institutionIds[0] //TODO will this work for all user types?
@@ -23,7 +23,7 @@ export const fetchAddSupplier = (supplierName, phoneNumber, locationName, suppli
             supplierType,
             locationName,
             createdByUserId: user.id,
-            // createdByAppVersion: system.version,
+            createdByAppVersion: system.version,
             createdByInstitutionId: institutionId,
             createdByCenterId: centerId,
             createdByUserName: `${user.firstName} ${user.lastName}`,

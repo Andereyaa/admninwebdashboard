@@ -1,7 +1,8 @@
 import firebase, {firestore} from '../firebase'
-import {OWNER, MANAGER} from '../constants/userTypes'
 import {USER_LOGIN_NOT_ALLOWED} from '../constants/errors'
 import {logError} from '../utils/errorHandling'
+
+import {verifyUserHasTypeThatIsAllowedToLoginToDashboard} from "../utils/users"
 
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
@@ -75,8 +76,8 @@ export const fetchUser = (userId, isLogin = false) => {
                 dispatch(saveUser(doc.id, user));
                 if (isLogin){
                     //if this is the login sequence 
-                    if (!user.userTypes.includes(OWNER) && !user.userTypes.includes(MANAGER) ){
-                        // if the signed in user is not an owner or a manager
+                    if (!verifyUserHasTypeThatIsAllowedToLoginToDashboard(user.userTypes)){
+                        // if the signed in user is not an owner or a manager or accountant
                         return {success: false, code: USER_LOGIN_NOT_ALLOWED }
                     } else dispatch(setAuthenticatedUserIsAuthorized(true))
                 }
