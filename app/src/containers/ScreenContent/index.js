@@ -11,6 +11,7 @@ import * as actions from "../../actions";
 import styles from "./ScreenContent.module.css";
 
 import {logError} from '../../utils/errorHandling'
+import {getInstitutionIdFromUser} from '../../utils/users'
 
 export class ScreenContent extends Component {
 
@@ -30,7 +31,7 @@ export class ScreenContent extends Component {
         //save an institution and its centers
         const {actions, users} = this.props
         const authenticatedUser = users.usersById[users.authenticatedUserId]
-        const institutionId = authenticatedUser.owner.institutionIds[0]
+        const institutionId = getInstitutionIdFromUser(authenticatedUser)
         try {
             let response = await actions.fetchInstitution(institutionId)
             if (!response.success) throw new Error(`Something went wrong`)
