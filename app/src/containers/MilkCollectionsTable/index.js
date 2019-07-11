@@ -3,6 +3,8 @@ import React, {Component} from 'react'
 import {connect} from "react-redux"
 
 import DataTable from '../../components/DataTable'
+import {capitalizeFirstLetterOfAllWords, addCurrencySymbol} from '../../utils/formatting'
+
 export class MilkCollectionsTable extends Component{
 
     render(){
@@ -17,6 +19,10 @@ export class MilkCollectionsTable extends Component{
             <DataTable 
                 dataArray={dataArray}
                 fields={['supplierName', 'volumeInLitres', 'rateInShillings']}
+                fieldTransformFunctions={{
+                    supplierName: capitalizeFirstLetterOfAllWords,
+                    rateInShillings: addCurrencySymbol
+                }}
                 headings={{
                     supplierName: "Supplier Name",
                     volumeInLitres: "Volume (Litres)",

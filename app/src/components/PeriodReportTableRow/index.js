@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './PeriodReportTableRow.module.css'
 
 import {getIntegerRange} from '../../utils/numberHandling'
-import {numberToCommaSeparatedString} from '../../utils/formatting'
+import {numberToCommaSeparatedString, addCurrencySymbol} from '../../utils/formatting'
 import moment from 'moment'
 
 export default ({supplierId, milkCollectionsByDate = {}, periodStartDate, periodEndDate}) => {
@@ -31,8 +31,8 @@ export default ({supplierId, milkCollectionsByDate = {}, periodStartDate, period
         })
         }
         <td className={styles.cellBig}>{totalVolume}</td>
-        <td className={styles.cellBig}>{Math.trunc(avgPrice)} /=</td>
-        <td className={styles.cellBig}>{numberToCommaSeparatedString(Math.trunc(amount))} /=</td>
+        <td className={styles.cellBig}>{addCurrencySymbol(Math.trunc(avgPrice))}</td>
+        <td className={styles.cellBig}>{addCurrencySymbol(numberToCommaSeparatedString(Math.trunc(amount)))}</td>
     </tr>
     )
 }

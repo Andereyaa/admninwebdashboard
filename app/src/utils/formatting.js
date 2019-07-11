@@ -38,6 +38,8 @@ export const capitalizeFirstLetterOfAllWords = (string="") => {
     }, "") 
 }
 
+export const addCurrencySymbol = value => `${value} /=` //extend in the future if we support multiple currencies
+
 export const numberToCommaSeparatedString = (number, decimals, dec_point, thousands_sep) => {
     // http://kevin.vanzonneveld.net
     // +   original by: Jonas Raoni Soares Silva (http://www.jsfromhell.com)

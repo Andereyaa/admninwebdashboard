@@ -3,10 +3,9 @@ import React from 'react'
 import styles from './DataTableRow.module.css'
 
 import DataTableCell from './DataTableCell'
-import {capitalizeFirstLetterOfAllWords} from '../../utils/formatting'
 import ReactTooltip from 'react-tooltip'
 
-export default ({data, fields, even=false, error=null}) => {
+export default ({data, fields, fieldTransformFunctions, even=false, error=null}) => {
     if (!data) return null
     if(!fields) return null
 
@@ -15,10 +14,11 @@ export default ({data, fields, even=false, error=null}) => {
     const tooltipId = `tool-tip${data.id}`
 
     const getCells = () => {
-        return fields.map(field => <DataTableCell key={`${data.id}${field}`} value={data[field]}/>)
-        {/* <SuppliersTableCell value={capitalizeFirstLetterOfAllWords(supplier.supplierName)}/>
-            <SuppliersTableCell value={supplier.phoneNumber}/>
-            <SuppliersTableCell value={capitalizeFirstLetterOfAllWords(supplier.locationName)}/> */}
+        return fields.map(field => {
+            const transformFunction = fieldTransformFunctions[field] ? fieldTransformFunctions[field] : value => value
+            return <DataTableCell key={`${data.id}${field}`} value={transformFunction(data[field])}/>
+        })
+
     }
     return (
         <div 

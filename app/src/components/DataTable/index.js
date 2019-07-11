@@ -6,7 +6,8 @@ export default class DataTable extends Component {
 
     static defaultProps = {
         errors: {},
-        headings: {}
+        headings: {},
+        fieldTransformFunctions: {}
     }
     
     getHeader = () => {
@@ -25,13 +26,14 @@ export default class DataTable extends Component {
     }
 
     getRows = (dataArray) => {
-        const {errors, fields} = this.props
+        const {errors, fields, fieldTransformFunctions} = this.props
         return dataArray.map((data, index) => {
             const error = errors[data.id]
             return <DataTableRow
                     key={data.id}
                     data={data}
                     fields={fields}
+                    fieldTransformFunctions={fieldTransformFunctions}
                     even={((index % 2) > 0)}
                     error={error}
                 />
