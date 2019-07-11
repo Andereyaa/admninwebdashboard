@@ -3,6 +3,7 @@ import {logError} from '../utils/errorHandling'
 import {MAX_REQUEST_TIME} from '../constants/connectivity'
 import moment from "moment"
 import {v4 as uuid4} from 'uuid'
+import {getActiveUserType} from "../utils/users"
 
 export const SAVE_SUPPLIERS = 'SAVE_SUPPLIERS'
 
@@ -29,7 +30,7 @@ export const fetchAddSupplier = (supplierName, phoneNumber, locationName, suppli
             createdByUserName: `${user.firstName} ${user.lastName}`,
             createdAt: Date.now(),
             createdAtHumanReadable: currentMoment._d,
-            createdByUserType: "owner", //fixfor dynamic user types
+            createdByUserType: getActiveUserType(user.userTypes),
             createdOnBackendAt : firebase.firestore.FieldValue.serverTimestamp()
         }
         
