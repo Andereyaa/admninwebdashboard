@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import styles from './DataTable.module.css'
 import DataTableRow from './DataTableRow'
-
+import SortButton from '../SortButton'
 export default class DataTable extends Component {
 
     static defaultProps = {
@@ -18,6 +18,7 @@ export default class DataTable extends Component {
                 fields.map(
                     field => <div key={`${field}header`} className={styles.th}>
                                 {headings[field] ? headings[field] : field}
+                                <SortButton />
                             </div>
                 )
             }

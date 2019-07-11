@@ -1,0 +1,13 @@
+.container {
+    display: inline-flex;
+    flex-direction: column
+}
+
+.top svg  {
+    margin-top: 0;
+    margin-bottom: -13px;
+}
+
+.bottom  svg{
+    margin-top: -8px;
+}

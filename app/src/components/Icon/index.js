@@ -2,6 +2,8 @@ import React from 'react'
 import styles from './Icon.module.css'
 
 import ArrowBack from '@material-ui/icons/ArrowBack'
+import ArrowDrowDown from '@material-ui/icons/ArrowDropDown'
+import ArrowDrowUp from '@material-ui/icons/ArrowDropUp'
 import Business from '@material-ui/icons/Business'
 import DonutSmall from '@material-ui/icons/DonutSmall'
 import Group from '@material-ui/icons/Group'
@@ -29,6 +31,8 @@ export default ({icon="donut-small", customStyles={}}) => {
     let SelectedIcon = DonutSmall
     switch (icon) {
         case 'arrow-back': SelectedIcon = ArrowBack; break;
+        case 'arrow-drop-down' : SelectedIcon = ArrowDrowDown; break;
+        case 'arrow-drop-up' : SelectedIcon = ArrowDrowUp; break;
         case 'business': SelectedIcon = Business; break;
         case 'donut-small' : SelectedIcon = DonutSmall; break;
         case 'group' : SelectedIcon = Group; break;
