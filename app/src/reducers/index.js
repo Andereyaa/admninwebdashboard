@@ -1,5 +1,7 @@
 import {persistCombineReducers} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import {version} from "../config/release"
+
 import users from './users'
 import institution from './institution'
 import centers from './centers'
@@ -58,7 +60,7 @@ export const initialState = {
     },
     system: {
         name: "boresha dashboard",
-        version: "1.0.0",
+        version: version,
         isLoading: false
     }   
 };
