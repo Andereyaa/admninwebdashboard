@@ -6,7 +6,8 @@ export const countryList = [
         dialingCode: "+44",
         lengthOfPhoneNumberWithDialingCodeAndPlus: 13,
         live: false,
-        localNumbersHaveLeadingZero: true
+        localNumbersHaveLeadingZero: true,
+        timeZone: "Europe/London"
     },
     {
         id: "ke",
@@ -15,7 +16,8 @@ export const countryList = [
         dialingCode: "+254",
         lengthOfPhoneNumberWithDialingCodeAndPlus: 13,
         live: false,
-        localNumbersHaveLeadingZero: true
+        localNumbersHaveLeadingZero: true,
+        timeZone: "Africa/Nairobi"
     },
     {
         id: "ug",
@@ -24,7 +26,8 @@ export const countryList = [
         dialingCode: "+256",
         lengthOfPhoneNumberWithDialingCodeAndPlus: 13,
         live: true,
-        localNumbersHaveLeadingZero: true
+        localNumbersHaveLeadingZero: true,
+        timeZone: "Africa/Kampala"
     },
     {
         id:"us",
@@ -33,6 +36,7 @@ export const countryList = [
         dialingCode: "+1",
         lengthOfPhoneNumberWithDialingCodeAndPlus: 12,
         live: false,
-        localNumbersHaveLeadingZero: false
+        localNumbersHaveLeadingZero: false,
+        timeZone: "America/New_York"
     }
 ]
