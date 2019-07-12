@@ -35,7 +35,7 @@ export class DashboardDailyView extends Component {
         const {milkCollections} = this.props
         if(!milkCollections) return null
         const milkCollectionsArray = this.getMilkCollectionsForSelectedCenterAndDate()
-    
+        
         return (
             <Fragment>         
                 <CenterDateSelect value={date} onSelect={this.handleDateChange}/>

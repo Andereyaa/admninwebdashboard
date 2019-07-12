@@ -13,6 +13,10 @@ import LoadingScreen from '../../components/LoadingScreen'
 import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom'
 import {INDEX} from '../../constants/screenPathnames'
 
+import {logError} from '../../utils/errorHandling'
+import {configureScope} from '../../config/sentry'
+configureScope()
+
 export class App extends Component {
 
   componentWillMount(){
@@ -21,12 +25,16 @@ export class App extends Component {
     actions.setVersion()
     actions.saveCountries(countryList)
     actions.selectDefaultCountry("ug")
-    
   }
 
   componentWillUnmount(){
     const {actions} = this.props
     actions.toggleLoading(false)
+  }
+
+  componentDidCatch(error, errorInfo) {
+    //catch all crashes across the app
+    logError(error, errorInfo)
   }
 
   render(){
