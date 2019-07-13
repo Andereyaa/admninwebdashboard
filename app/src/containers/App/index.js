@@ -28,10 +28,16 @@ export class App extends Component {
       if(system.environment){
         //only do if the current environment is not set to null (it is set at all)
         actions.logout()
-        alert(`Logged out due to environment change from ${system.environment} to ${selectedEnvironment}`)
+        const logoutMessage = `Logged out due to environment change from ${system.environment} to ${selectedEnvironment}`
+        logError(logoutMessage)
+        alert(logoutMessage)
       }
     }
     actions.setEnvironment()
+    if(system.version !== version){
+      actions.logout()
+      alert(`Logged out due to upgrade from version ${system.version} to version ${version}`)
+    }
     actions.setVersion()
     actions.saveCountries(countryList)
     actions.selectDefaultCountry("ug")
