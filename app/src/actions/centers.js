@@ -95,7 +95,8 @@ export const fetchLoadCenter = (centerId) => {
         const selectedPeriod = periods.selectedId ? 
                                 periods.periodsById[periods.selectedId]
                                 : periods.periodsById[periods.periodIds[periods.periodIds.length - 1]]
-
+        
+        if (!selectedPeriod) return
         if ( 
             (!selectedPeriod.dateLoadedByCenterId[centerId]) || //if the data has not been loaded or 
             (selectedPeriod.dateLoadedByCenterId[centerId] < (Date.now() - DAY_IN_MILLISECONDS)) //the data was loaded more than 24 hours ago
