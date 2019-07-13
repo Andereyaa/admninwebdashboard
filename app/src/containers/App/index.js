@@ -15,12 +15,22 @@ import {INDEX} from '../../constants/screenPathnames'
 
 import {logError} from '../../utils/errorHandling'
 import {configureScope} from '../../config/sentry'
+import {version} from '../../config/release'
+import {selectedEnvironment} from '../../firebase/config'
+
 configureScope()
 
 export class App extends Component {
 
   componentWillMount(){
-    const {actions} = this.props
+    const {actions, system} = this.props
+    if(system.environment !== selectedEnvironment) {
+      if(system.environment){
+        //only do if the current environment is not set to null (it is set at all)
+        actions.logout()
+        alert(`Logged out due to environment change from ${system.environment} to ${selectedEnvironment}`)
+      }
+    }
     actions.setEnvironment()
     actions.setVersion()
     actions.saveCountries(countryList)
