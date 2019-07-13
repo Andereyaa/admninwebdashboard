@@ -14,6 +14,7 @@ const milkCollectionsReducer = (state = initialState.milkCollections, action = {
     let milkCollectionsById = {...state.milkCollectionsById}
     let milkCollectionIds = [...state.milkCollectionIds]
     let milkCollectionIdsBySupplierId = {...state.milkCollectionIdsBySupplierId}
+    let deletedMilkCollectionIds = {...state.deletedMilkCollectionIds} 
     let updatedState
 
     switch (type) {
@@ -22,33 +23,39 @@ const milkCollectionsReducer = (state = initialState.milkCollections, action = {
             return initialState.milkCollections;
 
         case types.SAVE_CENTER: {
-            let deletedMilkCollectionMap = payload.center.deletedMilkCollections ? payload.center.deletedMilkCollections : {}
+            let newDeletedMilkCollectionIds = payload.center.deletedMilkCollections ? payload.center.deletedMilkCollections : {}
+            deletedMilkCollectionIds = {...deletedMilkCollectionIds, ...newDeletedMilkCollectionIds}
+
             let milkCollections = payload.center.milkCollectionsToday ? Object.values(payload.center.milkCollectionsToday) : []
-            updatedState = addListOfMilkCollectionsToState(milkCollections, milkCollectionsById, milkCollectionIdsBySupplierId)
-            milkCollectionsById = Object.keys(updatedState.milkCollectionsById).reduce((milkCollections, milkCollectionId) => {
-                //remove all milk collections in the deleted map
-                if (!deletedMilkCollectionMap[milkCollectionId]) milkCollections[milkCollectionId] = updatedState.milkCollectionsById[milkCollectionId]
-                else {
-                    const supplierId = updatedState.milkCollectionsById[milkCollectionId].supplierId
-                    updatedState.milkCollectionIdsBySupplierId[supplierId] = updatedState.milkCollectionIdsBySupplierId[supplierId].filter((supplierMilkCollectionId) => supplierMilkCollectionId !== milkCollectionId)
-                }
-                return milkCollections
-            }, {})
-            return {
-                ...state,
-                milkCollectionIds: Object.keys(milkCollectionsById),
-                milkCollectionIdsBySupplierId: updatedState.milkCollectionIdsBySupplierId,
-                milkCollectionsById,
-            }
-        }
-        
-        case types.SAVE_MILK_COLLECTIONS: {
-            updatedState = addListOfMilkCollectionsToState(payload.milkCollections, milkCollectionsById, milkCollectionIdsBySupplierId)
+            
+            updatedState = addListOfMilkCollectionsToState(
+                milkCollections, 
+                milkCollectionsById, 
+                milkCollectionIdsBySupplierId,
+                deletedMilkCollectionIds
+            )
             return {
                 ...state,
                 milkCollectionIds: Object.keys(updatedState.milkCollectionsById),
                 milkCollectionIdsBySupplierId: updatedState.milkCollectionIdsBySupplierId,
-                milkCollectionsById: updatedState.milkCollectionsById
+                milkCollectionsById: updatedState.milkCollectionsById,
+                deletedMilkCollectionIds
+            }
+        }
+        
+        case types.SAVE_MILK_COLLECTIONS: {
+            updatedState = addListOfMilkCollectionsToState(
+                payload.milkCollections, 
+                milkCollectionsById, 
+                milkCollectionIdsBySupplierId,
+                deletedMilkCollectionIds
+            )
+            return {
+                ...state,
+                milkCollectionIds: Object.keys(updatedState.milkCollectionsById),
+                milkCollectionIdsBySupplierId: updatedState.milkCollectionIdsBySupplierId,
+                milkCollectionsById: updatedState.milkCollectionsById,
+                deletedMilkCollectionIds
             }
         }
 
@@ -57,7 +64,12 @@ const milkCollectionsReducer = (state = initialState.milkCollections, action = {
     }
 };
 
-const addListOfMilkCollectionsToState = (milkCollectionList, milkCollectionsById, milkCollectionIdsBySupplierId) => {
+const addListOfMilkCollectionsToState = (
+    milkCollectionList, 
+    milkCollectionsById, 
+    milkCollectionIdsBySupplierId,
+    deletedMilkCollectionIds
+) => {
     //save the list of milk collections from the server into state
         
     milkCollectionList.forEach(milkCollectionData => {
@@ -79,6 +91,16 @@ const addListOfMilkCollectionsToState = (milkCollectionList, milkCollectionsById
         }
 
     });
+
+    Object.keys(deletedMilkCollectionIds).forEach(deletedMilkCollectionId => {
+        //loop through the deleted milk collection ids and remove each one
+        const deletedMilkCollection = milkCollectionsById[deletedMilkCollectionId]
+        if (deletedMilkCollection){
+            milkCollectionIdsBySupplierId[deletedMilkCollection.supplierId] = milkCollectionIdsBySupplierId[deletedMilkCollection.supplierId].filter((supplierMilkCollectionId) => supplierMilkCollectionId !== deletedMilkCollectionId)
+            delete milkCollectionsById[deletedMilkCollectionId]
+        }
+    })
+
     return {milkCollectionsById, milkCollectionIdsBySupplierId}
 }
 

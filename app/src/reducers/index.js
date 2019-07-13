@@ -41,6 +41,7 @@ export const initialState = {
         milkCollectionsById: {},
         milkCollectionIdsBySupplierId: {},
         milkCollectionIds: [],
+        deletedMilkCollectionIds: {},
         selectedId: null
     },
     suppliers: {
