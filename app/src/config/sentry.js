@@ -8,6 +8,7 @@ import {selectedEnvironment} from "../firebase/config"
 
 import {configureStore } from "../store/configureStore"
 import moment from "moment"
+import {getMomentLocalToSelectedCountry} from "../utils/dateHandling"
 
 if (process.env.NODE_ENV === 'production') {
     Sentry.init({
@@ -28,7 +29,8 @@ export const configureScope  = () => {
             phoneNumber: user ? user.phoneNumber : "No Phone Number",
             email : user ? user.phoneNumber : "No Phone Number"
         });
-        scope.setExtra("localTime", moment().format("MMM DD, YY h:mm A Z"));
+        scope.setExtra("machineLocalTime", moment().format("MMM DD, YY h:mm A Z"));
+        scope.setExtra("localTime", getMomentLocalToSelectedCountry().format("MMM DD, YY h:mm A Z"))
         scope.setExtra("platform", system.name)
     });
 

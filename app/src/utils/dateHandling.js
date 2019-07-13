@@ -1,4 +1,6 @@
-import moment from "moment"
+import moment from "moment-timezone"
+import {configureStore} from '../store/configureStore'
+
 
 export const getLocalStartOfDayTimestamp = () => new Date().setHours(0, 0, 0, 0);
 
@@ -20,15 +22,15 @@ export const integerToOrdinalNumber = int => {
 export const ordinalNumberToInteger = ordinalNumberString => Number(ordinalNumberString.slice(0, -2))
 
 export const findPeriodRangeForDate = timestamp => {
-    const dateInRange = moment(timestamp)
+    const dateInRange = getMomentLocalToSelectedCountry(timestamp)
     const day = dateInRange.date()
     const periodRange = {}
     if (day <=15) { 
-        periodRange.startDate = moment([dateInRange.year(), dateInRange.month(), 1])
-        periodRange.endDate = moment([dateInRange.year(), dateInRange.month(), 15]).endOf('day')
+        periodRange.startDate = getMomentLocalToSelectedCountry([dateInRange.year(), dateInRange.month(), 1])
+        periodRange.endDate = getMomentLocalToSelectedCountry([dateInRange.year(), dateInRange.month(), 15]).endOf('day')
     } else {
-        periodRange.startDate = moment([dateInRange.year(), dateInRange.month(), 16])
-        periodRange.endDate = moment(dateInRange).endOf('month');
+        periodRange.startDate = getMomentLocalToSelectedCountry([dateInRange.year(), dateInRange.month(), 16])
+        periodRange.endDate = getMomentLocalToSelectedCountry(dateInRange).endOf('month');
     }
     return periodRange
 }
@@ -48,4 +50,17 @@ export const getPeriodsBetweenTwoDatesInclusive = (startDateTimestamp, endDateTi
         periods.push(nextPeriod)
     } while (!(nextPeriod.startDate.isSame(endPeriod.startDate, 'day')))
     return periods
+}
+
+export const getMomentLocalToSelectedCountry = (value = null) => {
+    // const store = configureStore()
+    // const {countries} = store.getState()
+    // const selectedCountry = countries.selectedId ? countries.countriesById[countries.selectedId] : countries.countriesById["ug"]
+    // return value ? momentTz.tz(value, selectedCountry.timeZone) : momentTz.tz(selectedCountry.timeZone)
+    
+    //TODO: figure out ho to make this work for multiple countries while getting around usage of store.getState()
+    //Error: You may not call store.getState() while the reducer is executing. The reducer has already received the state as an argument. Pass it down from the top reducer instead of reading it from the store.
+    //then the ^ will work 
+    const timeZone = "Africa/Kampala"
+    return value ? moment.tz(value, timeZone) : moment.tz(timeZone)
 }

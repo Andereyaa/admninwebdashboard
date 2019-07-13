@@ -2,14 +2,13 @@ import React, {Component} from "react"
 import styles from "./PeriodReportTable.module.css"
 
 import {connect} from "react-redux"
-import moment from "moment"
 
 import {COMPANY_NAME} from "../../constants/companyInfo"
 import PeriodReportTableRow from "../../components/PeriodReportTableRow"
 import Button from '../../components/Button'
 
 import {getIntegerRange} from '../../utils/numberHandling'
-import {integerToOrdinalNumber, findPeriodRangeForDate} from '../../utils/dateHandling'
+import {integerToOrdinalNumber, getMomentLocalToSelectedCountry} from '../../utils/dateHandling'
 import {capitalizeFirstLetterOfAllWords} from '../../utils/formatting'
 
 import xlsx from 'xlsx'
@@ -21,9 +20,9 @@ export class PeriodReportTable extends Component {
 
     getDateHeaderNamesForPeriod = () => {
         const {selectedPeriod} = this.props
-        const startDate = moment(selectedPeriod.startDate)
+        const startDate = getMomentLocalToSelectedCountry(selectedPeriod.startDate)
         //TODO revisit in tests across timezones to ensure dates do not cause crash -1 fix
-        const endDate = moment(selectedPeriod.endDate - 1)
+        const endDate = getMomentLocalToSelectedCountry(selectedPeriod.endDate - 1)
         const dayArray = getIntegerRange(startDate.date(), endDate.date())
         return dayArray.map(dayInteger => integerToOrdinalNumber(dayInteger))
     }
@@ -53,7 +52,7 @@ export class PeriodReportTable extends Component {
                             milkCollection.dateCollected <= selectedPeriod.endDate && 
                             milkCollection.centerId === centers.selectedId    
                         ){
-                            const dateCollected = moment(milkCollection.dateCollected)
+                            const dateCollected = getMomentLocalToSelectedCountry(milkCollection.dateCollected)
                             const day = dateCollected.date()
                             if (!milkCollectionsByDate[day]) milkCollectionsByDate[day] = []
                             milkCollectionsByDate[day].push(milkCollection)
@@ -75,7 +74,7 @@ export class PeriodReportTable extends Component {
         const {suppliers, milkCollections, centers, selectedPeriod, institution} = this.props
         const center = centers.centersById[centers.selectedId]
         const format = "Do MMMM YYYY"
-        const title = `${capitalizeFirstLetterOfAllWords(institution.institutionName)} - ${capitalizeFirstLetterOfAllWords(center.centerName)} Report - ${moment(selectedPeriod.startDate).format(format)} to ${moment(selectedPeriod.endDate).format(format)}`
+        const title = `${capitalizeFirstLetterOfAllWords(institution.institutionName)} - ${capitalizeFirstLetterOfAllWords(center.centerName)} Report - ${getMomentLocalToSelectedCountry(selectedPeriod.startDate).format(format)} to ${getMomentLocalToSelectedCountry(selectedPeriod.endDate).format(format)}`
         const workbook = xlsx.utils.book_new()
         workbook.Props = {
             Title: title,
@@ -119,7 +118,7 @@ export class PeriodReportTable extends Component {
                         {
                             //if the milk collection is in the right date range for the right center
                             //get the ordinal number as an index
-                            const dateCollected = moment(milkCollection.dateCollected)
+                            const dateCollected = getMomentLocalToSelectedCountry(milkCollection.dateCollected)
                             const ordinalNumber = integerToOrdinalNumber(dateCollected.date())
                             //add the volumeInLitres of the current milk collection to the day
                             dataRow[ordinalNumber] += milkCollection.volumeInLitres

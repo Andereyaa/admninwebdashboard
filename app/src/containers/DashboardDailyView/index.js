@@ -5,12 +5,12 @@ import MilkCollectionsTable from '../../containers/MilkCollectionsTable'
 import CenterDateSelect from '../../containers/CenterDateSelect'
 
 import {connect} from 'react-redux'
-import moment from 'moment'
+import {getMomentLocalToSelectedCountry} from '../../utils/dateHandling'
 
 export class DashboardDailyView extends Component {
 
     state = {
-        date: moment()
+        date: getMomentLocalToSelectedCountry()
     }
 
     handleDateChange = (date) => this.setState({date})
@@ -22,7 +22,7 @@ export class DashboardDailyView extends Component {
                     const milkCollection = milkCollections.milkCollectionsById[milkCollectionId]
                     if (
                         (milkCollection.centerId === centers.selectedId) &&
-                        (moment(milkCollection.dateCollected).isSame(date, 'day'))
+                        (getMomentLocalToSelectedCountry(milkCollection.dateCollected).isSame(date, 'day'))
                     ){
                         milkCollectionsArray.push(milkCollection)
                     }

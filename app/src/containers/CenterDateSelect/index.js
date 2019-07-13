@@ -5,11 +5,10 @@ import {bindActionCreators} from 'redux'
 import * as actions from "../../actions"
 
 import DatePicker from '../../components/DatePicker'
-import moment from 'moment'
 
 import {DAY_IN_MILLISECONDS} from '../../constants/time'
 import {capitalizeFirstLetterOfAllWords} from '../../utils/formatting'
-import {findPeriodRangeForDate} from '../../utils/dateHandling'
+import {findPeriodRangeForDate, getMomentLocalToSelectedCountry} from '../../utils/dateHandling'
 export class CenterDateSelect extends Component {
 
     constructor(props){
@@ -18,8 +17,8 @@ export class CenterDateSelect extends Component {
         const firstPeriodId = periods.periodIds[0]
         const firstPeriod = periods.periodsById[firstPeriodId]
         this.state = {
-            today: moment(),
-            registrationDate: moment(firstPeriod.startDate)
+            today: getMomentLocalToSelectedCountry(),
+            registrationDate: getMomentLocalToSelectedCountry(firstPeriod.startDate)
         }
     }
 

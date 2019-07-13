@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './PeriodPicker.module.css'
-import moment from 'moment'
+import {getMomentLocalToSelectedCountry} from "../../utils/dateHandling"
 
 export default ({periods, selectedId, onSelect=()=>{}}) => {
 
@@ -9,7 +9,7 @@ export default ({periods, selectedId, onSelect=()=>{}}) => {
             const {startDate, endDate} = period
             const formatString = "Do MMMM YYYY"
             return <option key={period.id} value={period.id}>
-                    {`${moment(startDate).format(formatString)} to ${moment(endDate).format(formatString)}`}
+                    {`${getMomentLocalToSelectedCountry(startDate).format(formatString)} to ${getMomentLocalToSelectedCountry(endDate).format(formatString)}`}
                     </option>
         })
     }

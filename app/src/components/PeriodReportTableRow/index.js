@@ -3,11 +3,11 @@ import styles from './PeriodReportTableRow.module.css'
 
 import {getIntegerRange} from '../../utils/numberHandling'
 import {numberToCommaSeparatedString, addCurrencySymbol} from '../../utils/formatting'
-import moment from 'moment'
+import {getMomentLocalToSelectedCountry} from "../../utils/dateHandling"
 
 export default ({supplierId, milkCollectionsByDate = {}, periodStartDate, periodEndDate}) => {
     //TODO revisit in tests across timezones to ensure dates do not cause crash -1 fix
-    const dayArray = getIntegerRange(moment(periodStartDate).date(), moment(periodEndDate - 1).date())
+    const dayArray = getIntegerRange(getMomentLocalToSelectedCountry(periodStartDate).date(), getMomentLocalToSelectedCountry(periodEndDate - 1).date())
     let totalVolume = 0
     let sumPrice = 0
     let milkCollectionCount = 0
