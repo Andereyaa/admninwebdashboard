@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import * as actions from '../../actions'
 import {connect} from "react-redux"
 import {bindActionCreators} from 'redux'
-import {DAY_IN_MILLISECONDS} from '../../constants/time'
+import {shouldLoadMilkCollectionsForCenter} from "../../utils/dataLoading"
 import PeriodPicker from '../../components/PeriodPicker'
 
 export class PeriodSelect extends Component {
@@ -13,10 +13,7 @@ export class PeriodSelect extends Component {
         const selectedPeriod = periods.periodsById[id]
         //if the data for this center has not been loaded before or it was last loaded
         //or it was last loaded over a day ago 
-        if (
-            !selectedPeriod.dateLoadedByCenterId[centers.selectedId] ||
-            selectedPeriod.dateLoadedByCenterId[centers.selectedId] < (Date.now() - DAY_IN_MILLISECONDS)
-        ){ 
+        if ( shouldLoadMilkCollectionsForCenter(selectedPeriod, periods, centers.selectedId)){ 
             actions.toggleLoading(true)
             const success = await actions.fetchMilkCollections(
                 centers.selectedId,

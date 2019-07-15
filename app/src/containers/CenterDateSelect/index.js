@@ -6,7 +6,7 @@ import * as actions from "../../actions"
 
 import DatePicker from '../../components/DatePicker'
 
-import {DAY_IN_MILLISECONDS} from '../../constants/time'
+import {shouldLoadMilkCollectionsForCenter} from "../../utils/dataLoading"
 import {capitalizeFirstLetterOfAllWords} from '../../utils/formatting'
 import {findPeriodRangeForDate, getMomentLocalToSelectedCountry} from '../../utils/dateHandling'
 export class CenterDateSelect extends Component {
@@ -28,10 +28,7 @@ export class CenterDateSelect extends Component {
         const periodId = momentPeriod.startDate.valueOf()
         const selectedPeriod = periods.periodsById[periodId]
         if (!selectedPeriod) return //TODO throw appropriate error here
-        if(
-            !selectedPeriod.dateLoadedByCenterId[centers.selectedId] ||
-            selectedPeriod.dateLoadedByCenterId[centers.selectedId] < (Date.now() - DAY_IN_MILLISECONDS)
-        ){
+        if( shouldLoadMilkCollectionsForCenter(selectedPeriod, periods, centers.selectedId)){
             actions.toggleLoading(true)
             await actions.fetchMilkCollections(centers.selectedId, selectedPeriod)
             actions.toggleLoading(false)

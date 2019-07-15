@@ -1,7 +1,7 @@
 import {firestore} from '../firebase'
 import {logError} from '../utils/errorHandling'
-import {DAY_IN_MILLISECONDS} from '../constants/time'
 import {fetchMilkCollections} from './milkCollections'
+import {shouldLoadMilkCollectionsForCenter} from "../utils/dataLoading"
 
 export const SAVE_CENTER = 'SAVE_CENTER'
 export const SELECT_CENTER = 'SELECT_CENTER'
@@ -94,13 +94,10 @@ export const fetchLoadCenter = (centerId) => {
 
         const selectedPeriod = periods.selectedId ? 
                                 periods.periodsById[periods.selectedId]
-                                : periods.periodsById[periods.periodIds[periods.periodIds.length - 1]]
+                                : periods.periodsById[periods.periodIds[periods.currentPeriodId]]
         
         if (!selectedPeriod) return
-        if ( 
-            (!selectedPeriod.dateLoadedByCenterId[centerId]) || //if the data has not been loaded or 
-            (selectedPeriod.dateLoadedByCenterId[centerId] < (Date.now() - DAY_IN_MILLISECONDS)) //the data was loaded more than 24 hours ago
-        ){
+        if ( shouldLoadMilkCollectionsForCenter(selectedPeriod,periods,centerId)){
             dispatch(fetchMilkCollections(centerId, selectedPeriod))
         }
     }
