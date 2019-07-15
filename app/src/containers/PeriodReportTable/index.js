@@ -98,7 +98,11 @@ export class PeriodReportTable extends Component {
         //TODO change this when suppliers from multiple centers can be in redux
         const startDateTimestamp = selectedPeriod.startDate
         const endDateTimestamp = selectedPeriod.endDate - 1
-        suppliers.supplierIds.forEach(supplierId => {
+        const supplierIdsForCenter = suppliers.supplierIds.filter( supplierId => {
+            const supplier = suppliers.suppliersById[supplierId]
+            return (supplier.createdByCenterId === centers.selectedId)
+        })
+        supplierIdsForCenter.forEach(supplierId => {
             const supplier = suppliers.suppliersById[supplierId]
             const dataRow = {[this.supplierHeaderName]: capitalizeFirstLetterOfAllWords(supplier.supplierName)}
             //set every date to the value 0
@@ -151,6 +155,12 @@ export class PeriodReportTable extends Component {
         const {suppliers, centers} = this.props
         if (!centers || !centers.selectedId) return null
         if (!suppliers) return null
+        const supplierIdsForCenter = suppliers.supplierIds.filter( supplierId => {
+            const supplier = suppliers.suppliersById[supplierId]
+            return (supplier.createdByCenterId === centers.selectedId)
+        }
+
+        )
         //TODO pull out suppliers by center from redux, need to keep all suppliers in state across center changes
         //temporarily use all suppliers as it works for now
         return (
@@ -164,7 +174,7 @@ export class PeriodReportTable extends Component {
                         <tr><th className={styles.supplierHeader}>{this.supplierHeaderName}</th></tr>
                     </thead>
                     <tbody>
-                    {suppliers.supplierIds.map(supplierId => <tr key={`${supplierId}SupplierRow` } className={styles.supplierRow}><td className={styles.supplierData}>{capitalizeFirstLetterOfAllWords(suppliers.suppliersById[supplierId].supplierName)}</td></tr>)}
+                    {supplierIdsForCenter.map(supplierId => <tr key={`${supplierId}SupplierRow` } className={styles.supplierRow}><td className={styles.supplierData}>{capitalizeFirstLetterOfAllWords(suppliers.suppliersById[supplierId].supplierName)}</td></tr>)}
                     </tbody>
                 </table>
                 <div className={styles.milkRecordTableContainer}>
@@ -176,7 +186,7 @@ export class PeriodReportTable extends Component {
                     </thead>
                     <tbody>
                     {
-                        this.getPeriodRows(suppliers.supplierIds)
+                        this.getPeriodRows(supplierIdsForCenter)
                     }
                     </tbody>
                 </table>
