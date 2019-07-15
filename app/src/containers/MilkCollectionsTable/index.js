@@ -12,7 +12,7 @@ export class MilkCollectionsTable extends Component{
         if (!milkCollectionsArray) return null
         const dataArray = milkCollectionsArray.map(milkCollection => {
             const supplier = suppliers.suppliersById[milkCollection.supplierId]
-            const supplierName = supplier ? supplier.supplierName : 'Deleted' 
+            const supplierName = supplier ? supplier.supplierName : 'N/A' 
             return {...milkCollection, supplierName: supplierName}
         })
         return (

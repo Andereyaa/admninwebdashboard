@@ -35,10 +35,11 @@ const suppliersReducer = (state = initialState.suppliers, action = {}) => {
 };
 
 const addListOfSuppliersToState = (supplierList, suppliersById) => {
-    const newSuppliersById = {}
+    const newSuppliersById = {...suppliersById}
     supplierList.forEach(supplierData => {
         //save suppliers object in redux, overwriting anything previously there
         //this ensures updates happen across phones
+        //TODO must now add new mechanism to handle deletions
         newSuppliersById[supplierData.id] = {
             ...suppliersById[supplierData.id],
             ...supplierData
