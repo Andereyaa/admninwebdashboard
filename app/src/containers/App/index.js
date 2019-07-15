@@ -23,6 +23,19 @@ configureScope()
 export class App extends Component {
 
   componentWillMount(){
+    const {_persist} = this.props
+    if (!_persist.rehydrated) return null
+    this.updateSystemParams()
+  }
+
+  componentDidUpdate(){
+    const {_persist} = this.props
+    if (_persist.rehydrated && !this.paramsUpdated) {
+      this.updateSystemParams()
+    }
+  }
+  
+  updateSystemParams = () => {
     const {actions, system} = this.props
     if(system.environment !== selectedEnvironment) {
       if(system.environment){
@@ -41,7 +54,10 @@ export class App extends Component {
     actions.setVersion()
     actions.saveCountries(countryList)
     actions.selectDefaultCountry("ug")
+    this.paramsUpdated = true
   }
+
+  
 
   componentWillUnmount(){
     const {actions} = this.props
@@ -54,7 +70,9 @@ export class App extends Component {
   }
 
   render(){
-    const {system} = this.props
+    const {system, _persist} = this.props
+    if (!_persist.rehydrated) return null
+    if (!this.paramsUpdated) return null
     return (
       <Fragment>
         <Router>
@@ -75,7 +93,8 @@ export class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  system: state.system
+  system: state.system,
+  _persist: state._persist
 })
 
 const mapDispatchToProps = dispatch => ({
