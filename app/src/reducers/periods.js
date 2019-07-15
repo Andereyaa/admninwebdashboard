@@ -5,9 +5,9 @@ import {getPeriodsBetweenTwoDatesInclusive} from '../utils/dateHandling'
 //STATE
 // periods: {
 //     periodsById: {},
-//     periodIdsLoaded
 //     periodIds: [],
-//     selectedId: null
+//     selectedId: null,
+//     currentPeriodId: null
 // }
 
 const periodsReducer = (state = initialState.periods, action = {}) => {
@@ -33,12 +33,14 @@ const periodsReducer = (state = initialState.periods, action = {}) => {
                 return periodsById
             }, {})
             const periodIds = Object.keys(periodsById)
-            const selectedId = state.selectedId ? state.selectedId : periodIds[periodIds.length - 1] 
+            const currentPeriodId = Number(periodIds[periodIds.length - 1])
+            const selectedId = state.selectedId ? state.selectedId : currentPeriodId 
             return {
                 ...state,
                 periodIds,
                 periodsById,
-                selectedId
+                selectedId,
+                currentPeriodId
             }
         }
 

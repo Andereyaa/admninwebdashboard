@@ -57,7 +57,8 @@ export const initialState = {
     periods: {
         periodsById: {},
         periodIds: [],
-        selectedId: null
+        selectedId: null,
+        currentPeriodId: null
     },
     system: {
         name: "boresha dashboard",
