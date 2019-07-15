@@ -12,7 +12,6 @@ import {initialState} from './index'
 const milkCollectionsReducer = (state = initialState.milkCollections, action = {}) => {
     const {type, payload} = action;
     let milkCollectionsById = {...state.milkCollectionsById}
-    let milkCollectionIds = [...state.milkCollectionIds]
     let milkCollectionIdsBySupplierId = {...state.milkCollectionIdsBySupplierId}
     let deletedMilkCollectionIds = {...state.deletedMilkCollectionIds} 
     let updatedState
@@ -100,7 +99,7 @@ const addListOfMilkCollectionsToState = (
             delete milkCollectionsById[deletedMilkCollectionId]
         }
     })
-
+    
     return {milkCollectionsById, milkCollectionIdsBySupplierId}
 }
 
