@@ -32,13 +32,18 @@ export class DashboardDailyView extends Component {
 
     render(){
         const {date} = this.state
-        const {milkCollections} = this.props
+        const {milkCollections, periods} = this.props
         if(!milkCollections) return null
         const milkCollectionsArray = this.getMilkCollectionsForSelectedCenterAndDate()
         
         return (
             <Fragment>         
-                <CenterDateSelect value={date} onSelect={this.handleDateChange}/>
+                {
+                    periods.currentPeriodId ?
+                    <CenterDateSelect value={date} onSelect={this.handleDateChange}/>
+                    :
+                    null
+                }
                 <DailyStatisticsPanel milkCollectionsArray={milkCollectionsArray}/>
                 <MilkCollectionsTable milkCollectionsArray={milkCollectionsArray}/>
             </Fragment>
@@ -48,6 +53,7 @@ export class DashboardDailyView extends Component {
 
 const mapStateToProps = state => ({
     centers: state.centers,
-    milkCollections: state.milkCollections
+    milkCollections: state.milkCollections,
+    periods: state.periods
 })
 export default connect(mapStateToProps)(DashboardDailyView)
