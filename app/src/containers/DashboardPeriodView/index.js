@@ -10,11 +10,13 @@ import { capitalizeFirstLetterOfAllWords } from '../../utils/formatting'
 export class DashboardPeriodView extends Component {
 
     getMilkCollectionsForSelectedCenterAndPeriod = (selectedCenter, selectedPeriod) => {
-        const { centers, milkCollections } = this.props
+        const {milkCollections } = this.props
 
         return milkCollections.milkCollectionIds.reduce((milkCollectionsArray, milkCollectionId) => {
             const milkCollection = milkCollections.milkCollectionsById[milkCollectionId]
-            if ((milkCollection.centerId === centers.selectedId) && true) {
+            if ((milkCollection.centerId === selectedCenter.id) && 
+                milkCollection.dateCollected >= selectedPeriod.startDate  &&
+                milkCollection.dateCollected < selectedPeriod.endDate ) {
                 milkCollectionsArray.push(milkCollection)
             }
             return milkCollectionsArray
