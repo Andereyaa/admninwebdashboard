@@ -10,8 +10,7 @@ export default ({options=[{text: '', value: ""}], selectedValue, onSelect=()=>{}
                     return <span 
                                 key={option.value}
                                 className={[styles.option, selectedStyle].join(" ")}
-                                onClick={() => onSelect(option.value)}
-                            >
+                                onClick={() => onSelect(option.value)}>
                                 {option.text}
                             </span>
                 })
