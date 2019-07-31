@@ -1,13 +1,14 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 
 import Switch from '../../components/Switch'
 import CenterSelect from '../../containers/CenterSelect'
 import CenterDropdown from '../../containers/CenterDropdown'
-import DashboardPeriodView from '../../containers/DashboardPeriodView' 
+import DashboardPeriodView from '../../containers/DashboardPeriodView'
 import DashboardDailyView from '../../containers/DashboardDailyView'
+import LastUpdateView from '../../containers/LastUpdateView'
 import styles from './Dashboard.module.css'
 
-import {connect} from "react-redux"
+import { connect } from "react-redux"
 
 class Dashboard extends Component {
 
@@ -15,39 +16,40 @@ class Dashboard extends Component {
         selectedViewOption: "daily"
     }
 
-    viewOptions=[{text: "Daily Milk Records", value:"daily"},{text: "Milk Records By Period", value: "period"}]
-    
-    handleSelectViewOption = selectedViewOption => this.setState({selectedViewOption}) 
+    viewOptions = [{ text: "Daily Milk Records", value: "daily" }, { text: "Milk Records By Period", value: "period" }]
 
-    render (){
-        const {selectedViewOption} = this.state
-        const {institution} = this.props
+    handleSelectViewOption = selectedViewOption => this.setState({ selectedViewOption })
+
+    render() {
+        const { selectedViewOption } = this.state
+        const { institution } = this.props
         return (
             <div className={styles.container}>
                 <div className={styles.centerSelect}>
                     <CenterSelect />
                 </div>
                 <div className={styles.centerDropdown}>
-                    <CenterDropdown/>
+                    <CenterDropdown />
                 </div>
-                <Switch options={this.viewOptions} 
-                        selectedValue={selectedViewOption} 
-                        onSelect={this.handleSelectViewOption}/>
+                <Switch options={this.viewOptions}
+                    selectedValue={selectedViewOption}
+                    onSelect={this.handleSelectViewOption} />
+                <LastUpdateView value={30} />
                 {
                     institution && institution.id ?
-                    <React.Fragment>
-                        {
-                            selectedViewOption === 'daily' ?
-                        <DashboardDailyView />
-                        :
-                        selectedViewOption === "period" ?
-                        <DashboardPeriodView />
+                        <React.Fragment>
+                            {
+                                selectedViewOption === 'daily' ?
+                                    <DashboardDailyView />
+                                    :
+                                    selectedViewOption === "period" ?
+                                        <DashboardPeriodView />
+                                        :
+                                        null
+                            }
+                        </React.Fragment>
                         :
                         null
-                        }
-                    </React.Fragment>
-                    :
-                    null
                 }
             </div>
         )
