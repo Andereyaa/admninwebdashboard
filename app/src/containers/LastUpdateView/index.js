@@ -5,16 +5,16 @@ import { getMinutesFromMoment } from '../../utils/dateHandling'
 import { connect } from "react-redux"
 
 class LastUpdateView extends Component {
+    
 
     state = {}
 
     render() {
         const { centers, periods } = this.props
         if (!centers.selectedId) //bug when centers.selectedId is not set before this code executes
-            return
+            return null
 
         const minutesAgo = getMinutesFromMoment(Date.now() - (periods.periodsById[periods.currentPeriodId]).dateLoadedByCenterId[centers.selectedId])
-        console.log('Minutes Ago', minutesAgo)
 
         return (
             minutesAgo > 1 ?
