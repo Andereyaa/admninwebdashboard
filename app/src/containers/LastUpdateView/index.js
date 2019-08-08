@@ -1,20 +1,28 @@
 import React, { Component } from 'react'
 import styles from './LastUpdateView.module.css'
+import { getMinutesFromMoment } from '../../utils/dateHandling'
 
 import { connect } from "react-redux"
 
 class LastUpdateView extends Component {
 
-    state={}
-    
+    state = {}
+
     render() {
         const { centers, periods } = this.props
-        // Date.now() - (periods.periodsById[periods.currentPeriodId]).dateLoadedByCenterId[centers.selectedId]
+        if (!centers.selectedId) //bug when centers.selectedId is not set before this code executes
+            return
+
+        const minutesAgo = getMinutesFromMoment(Date.now() - (periods.periodsById[periods.currentPeriodId]).dateLoadedByCenterId[centers.selectedId])
+        console.log('Minutes Ago', minutesAgo)
 
         return (
-            <div className={styles.container}>
-                <spa>Data Last Updated {Date.now() - (periods.periodsById[periods.currentPeriodId]).dateLoadedByCenterId[centers.selectedId]} minutes ago ....</spa>
-            </div>
+            minutesAgo > 1 ?
+                <div className={styles.container}>
+                    <span>Data Last Updated {minutesAgo} minutes ago ....</span>
+                </div>
+                :
+                null
         )
     }
 }

@@ -64,3 +64,7 @@ export const getMomentLocalToSelectedCountry = (value = null) => {
     const timeZone = "Africa/Kampala"
     return value ? moment.tz(value, timeZone) : moment.tz(timeZone)
 }
+
+export const getMinutesFromMoment = timestamp => {
+    return moment(timestamp).format('m')
+}
