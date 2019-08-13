@@ -1,8 +1,31 @@
 .container {
-    width: 100%;
+    width: fit-content;
+    padding: 4px;
     display: flex;
+    float: right;
     justify-content: space-evenly;
     border-radius: 50em;
     overflow: hidden;
-    background-color: #999999;
+    background-color: var(--light-grey);
+    color: var(--disabled-text);
+    -webkit-animation: fadein 300s;
+    animation: fadein 300s;
+}
+
+@-webkit-keyframes fadein {
+    from {
+        opacity: -1;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadein {
+    from {
+        opacity: -1;
+    }
+    to {
+        opacity: 1;
+    }
 }

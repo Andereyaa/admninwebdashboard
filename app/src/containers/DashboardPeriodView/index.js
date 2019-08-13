@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 
 import PeriodSelect from '../../containers/PeriodSelect'
 import PeriodReportTable from '../../containers/PeriodReportTable'
@@ -30,7 +30,7 @@ export class DashboardPeriodView extends Component {
         const milkCollectionsArray = this.getMilkCollectionsForSelectedCenterAndPeriod(selectedCenter, selectedPeriod)
 
         return (
-            <div>
+            <Fragment>
                 {
                     selectedCenter ?
                         <div>
@@ -48,7 +48,7 @@ export class DashboardPeriodView extends Component {
                         :
                         null
                 }
-            </div>
+            </Fragment>
         )
     }
 }

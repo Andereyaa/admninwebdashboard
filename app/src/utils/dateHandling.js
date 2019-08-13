@@ -1,7 +1,6 @@
 import moment from "moment-timezone"
 import {configureStore} from '../store/configureStore'
 
-
 export const getLocalStartOfDayTimestamp = () => new Date().setHours(0, 0, 0, 0);
 
 export const integerToOrdinalNumber = int => {
@@ -65,6 +64,4 @@ export const getMomentLocalToSelectedCountry = (value = null) => {
     return value ? moment.tz(value, timeZone) : moment.tz(timeZone)
 }
 
-export const getMinutesFromMoment = timestamp => {
-    return moment(timestamp).format('m')
-}
+export const getMinutesFromMoment = timestamp => moment(timestamp).format('m')
