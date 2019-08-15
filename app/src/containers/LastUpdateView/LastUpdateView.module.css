@@ -1,6 +1,7 @@
 .container {
     width: fit-content;
-    padding: 4px;
+    padding: 4px 8px;
+    font-size: var(--small-font);
     display: flex;
     float: right;
     justify-content: space-evenly;

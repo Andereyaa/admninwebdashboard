@@ -27,7 +27,7 @@ class LastUpdateView extends Component {
 
         return (
             <div className={styles.container} style={{visibility: (minutesAgo > 1 ? 'visible' : 'hidden') }}>
-                <span>Data Last Updated {minutesAgo} minutes ago ....</span>
+                <span>Data Last Updated {minutesAgo} minutes ago</span>
             </div>
         )
     }
