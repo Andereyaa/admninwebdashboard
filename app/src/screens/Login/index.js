@@ -11,12 +11,12 @@ import {connect} from "react-redux"
 import {bindActionCreators} from "redux";
 
 import { Redirect } from 'react-router-dom';
-import ReactGA from 'react-ga';
+import {trackPageView} from "../../config/googleAnalytics"
 
 export class Login extends Component {
 
     componentDidMount(){
-        ReactGA.pageview(this.props.match.path);
+        trackPageView(this.props.match.path);
     }
 
     authenticate = async (email, password) => {

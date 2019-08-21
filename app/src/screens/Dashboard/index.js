@@ -6,8 +6,7 @@ import CenterDropdown from '../../containers/CenterDropdown'
 import DashboardPeriodView from '../../containers/DashboardPeriodView' 
 import DashboardDailyView from '../../containers/DashboardDailyView'
 import styles from './Dashboard.module.css'
-import ReactGA from 'react-ga';
-
+import {trackPageView} from "../../config/googleAnalytics"
 import {connect} from "react-redux"
 
 class Dashboard extends Component {
@@ -17,7 +16,7 @@ class Dashboard extends Component {
     }
 
     componentDidMount(){
-        ReactGA.pageview("/dashboard");
+        trackPageView("/dashboard");
     }
 
     viewOptions=[{text: "Daily Milk Records", value:"daily"},{text: "Milk Records By Period", value: "period"}]

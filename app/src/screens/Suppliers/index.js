@@ -11,7 +11,7 @@ import CenterDropdown from '../../containers/CenterDropdown'
 
 import Button from '../../components/Button'
 import SupplierImportModal from '../../containers/SupplierImportModal'
-import ReactGA from 'react-ga';
+import {trackPageView} from "../../config/googleAnalytics"
 
 export class Suppliers extends Component {
 
@@ -20,7 +20,7 @@ export class Suppliers extends Component {
     }
 
     componentDidMount(){
-        ReactGA.pageview(this.props.match.path);
+        trackPageView(this.props.match.path);
     }
 
     handleOpenModal = () => this.setState({supplierImportModalIsOpen: true})
