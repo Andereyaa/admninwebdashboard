@@ -9,6 +9,7 @@ import DatePicker from '../../components/DatePicker'
 import {shouldLoadMilkCollectionsForCenter} from "../../utils/dataLoading"
 import {capitalizeFirstLetterOfAllWords} from '../../utils/formatting'
 import {findPeriodRangeForDate, getMomentLocalToSelectedCountry} from '../../utils/dateHandling'
+import {trackEvent} from "../../config/googleAnalytics"
 export class CenterDateSelect extends Component {
 
     constructor(props){
@@ -23,7 +24,7 @@ export class CenterDateSelect extends Component {
     }
 
     handleSelect = async date => {
-        const {onSelect, periods, centers, actions} = this.props
+        const {onSelect, periods, centers, actions, institution} = this.props
         const momentPeriod = findPeriodRangeForDate(date.valueOf())
         const periodId = momentPeriod.startDate.valueOf()
         const selectedPeriod = periods.periodsById[periodId]
@@ -34,6 +35,12 @@ export class CenterDateSelect extends Component {
             actions.toggleLoading(false)
         }
         onSelect(date)
+        const center = centers.centersById[centers.selectedId]
+        trackEvent(
+            'Data Consumption',
+            'Selected Date',
+            `Selected Date ${date.format("Do MMMM YYYY")} for center "${center.centerName}" at Institution "${institution.institutionName}"`
+        );
     }
 
     render(){
@@ -61,7 +68,8 @@ export class CenterDateSelect extends Component {
 
 const mapStateToProps = state => ({
     centers: state.centers,
-    periods: state.periods
+    periods: state.periods,
+    institution: state.institution
 });
 
 const mapDispatchToProps = dispatch => ({
