@@ -6,6 +6,7 @@ import CenterDropdown from '../../containers/CenterDropdown'
 import DashboardPeriodView from '../../containers/DashboardPeriodView' 
 import DashboardDailyView from '../../containers/DashboardDailyView'
 import styles from './Dashboard.module.css'
+import ReactGA from 'react-ga';
 
 import {connect} from "react-redux"
 
@@ -13,6 +14,10 @@ class Dashboard extends Component {
 
     state = {
         selectedViewOption: "daily"
+    }
+
+    componentDidMount(){
+        ReactGA.pageview("/dashboard");
     }
 
     viewOptions=[{text: "Daily Milk Records", value:"daily"},{text: "Milk Records By Period", value: "period"}]

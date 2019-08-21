@@ -11,8 +11,13 @@ import {connect} from "react-redux"
 import {bindActionCreators} from "redux";
 
 import { Redirect } from 'react-router-dom';
+import ReactGA from 'react-ga';
 
 export class Login extends Component {
+
+    componentDidMount(){
+        ReactGA.pageview(this.props.match.path);
+    }
 
     authenticate = async (email, password) => {
         const {actions} = this.props

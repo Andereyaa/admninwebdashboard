@@ -11,11 +11,16 @@ import CenterDropdown from '../../containers/CenterDropdown'
 
 import Button from '../../components/Button'
 import SupplierImportModal from '../../containers/SupplierImportModal'
+import ReactGA from 'react-ga';
 
 export class Suppliers extends Component {
 
     state = {
         supplierImportModalIsOpen: false
+    }
+
+    componentDidMount(){
+        ReactGA.pageview(this.props.match.path);
     }
 
     handleOpenModal = () => this.setState({supplierImportModalIsOpen: true})
