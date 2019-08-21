@@ -5,12 +5,13 @@ import {connect} from "react-redux"
 import {bindActionCreators} from "redux";
 import * as actions from "../../actions";
 
+import {trackEvent} from "../../config/googleAnalytics"
 import styles from './CenterSelect.module.css'
 
 export class CenterSelect extends Component {
     
     handleSelectCenter = async id => {
-        const {centers, actions} = this.props
+        const {centers, institution, actions} = this.props
         if (centers.selectedId && (centers.selectedId !== id)){
             actions.unsubscribeFromCenter(centers.selectedId)
         }
@@ -18,6 +19,12 @@ export class CenterSelect extends Component {
         actions.toggleLoading(true)
         await actions.fetchLoadCenter(id)
         actions.toggleLoading(false)
+        const center = centers.centersById[id]   
+        trackEvent(
+            'Data Consumption',
+            'Selected Center',
+            `Selected Center "${center.centerName}" at Institution "${institution.institutionName}"`
+        );
     }
 
     getCenterTileForEachCenter = () => {
@@ -48,7 +55,8 @@ export class CenterSelect extends Component {
 }
 
 const mapStateToProps = state => ({
-    centers: state.centers
+    centers: state.centers,
+    institution: state.institution
 });
 
 const mapDispatchToProps = dispatch => ({
