@@ -17,6 +17,7 @@ import {logError} from '../../utils/errorHandling'
 import {configureScope} from '../../config/sentry'
 import {version} from '../../config/release'
 import {selectedEnvironment} from '../../firebase/config'
+import {initializeReactGA} from '../../config/googleAnalytics'
 
 configureScope()
 
@@ -25,16 +26,23 @@ export class App extends Component {
   componentWillMount(){
     const {_persist} = this.props
     if (!_persist.rehydrated) return null
+    this.configureApp()
     this.updateSystemParams()
   }
 
   componentDidUpdate(){
     const {_persist} = this.props
     if (_persist.rehydrated && !this.paramsUpdated) {
+      this.configureApp()
       this.updateSystemParams()
     }
   }
   
+  configureApp = () => {
+    const {users} = this.props
+    const user = users.authenticatedUserId ? users.usersById[users.authenticatedUserId] : null
+    initializeReactGA(user)
+  }
   updateSystemParams = () => {
     const {actions, system} = this.props
     if(system.environment !== selectedEnvironment) {
@@ -94,7 +102,8 @@ export class App extends Component {
 
 const mapStateToProps = state => ({
   system: state.system,
-  _persist: state._persist
+  _persist: state._persist,
+  users: state.users
 })
 
 const mapDispatchToProps = dispatch => ({
