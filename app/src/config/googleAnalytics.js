@@ -15,14 +15,14 @@ export const initializeReactGA = user => {
 
 export const trackPageView = url => {
     if (!url) return
-    if (selectedEnvironment === DEVELOPMENT) {
+    if (selectedEnvironment === PRODUCTION) {
         ReactGA.pageview(url);
     } else console.log(`Untracked page view of ${url} in ${selectedEnvironment}`)
 }
 
 export const trackEvent = (category, action, label) => {
     if (!(category && action && label)) return
-    if (selectedEnvironment === DEVELOPMENT) {
+    if (selectedEnvironment === PRODUCTION) {
         ReactGA.event({
             category,
             action,
@@ -33,7 +33,5 @@ export const trackEvent = (category, action, label) => {
 
 export const setUser = userId => {
     if (!userId ) return 
-    if (selectedEnvironment === DEVELOPMENT){
-        ReactGA.set({userId})
-    }
+    ReactGA.set({userId})
 }
