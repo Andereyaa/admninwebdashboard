@@ -30,3 +30,10 @@ export const trackEvent = (category, action, label) => {
         });
     } else console.log(`Untracked event category: ${category}, action: ${action}, label: ${label}, in ${selectedEnvironment}`)
 }
+
+export const setUser = userId => {
+    if (!userId ) return 
+    if (selectedEnvironment === DEVELOPMENT){
+        ReactGA.set({userId})
+    }
+}

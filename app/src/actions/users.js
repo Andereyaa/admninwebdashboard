@@ -3,6 +3,7 @@ import {USER_LOGIN_NOT_ALLOWED} from '../constants/errors'
 import {logError} from '../utils/errorHandling'
 
 import {verifyUserHasTypeThatIsAllowedToLoginToDashboard} from "../utils/users"
+import {setUser, trackEvent} from "../config/googleAnalytics"
 
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
@@ -19,6 +20,7 @@ export const login = (id) => {
 };
 
 export const logout = () => {
+    setUser("Not Logged In")
     return {
         type: LOGOUT,
         payload: {}
@@ -51,6 +53,7 @@ export const fetchLogin = (email, password) => {
     return dispatch => firebase.auth().signInWithEmailAndPassword(email, password)
         .then(auth => {
             dispatch(login(auth.user.uid));
+            setUser(auth.user.uid)
             return {success: true, userId: auth.user.uid}
         })
         .catch(error => {
@@ -81,6 +84,11 @@ export const fetchUser = (userId, isLogin = false) => {
                         return {success: false, code: USER_LOGIN_NOT_ALLOWED }
                     } else dispatch(setAuthenticatedUserIsAuthorized(true))
                 }
+                trackEvent(
+                    'Platform Usage',
+                    'Login',
+                    `User ${userId}" logged in`
+                )
                 return {success: true}
             }
         )
