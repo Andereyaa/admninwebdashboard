@@ -13,21 +13,24 @@ export const initializeReactGA = user => {
     });
 }
 
+const verifyUrlIsNotHiddenProduction = () => window.location.href && !window.location.href.includes(".web.app")
 export const trackPageView = url => {
     if (!url) return
-    if (selectedEnvironment === PRODUCTION) {
-        ReactGA.pageview(url);
+    if (selectedEnvironment === PRODUCTION ) {
+        if (verifyUrlIsNotHiddenProduction()) ReactGA.pageview(url);
+        else console.log(`Untracked page view on ${url} in ${selectedEnvironment} on hidden url ${window.location.href}`)
     } else console.log(`Untracked page view of ${url} in ${selectedEnvironment}`)
 }
 
 export const trackEvent = (category, action, label) => {
     if (!(category && action && label)) return
     if (selectedEnvironment === PRODUCTION) {
-        ReactGA.event({
-            category,
-            action,
-            label
-        });
+        if (verifyUrlIsNotHiddenProduction()) ReactGA.event({
+                                                                category,
+                                                                action,
+                                                                label
+                                                            });
+        else console.log(`Untracked event category: ${category}, action: ${action}, label: ${label}, in ${selectedEnvironment} on hidden url ${window.location.href}`)
     } else console.log(`Untracked event category: ${category}, action: ${action}, label: ${label}, in ${selectedEnvironment}`)
 }
 
