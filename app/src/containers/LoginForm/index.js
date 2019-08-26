@@ -83,6 +83,8 @@ export class LoginForm extends Component {
             return false
         }
     }
+
+    handleForgotPassword = () => alert("Please contact the Boresha Team via your Whatsapp Support Group to get a reminder")
     render (){
         const {phoneNumber, password, errors, countryId} = this.state 
         const {countries} = this.props
@@ -118,7 +120,7 @@ export class LoginForm extends Component {
                     />
                     </div>
                 </div>
-                <Link text="Forgot your password?"/>
+                <Link text="Forgot your password?" onClick={this.handleForgotPassword}/>
             </div>
         )
     }

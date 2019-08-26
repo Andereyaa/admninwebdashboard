@@ -12,6 +12,7 @@ import {integerToOrdinalNumber, getMomentLocalToSelectedCountry} from '../../uti
 import {capitalizeFirstLetterOfAllWords} from '../../utils/formatting'
 
 import xlsx from 'xlsx'
+import {trackEvent} from "../../config/googleAnalytics"
 
 export class PeriodReportTable extends Component {
 
@@ -149,6 +150,11 @@ export class PeriodReportTable extends Component {
         const worksheet = xlsx.utils.json_to_sheet(data, {header})
         workbook.Sheets["Period Report"] = worksheet
         xlsx.writeFile(workbook, `${title}.xlsx`)
+        trackEvent(
+            'Reconciliation',
+            'Downloaded Report',
+            `${title}.xlsx`
+        );
     } 
 
     render(){

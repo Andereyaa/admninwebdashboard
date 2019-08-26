@@ -7,8 +7,8 @@ import DashboardPeriodView from '../../containers/DashboardPeriodView'
 import DashboardDailyView from '../../containers/DashboardDailyView'
 import LastUpdateView from '../../containers/LastUpdateView'
 import styles from './Dashboard.module.css'
-
-import { connect } from "react-redux"
+import {trackPageView, trackEvent} from "../../config/googleAnalytics"
+import {connect} from "react-redux"
 
 class Dashboard extends Component {
 
@@ -16,7 +16,22 @@ class Dashboard extends Component {
         selectedViewOption: "daily"
     }
 
-    viewOptions = [{ text: "Daily Milk Records", value: "daily" }, { text: "Milk Records By Period", value: "period" }]
+    componentDidMount(){
+        trackPageView("/dashboard");
+    }
+
+    viewOptions=[{text: "Daily Milk Records", value:"daily"},{text: "Milk Records By Period", value: "period"}]
+    
+    handleSelectViewOption = selectedViewOption => {
+        const {institution, centers} = this.props
+        const center = centers.centersById[centers.selectedId]
+        this.setState({selectedViewOption}) 
+        trackEvent(
+            'Data Consumption',
+            'Changed Milk Record View',
+            `Selected Milk Record View "${selectedViewOption}" at Institution "${institution.institutionName}" for center ${center.centerName}`
+        )
+    }
 
     handleSelectViewOption = selectedViewOption => this.setState({ selectedViewOption })
 
@@ -57,7 +72,8 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = state => ({
-    institution: state.institution
+    institution: state.institution,
+    centers: state.centers
 })
 
 export default connect(mapStateToProps)(Dashboard)

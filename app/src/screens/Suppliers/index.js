@@ -11,11 +11,16 @@ import CenterDropdown from '../../containers/CenterDropdown'
 
 import Button from '../../components/Button'
 import SupplierImportModal from '../../containers/SupplierImportModal'
+import {trackPageView} from "../../config/googleAnalytics"
 
 export class Suppliers extends Component {
 
     state = {
         supplierImportModalIsOpen: false
+    }
+
+    componentDidMount(){
+        trackPageView(this.props.match.path);
     }
 
     handleOpenModal = () => this.setState({supplierImportModalIsOpen: true})
