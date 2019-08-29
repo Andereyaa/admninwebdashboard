@@ -3,6 +3,7 @@ import React, {Component, Fragment} from 'react'
 import DailyStatisticsPanel from '../../containers/DailyStatisticsPanel'
 import MilkCollectionsTable from '../../containers/MilkCollectionsTable'
 import CenterDateSelect from '../../containers/CenterDateSelect'
+import SupplierTable from '../../containers/SuppliersTable'
 
 import {connect} from 'react-redux'
 import {getMomentLocalToSelectedCountry} from '../../utils/dateHandling'
@@ -30,12 +31,27 @@ export class DashboardDailyView extends Component {
                 }, [])
     }
 
+    getAbsentSuppliersForSelectedCenterAndDate = (milkCollectionsForSelectedCenterAndDate) => {
+        const {suppliers, centers} = this.props
+        const presentSupplierIdsArray = milkCollectionsForSelectedCenterAndDate.map(milkCollection => milkCollection.supplierId)
+        const absentSuppliersIdsArray = suppliers.supplierIds.filter(supplierId => !presentSupplierIdsArray.includes(supplierId))
+        return absentSuppliersIdsArray.reduce((absentSuppliersArray, supplierId)=>{
+            const supplier = suppliers.suppliersById[supplierId]
+            if(supplier.createdByCenterId === centers.selectedId){
+                absentSuppliersArray.push(supplier)
+            }
+            return absentSuppliersArray
+        },[])
+    }
+
     render(){
         const {date} = this.state
         const {milkCollections, periods} = this.props
         if(!milkCollections) return null
         const milkCollectionsArray = this.getMilkCollectionsForSelectedCenterAndDate()
         
+        const absentSuppliersArray = this.getAbsentSuppliersForSelectedCenterAndDate(milkCollectionsArray)
+
         return (
             <Fragment>         
                 {
@@ -46,6 +62,12 @@ export class DashboardDailyView extends Component {
                 }
                 <DailyStatisticsPanel milkCollectionsArray={milkCollectionsArray}/>
                 <MilkCollectionsTable milkCollectionsArray={milkCollectionsArray}/>
+                <div>
+                    <div style={{'width':'99.9%','background':'var(--accent)','color':'var(--white)','padding':'3px 3px 3px 6px'}}>
+                        Absent Suppliers Today: <strong>{absentSuppliersArray.length}</strong>
+                    </div>
+                    <SupplierTable suppliersArray={absentSuppliersArray}/>
+                </div>
             </Fragment>
         )
     }
@@ -54,6 +76,7 @@ export class DashboardDailyView extends Component {
 const mapStateToProps = state => ({
     centers: state.centers,
     milkCollections: state.milkCollections,
-    periods: state.periods
+    periods: state.periods,
+    suppliers: state.suppliers
 })
 export default connect(mapStateToProps)(DashboardDailyView)

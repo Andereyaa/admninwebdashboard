@@ -10,24 +10,35 @@ class LastUpdateView extends Component {
     }
 
     componentDidMount() {
-        this.interval = setInterval(() => this.setState({ time: Date.now() }), 1000);
+        this.interval = setInterval(() => this.setState({ time: Date.now() }), 10000);
     }
 
     componentWillUnmount() {
         clearInterval(this.interval);
     }
 
+    resolveAgeOfData = (minutesAgo) => {
+        if(minutesAgo < 59){
+            return `${minutesAgo} minutes ago`
+        }else if (minutesAgo >= 60 && minutesAgo < (60 * 24)){
+            return `${Math.round(minutesAgo/60)} hour${Math.round(minutesAgo/60) > 1 ? 's':''}`
+        }else if(minutesAgo > (60*24)){
+            return `${Math.round(minutesAgo/(60 *24))} day${Math.round(minutesAgo/(60 *24)) > 1 ? 's' : ''}`
+    }
+}
+
     render() {
         const { time } = this.state
         const { centers, periods } = this.props
-        if (!centers.selectedId) //bug when centers.selectedId is not set before this code executes
+        if (!centers.selectedId || !periods.selectedId)
             return null
 
-        const minutesAgo = moment(time - (periods.periodsById[periods.currentPeriodId]).dateLoadedByCenterId[centers.selectedId]).format('m')
-
+        let minutesAgo = moment(time - (periods.periodsById[periods.currentPeriodId]).dateLoadedByCenterId[centers.selectedId]).format('m')
         return (
-            <div className={styles.container} style={{visibility: (minutesAgo > 1 ? 'visible' : 'hidden') }}>
-                <span>Data Last Updated {minutesAgo} minutes ago</span>
+            <div className={styles.container} style={{visibility: (minutesAgo > 5 ? 'visible' : 'hidden') }}>
+                <span>
+                    Data Last Updated over {this.resolveAgeOfData(minutesAgo)} ago
+                </span>
             </div>
         )
     }
