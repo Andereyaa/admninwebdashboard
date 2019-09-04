@@ -61,15 +61,29 @@ export class DashboardDailyView extends Component {
                     null
                 }
                 <DailyStatisticsPanel milkCollectionsArray={milkCollectionsArray}/>
-                <MilkCollectionsTable milkCollectionsArray={milkCollectionsArray}/>
                 <div>
-                    <div style={{'width':'99.9%','background':'var(--accent)','color':'var(--white)','padding':'3px 3px 3px 6px'}}>
+                <div style={styles.tableTitle}>
+                        Milk Records Today: <strong>{milkCollectionsArray.length}</strong>
+                    </div>
+                    <MilkCollectionsTable milkCollectionsArray={milkCollectionsArray}/>
+                </div>
+                <div>
+                    <div style={styles.tableTitle}>
                         Absent Suppliers Today: <strong>{absentSuppliersArray.length}</strong>
                     </div>
                     <SupplierTable suppliersArray={absentSuppliersArray}/>
                 </div>
             </Fragment>
         )
+    }
+}
+
+const styles = {
+    tableTitle: {
+        'width':'99.9%',
+        'color':'var(--primary)',
+        'padding':'3px 3px 3px 6px',
+        'font-size': 'var(--title-font)'
     }
 }
 

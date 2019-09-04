@@ -69,7 +69,7 @@ const addListOfMilkCollectionsToState = (
     milkCollectionIdsBySupplierId,
     deletedMilkCollectionIds
 ) => {
-    //save the list of milk collections from the server into state
+    //save the list of milk records from the server into state
         
     milkCollectionList.forEach(milkCollectionData => {
         //save milk collection object in redux, overwriting anything previously there
@@ -84,7 +84,7 @@ const addListOfMilkCollectionsToState = (
             milkCollectionIdsBySupplierId[milkCollectionData.supplierId] = [milkCollectionData.id]
         } else { //if we already have an id for this supplier
             if (!milkCollectionIdsBySupplierId[milkCollectionData.supplierId].includes(milkCollectionData.id)){
-                //if the suppliers list of milk collections does not include the current one, add it to the list
+                //if the suppliers list of milk records does not include the current one, add it to the list
                 milkCollectionIdsBySupplierId[milkCollectionData.supplierId].push(milkCollectionData.id)
             }
         }

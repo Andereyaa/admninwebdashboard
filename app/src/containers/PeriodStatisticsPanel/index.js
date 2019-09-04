@@ -54,7 +54,7 @@ export class PeriodStatisticsPanel extends Component {
                     units="UGX"
                 />
                 <Statistic 
-                    label="no. milk collections this period"
+                    label="no. milk records this period"
                     value={milkCollectionsArray.length}
                 />
                 <Statistic 

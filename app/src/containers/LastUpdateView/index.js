@@ -19,7 +19,7 @@ class LastUpdateView extends Component {
 
     resolveAgeOfData = (minutesAgo) => {
         if(minutesAgo < 59){
-            return `${minutesAgo} minutes ago`
+            return `${minutesAgo} minutes`
         }else if (minutesAgo >= 60 && minutesAgo < (60 * 24)){
             return `${Math.round(minutesAgo/60)} hour${Math.round(minutesAgo/60) > 1 ? 's':''}`
         }else if(minutesAgo > (60*24)){
@@ -37,7 +37,7 @@ class LastUpdateView extends Component {
         return (
             <div className={styles.container} style={{visibility: (minutesAgo > 5 ? 'visible' : 'hidden') }}>
                 <span>
-                    Data Last Updated over {this.resolveAgeOfData(minutesAgo)} ago
+                    Last Updated over {this.resolveAgeOfData(minutesAgo)} ago
                 </span>
             </div>
         )

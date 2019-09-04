@@ -42,7 +42,7 @@ export class PeriodReportTable extends Component {
         //for each supplier
         return supplierIds.map(supplierId => {
             const supplier = suppliers.suppliersById[supplierId]
-            //get its milk collections
+            //get its milk records
             const milkCollectionIds = milkCollections.milkCollectionIdsBySupplierId[supplierId]
             const milkCollectionsByDate = {}
             if (milkCollectionIds) {
@@ -113,7 +113,7 @@ export class PeriodReportTable extends Component {
             headerNamesForPeriod.forEach(headerName => dataRow[headerName] = 0)
             const milkCollectionIds = milkCollections.milkCollectionIdsBySupplierId[supplierId]
             if (milkCollectionIds){
-                //if the supplier has milk collections
+                //if the supplier has milk records
                 milkCollectionIds.forEach(milkCollectionId => {
                     //loop through each id
                     const milkCollection = milkCollections.milkCollectionsById[milkCollectionId]

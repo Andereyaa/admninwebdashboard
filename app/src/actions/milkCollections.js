@@ -18,7 +18,7 @@ export const saveMilkCollections = (milkCollections, centerId, periodId) => {
 
 export const fetchMilkCollections = (centerId, period = null) => {
     /**
-     * Purpose: retrieve the milk collections for this center from the firestore database
+     * Purpose: retrieve the milk records for this center from the firestore database
      */
 
     const startDate = period ? period.startDate : Date.now() - MONTH_IN_MILLISECONDS 
@@ -38,7 +38,7 @@ export const fetchMilkCollections = (centerId, period = null) => {
             return true
         })
         .catch(error => {
-            error.message = `Failed to fetch the milk collections for centerId: ${centerId} with dateCollecteds between ${startDate} and ${endDate}: ${error.message}`
+            error.message = `Failed to fetch the milk records for centerId: ${centerId} with dateCollecteds between ${startDate} and ${endDate}: ${error.message}`
             logError(error)
             return false
         });

@@ -54,7 +54,7 @@ export class DailyStatisticsPanel extends Component {
                     units="UGX"
                 />
                 <Statistic 
-                    label="no. milk collections today"
+                    label="no. milk records today"
                     value={milkCollectionsArray.length}
                 />
                 <Statistic 

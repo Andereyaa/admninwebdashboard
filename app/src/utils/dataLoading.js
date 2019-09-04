@@ -2,7 +2,7 @@ import {DAY_IN_MILLISECONDS, THIRTY_SECONDS_IN_MILLISECONDS} from '../constants/
 
 export const shouldLoadMilkCollectionsForCenter = (selectedPeriod, periods, centerId) => {
 
-    //load the milk collections for the center if
+    //load the milk records for the center if
     return (
         !selectedPeriod.dateLoadedByCenterId[centerId] || //the period has never been previously loaded OR
         (selectedPeriod.dateLoadedByCenterId[centerId] < (Date.now() - DAY_IN_MILLISECONDS)) || //the period was last loaded 24 hours ago OR
