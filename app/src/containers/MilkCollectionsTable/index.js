@@ -8,7 +8,7 @@ import {capitalizeFirstLetterOfAllWords, addCurrencySymbol} from '../../utils/fo
 export class MilkCollectionsTable extends Component{
 
     render(){
-        const {milkCollectionsArray, suppliers} = this.props
+        const {milkCollectionsArray, suppliers, tableTitle} = this.props
         if (!milkCollectionsArray) return null
         const dataArray = milkCollectionsArray.map(milkCollection => {
             const supplier = suppliers.suppliersById[milkCollection.supplierId]
@@ -17,20 +17,34 @@ export class MilkCollectionsTable extends Component{
         })
         return (
 
-            <DataTable 
-                dataArray={dataArray}
-                fields={['supplierName', 'volumeInLitres', 'rateInShillings']}
-                fieldTransformFunctions={{
-                    supplierName: capitalizeFirstLetterOfAllWords,
-                    rateInShillings: addCurrencySymbol
-                }}
-                headings={{
-                    supplierName: "Supplier Name",
-                    volumeInLitres: "Volume (Litres)",
-                    rateInShillings: "Price (UGX)"
-                }}
-            />
+            <div>
+                <div style={styles.tableTitle}>
+                    {tableTitle} : <strong>{milkCollectionsArray.length}</strong>
+                </div>
+                <DataTable 
+                    dataArray={dataArray}
+                    fields={['supplierName', 'volumeInLitres', 'rateInShillings']}
+                    fieldTransformFunctions={{
+                        supplierName: capitalizeFirstLetterOfAllWords,
+                        rateInShillings: addCurrencySymbol
+                    }}
+                    headings={{
+                        supplierName: "Supplier Name",
+                        volumeInLitres: "Volume (Litres)",
+                        rateInShillings: "Price (UGX)"
+                    }}
+                />
+            </div>
         )
+    }
+}
+
+const styles = {
+    tableTitle: {
+        'width':'99.9%',
+        'color':'var(--primary)',
+        'padding':'3px 3px 3px 6px',
+        'fontSize': 'var(--title-font)'
     }
 }
 

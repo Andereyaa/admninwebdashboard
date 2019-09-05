@@ -49,7 +49,6 @@ export class DashboardDailyView extends Component {
         const {milkCollections, periods} = this.props
         if(!milkCollections) return null
         const milkCollectionsArray = this.getMilkCollectionsForSelectedCenterAndDate()
-        
         const absentSuppliersArray = this.getAbsentSuppliersForSelectedCenterAndDate(milkCollectionsArray)
 
         return (
@@ -61,29 +60,10 @@ export class DashboardDailyView extends Component {
                     null
                 }
                 <DailyStatisticsPanel milkCollectionsArray={milkCollectionsArray}/>
-                <div>
-                <div style={styles.tableTitle}>
-                        Milk Records Today: <strong>{milkCollectionsArray.length}</strong>
-                    </div>
-                    <MilkCollectionsTable milkCollectionsArray={milkCollectionsArray}/>
-                </div>
-                <div>
-                    <div style={styles.tableTitle}>
-                        Absent Suppliers Today: <strong>{absentSuppliersArray.length}</strong>
-                    </div>
-                    <SupplierTable suppliersArray={absentSuppliersArray}/>
-                </div>
+                <MilkCollectionsTable milkCollectionsArray={milkCollectionsArray} tableTitle="Milk Colllections Today"/>
+                <SupplierTable suppliersArray={absentSuppliersArray} tableTitle="Absent Suppliers Today" />
             </Fragment>
         )
-    }
-}
-
-const styles = {
-    tableTitle: {
-        'width':'99.9%',
-        'color':'var(--primary)',
-        'padding':'3px 3px 3px 6px',
-        'font-size': 'var(--title-font)'
     }
 }
 

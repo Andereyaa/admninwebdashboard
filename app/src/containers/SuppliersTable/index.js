@@ -15,21 +15,35 @@ export class SuppliersTable extends Component{
         const {suppliersArray, errors} = this.props
         if (!suppliersArray) return null
         return (
-            <DataTable 
-                dataArray={suppliersArray}
-                fields={['supplierName', 'phoneNumber', 'locationName']}
-                fieldTransformFunctions={{
-                    supplierName: capitalizeFirstLetterOfAllWords,
-                    locationName: capitalizeFirstLetterOfAllWords
-                }}
-                headings={{
-                    supplierName: "Supplier Name",
-                    locationName: "Address",
-                    phoneNumber: "Phone Number"
-                }}
-                errors={errors}
-            />
+            <div>
+                <div style={styles.tableTitle}>
+                        Absent Suppliers Today: <strong>{suppliersArray.length}</strong>
+                </div>
+                <DataTable 
+                    dataArray={suppliersArray}
+                    fields={['supplierName', 'phoneNumber', 'locationName']}
+                    fieldTransformFunctions={{
+                        supplierName: capitalizeFirstLetterOfAllWords,
+                        locationName: capitalizeFirstLetterOfAllWords
+                    }}
+                    headings={{
+                        supplierName: "Supplier Name",
+                        locationName: "Address",
+                        phoneNumber: "Phone Number"
+                    }}
+                    errors={errors}
+                />
+            </div>
         )
+    }
+}
+
+const styles = {
+    tableTitle: {
+        'width':'99.9%',
+        'color':'var(--primary)',
+        'padding':'3px 3px 3px 6px',
+        'fontSize': 'var(--title-font)'
     }
 }
 
