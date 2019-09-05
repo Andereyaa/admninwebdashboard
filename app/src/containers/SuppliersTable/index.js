@@ -12,15 +12,12 @@ export class SuppliersTable extends Component{
     }
     
     render(){
-        const {suppliersArray, errors} = this.props
+        const {suppliersArray, errors, tableTitle} = this.props
         if (!suppliersArray) return null
         return (
-            <div>
-                <div style={styles.tableTitle}>
-                        Absent Suppliers Today: <strong>{suppliersArray.length}</strong>
-                </div>
                 <DataTable 
                     dataArray={suppliersArray}
+                    title={tableTitle}
                     fields={['supplierName', 'phoneNumber', 'locationName']}
                     fieldTransformFunctions={{
                         supplierName: capitalizeFirstLetterOfAllWords,
@@ -33,17 +30,7 @@ export class SuppliersTable extends Component{
                     }}
                     errors={errors}
                 />
-            </div>
         )
-    }
-}
-
-const styles = {
-    tableTitle: {
-        'width':'99.9%',
-        'color':'var(--primary)',
-        'padding':'3px 3px 3px 6px',
-        'fontSize': 'var(--title-font)'
     }
 }
 

@@ -38,3 +38,10 @@
     align-items: center;
     justify-content: center;
 }
+
+.tableTitle {
+    width: '99.9%';
+    color: var(--primary);
+    padding : 3px 3px 3px 6px;
+    font-size: var(--title-font);
+}

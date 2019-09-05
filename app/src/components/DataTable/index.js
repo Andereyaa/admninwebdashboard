@@ -98,18 +98,28 @@ export default class DataTable extends Component {
     }
 
     render (){
-        const {dataArray} = this.props
+        const {dataArray, title} = this.props
         if (!dataArray) return null
         return (
-            <div className={styles.container}>
-                {this.getHeader()}
-                <div className={styles.rowContainer}>
+            <div>
                 {
-                    dataArray.length > 0 ?
-                    this.getRows(this.sortData(dataArray))
+                    title ?
+                    <div className={styles.tableTitle}>
+                        {title} : <strong>{dataArray.length}</strong>
+                    </div>
                     :
-                    <div className={styles.noData}>No Data</div>
+                    null
                 }
+                <div className={styles.container}>
+                    {this.getHeader()}
+                    <div className={styles.rowContainer}>
+                    {
+                        dataArray.length > 0 ?
+                        this.getRows(this.sortData(dataArray))
+                        :
+                        <div className={styles.noData}>No Data</div>
+                    }
+                    </div>
                 </div>
             </div>
         )

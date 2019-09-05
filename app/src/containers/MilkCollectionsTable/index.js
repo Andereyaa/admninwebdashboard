@@ -16,13 +16,9 @@ export class MilkCollectionsTable extends Component{
             return {...milkCollection, supplierName: supplierName}
         })
         return (
-
-            <div>
-                <div style={styles.tableTitle}>
-                    {tableTitle} : <strong>{milkCollectionsArray.length}</strong>
-                </div>
                 <DataTable 
                     dataArray={dataArray}
+                    title={tableTitle}
                     fields={['supplierName', 'volumeInLitres', 'rateInShillings']}
                     fieldTransformFunctions={{
                         supplierName: capitalizeFirstLetterOfAllWords,
@@ -34,17 +30,7 @@ export class MilkCollectionsTable extends Component{
                         rateInShillings: "Price (UGX)"
                     }}
                 />
-            </div>
         )
-    }
-}
-
-const styles = {
-    tableTitle: {
-        'width':'99.9%',
-        'color':'var(--primary)',
-        'padding':'3px 3px 3px 6px',
-        'fontSize': 'var(--title-font)'
     }
 }
 
