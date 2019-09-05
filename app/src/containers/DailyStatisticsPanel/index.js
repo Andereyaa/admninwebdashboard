@@ -5,7 +5,7 @@ import Statistic from '../../components/Statistic'
 import {connect} from "react-redux"
 
 import styles from './DailyStatisticsPanel.module.css'
-
+import {numberToCommaSeparatedString} from '../../utils/formatting'
 export class DailyStatisticsPanel extends Component {
 
     getVolumeCollectedToday = (milkCollectionsArray) => {
@@ -40,17 +40,20 @@ export class DailyStatisticsPanel extends Component {
         const {milkCollections} = this.props
         if (!milkCollections) return null
         const {milkCollectionsArray} = this.props
+        const volumeCollectedToday = this.getVolumeCollectedToday(milkCollectionsArray)
+        const mostCommonRateToday = this.getMostCommonRateToday(milkCollectionsArray)
+        const milkValueToday = this.getMilkValueToday(milkCollectionsArray)
         return (
             <div className={styles.container}>
                 <Statistic 
                     label="volume collected today"
-                    value={this.getVolumeCollectedToday(milkCollectionsArray)}
+                    value={volumeCollectedToday ? numberToCommaSeparatedString(volumeCollectedToday ,1) : null}
                     units="L"
                     unitsPositionedRight={true}
                 />
                 <Statistic 
                     label="most common rate today"
-                    value={this.getMostCommonRateToday(milkCollectionsArray)}
+                    value={mostCommonRateToday ? numberToCommaSeparatedString(mostCommonRateToday) : null}
                     units="UGX"
                 />
                 <Statistic 
@@ -59,7 +62,7 @@ export class DailyStatisticsPanel extends Component {
                 />
                 <Statistic 
                     label="total milk value today"
-                    value={this.getMilkValueToday(milkCollectionsArray)}
+                    value={milkValueToday ? numberToCommaSeparatedString(milkValueToday) : null}
                     units="UGX"
                 />
             </div>
