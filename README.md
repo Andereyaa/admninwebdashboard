@@ -4,10 +4,21 @@
 3. install the dependencies with `npm install`
 4. run the app with `npm start`
 
-## B: Depolying changes
-1. `npm build` - to include your changes in the production build
-2. `firebase serve --only hosting` - to see the app as it would be deployed t localhost:5000
-3. `firebase deploy --only hosting` to push your changes live to the web
+## B: Deploying changes
+1. carefully test the software to make sure there are no bugs or typos
+2. bump the version number in `app\src\config\release.js`
+3. run `firebase use <environment>` to change the deployment environment, and test the app online: 
+    1. run `firebase use default` to deploy to https://boresha-mrl-v2.web.app/
+    2. run `firebase use dashboard-temp` to deploy to https://boresha-dashboard.web.app/
+    3. run `firebase use production` to deploy to https://dashboard.boresha.tech/
+
+4. ensure `selectedEnvironment` in `app\src\firebase\config.js` is set properly for each live environment
+    1. `DEVELOPMENT` for default (https://boresha-mrl-v2.web.app/)
+    2. `PRODUCTION` for production (https://dashboard.boresha.tech) and dashboard-temp (https://boresha-dashboard.web.app/)
+
+5. Once the proper environment is set, run `npm build` - to generate a new production build
+6. `firebase serve --only hosting` - to see the app as it will be deployed on http://localhost:5000
+7. `firebase deploy --only hosting` to deploy your changes live to the web for customers
 
 ## C: Releasing new versions
 1. Follow deployment instructions in Section B above
