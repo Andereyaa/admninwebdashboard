@@ -27,13 +27,14 @@ class LastUpdateView extends Component {
 }
 
     render() {
+        const {lastRefresh} = this.state
         let time = Date.now()
         const { centers, periods } = this.props
         if (!centers.selectedId || !periods.selectedId)
             return null
         let minutesAgo = ((time- (periods.periodsById[periods.currentPeriodId]).dateLoadedByCenterId[centers.selectedId]) / 60000)
         return (
-            <div className={styles.container} style={{visibility: (minutesAgo > 5) ? 'visible' : 'hidden' }}>
+            <div className={styles.container} style={{visibility: ((minutesAgo > 5) && lastRefresh) ? 'visible' : 'hidden' }}>
                 <span>
                     Last updated over {this.resolveAgeOfData(minutesAgo)} ago
                 </span>
