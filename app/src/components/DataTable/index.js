@@ -105,7 +105,7 @@ export default class DataTable extends Component {
             <div>
                 {
                     title ?
-                    <div className={styles.tableTitle}>
+                    <div className={styles.title}>
                         {title} : <strong>{dataArray.length}</strong>
                     </div>
                     :
