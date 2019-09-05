@@ -6,13 +6,13 @@ import {connect} from "react-redux"
 import {bindActionCreators} from "redux";
 import * as actions from "../../actions";
 
-import SupplierTable from '../../containers/SuppliersTable'
+import SuppliersTable from '../../containers/SuppliersTable'
 import CenterDropdown from '../../containers/CenterDropdown'
 
 import Button from '../../components/Button'
 import SupplierImportModal from '../../containers/SupplierImportModal'
 import {trackPageView} from "../../config/googleAnalytics"
-
+import {capitalizeFirstLetterOfAllWords} from "../../utils/formatting"
 export class Suppliers extends Component {
 
     state = {
@@ -34,9 +34,10 @@ export class Suppliers extends Component {
             return suppliersArray
         }, [])
         const {supplierImportModalIsOpen} = this.state
+        const center = centers.centersById[centers.selectedId]
         return (
             <div className={styles.container}>
-                <div>{suppliersArray.length} suppliers registered at <CenterDropdown/> </div>
+                <div className={styles.supplierCenter}>Showing Suppliers For <CenterDropdown/> </div>
                 <div className={styles.importButtonContainer}>
                     <Button text="Import Suppliers" onClick={this.handleOpenModal}/>                    
                 </div>
@@ -44,7 +45,11 @@ export class Suppliers extends Component {
                     isOpen={supplierImportModalIsOpen}
                     onRequestClose={this.handleCloseModal}
                 />
-                <SupplierTable suppliersArray={suppliersArray}/>
+                <SuppliersTable 
+                    suppliersArray={suppliersArray} 
+                    tableTitle={`Suppliers Registered At ${center ? capitalizeFirstLetterOfAllWords(center.centerName) : ""}`}
+                    emptyText={`No Suppliers Registered At ${center ? capitalizeFirstLetterOfAllWords(center.centerName) : ""}`}
+                />
             </div>
             
         )
