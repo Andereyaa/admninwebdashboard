@@ -8,7 +8,7 @@ import {capitalizeFirstLetterOfAllWords, addCurrencySymbol} from '../../utils/fo
 export class MilkCollectionsTable extends Component{
 
     render(){
-        const {milkCollectionsArray, suppliers, tableTitle} = this.props
+        const {milkCollectionsArray, suppliers, tableTitle, emptyText} = this.props
         if (!milkCollectionsArray) return null
         const dataArray = milkCollectionsArray.map(milkCollection => {
             const supplier = suppliers.suppliersById[milkCollection.supplierId]
@@ -33,6 +33,7 @@ export class MilkCollectionsTable extends Component{
                         volumeInLitres: "Volume (Litres)",
                         rateInShillings: "Price (UGX)"
                     }}
+                    emptyText={emptyText ? emptyText : undefined}
                 />
             </div>
         )

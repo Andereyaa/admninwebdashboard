@@ -12,7 +12,7 @@ export class SuppliersTable extends Component{
     }
     
     render(){
-        const {suppliersArray, errors} = this.props
+        const {suppliersArray, errors, emptyText} = this.props
         if (!suppliersArray) return null
         return (
             <div>
@@ -32,6 +32,7 @@ export class SuppliersTable extends Component{
                         phoneNumber: "Phone Number"
                     }}
                     errors={errors}
+                    emptyText={emptyText ? emptyText : undefined}
                 />
             </div>
         )

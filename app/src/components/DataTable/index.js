@@ -14,6 +14,7 @@ export default class DataTable extends Component {
         errors: {},
         headings: {},
         fieldTransformFunctions: {},
+        emptyText: "No Data"
     }
     
     sortData = dataArray => {
@@ -98,7 +99,7 @@ export default class DataTable extends Component {
     }
 
     render (){
-        const {dataArray} = this.props
+        const {dataArray, emptyText} = this.props
         if (!dataArray) return null
         return (
             <div className={styles.container}>
@@ -108,7 +109,7 @@ export default class DataTable extends Component {
                     dataArray.length > 0 ?
                     this.getRows(this.sortData(dataArray))
                     :
-                    <div className={styles.noData}>No Data</div>
+                    <div className={styles.noData}>{emptyText}</div>
                 }
                 </div>
             </div>

@@ -3,7 +3,7 @@ import React, {Component, Fragment} from 'react'
 import DailyStatisticsPanel from '../../containers/DailyStatisticsPanel'
 import MilkCollectionsTable from '../../containers/MilkCollectionsTable'
 import CenterDateSelect from '../../containers/CenterDateSelect'
-import SupplierTable from '../../containers/SuppliersTable'
+import SuppliersTable from '../../containers/SuppliersTable'
 
 import {connect} from 'react-redux'
 import {getMomentLocalToSelectedCountry} from '../../utils/dateHandling'
@@ -60,8 +60,8 @@ export class DashboardDailyView extends Component {
                     null
                 }
                 <DailyStatisticsPanel milkCollectionsArray={milkCollectionsArray}/>
-                <MilkCollectionsTable milkCollectionsArray={milkCollectionsArray} tableTitle="Milk Colllections Today"/>
-                <SupplierTable suppliersArray={absentSuppliersArray} tableTitle="Absent Suppliers Today" />
+                <MilkCollectionsTable milkCollectionsArray={milkCollectionsArray} tableTitle="Milk Colllections Today" emptyText="There Are No Milk Records"/>
+                <SuppliersTable suppliersArray={absentSuppliersArray} tableTitle="Absent Suppliers Today" emptyText="Every Supplier At This Center Delivered Milk"/>
             </Fragment>
         )
     }
