@@ -65,6 +65,20 @@ const periodsReducer = (state = initialState.periods, action = {}) => {
                 }
             }
         }
+
+        case types.SAVE_CENTER: {
+            if (!payload.periodId) return state
+            const period = {...state.periodsById[payload.periodId]}
+            const dateLoadedByCenterId = {...period.dateLoadedByCenterId, [payload.id]: Date.now()}
+            period.dateLoadedByCenterId = dateLoadedByCenterId
+            return {
+                ...state,
+                periodsById: {
+                    ...state.periodsById,
+                    [payload.periodId]: period
+                }
+            }
+        }
         default:
             return state
     }

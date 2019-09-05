@@ -6,11 +6,11 @@ import { connect } from "react-redux"
 class LastUpdateView extends Component {
 
     state = {
-        time: 0
+        lastRefresh: null
     }
 
     componentDidMount() {
-        this.interval = setInterval(() => this.setState({ time: Date.now() }), 10000);
+        this.interval = setInterval(() => this.setState({ lastRefresh: Date.now() }), 10000);
     }
 
     componentWillUnmount() {
@@ -18,26 +18,26 @@ class LastUpdateView extends Component {
     }
 
     resolveAgeOfData = (minutesAgo) => {
-        if(minutesAgo < 59){
+        if (minutesAgo < 59){
             return `${minutesAgo} minutes`
-        }else if (minutesAgo >= 60 && minutesAgo < (60 * 24)){
+        } else if (minutesAgo >= 60 && minutesAgo < (60 * 24)){
             return `${Math.round(minutesAgo/60)} hour${Math.round(minutesAgo/60) > 1 ? 's':''}`
-        }else if(minutesAgo > (60*24)){
+        } else if(minutesAgo > (60*24)){
             return `${Math.round(minutesAgo/(60 *24))} day${Math.round(minutesAgo/(60 *24)) > 1 ? 's' : ''}`
     }
 }
 
     render() {
-        const { time } = this.state
+        const time = Date.now()
         const { centers, periods } = this.props
         if (!centers.selectedId || !periods.selectedId)
             return null
 
         let minutesAgo = moment(time - (periods.periodsById[periods.currentPeriodId]).dateLoadedByCenterId[centers.selectedId]).format('m')
         return (
-            <div className={styles.container} style={{visibility: (minutesAgo > 5 ? 'visible' : 'hidden') }}>
+            <div className={styles.container} style={{visibility: (minutesAgo > 5) ? 'visible' : 'hidden' }}>
                 <span>
-                    Last Updated over {this.resolveAgeOfData(minutesAgo)} ago
+                    Last updated over {this.resolveAgeOfData(minutesAgo)} ago
                 </span>
             </div>
         )

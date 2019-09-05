@@ -7,12 +7,13 @@ export const SAVE_CENTER = 'SAVE_CENTER'
 export const SELECT_CENTER = 'SELECT_CENTER'
 export const UNSUBSCRIBE_FROM_CENTER = 'UNSUBSCRIBE_FROM_CENTER'
 
-export const saveCenter = (id, center) => {
+export const saveCenter = (id, center, periodId) => {
     return {
         type: SAVE_CENTER,
         payload: {
             id,
-            center
+            center,
+            periodId
         }
     }
 };
@@ -56,7 +57,7 @@ export const fetchCenters = () => {
     }
 }
 
-export const fetchSubscribeToCenter = (centerId) => {
+export const fetchSubscribeToCenter = (centerId, periodId) => {
     /**
      * Purpose: retrieve the a center from the firestore database
      * Note: the onSnapshot below watches for changes to the center on the server
@@ -70,7 +71,7 @@ export const fetchSubscribeToCenter = (centerId) => {
         const unsubscribeFunction = centerRef
             .onSnapshot( docRef => {
                 const center = {id:docRef.id,...docRef.data(), unsubscribeFunction}
-                dispatch(saveCenter(center.id, center))
+                dispatch(saveCenter(center.id, center, periodId))
                 return true
             },
             error => {
@@ -88,13 +89,14 @@ export const fetchLoadCenter = (centerId) => {
         const {centers, periods} = getState()
         const center = centers.centersById[centerId]
         if (!center) return false
-        if (!center.unsubscribeFunction){
-            dispatch(fetchSubscribeToCenter(centerId))
-        }
-
         const selectedPeriod = periods.selectedId ? 
                                 periods.periodsById[periods.selectedId]
                                 : periods.periodsById[periods.periodIds[periods.currentPeriodId]]
+        if (!center.unsubscribeFunction){
+            dispatch(fetchSubscribeToCenter(centerId, selectedPeriod.id))
+        }
+
+        
         
         if (!selectedPeriod) return
         if ( shouldLoadMilkCollectionsForCenter(selectedPeriod,periods,centerId)){
