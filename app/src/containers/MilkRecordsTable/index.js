@@ -5,7 +5,7 @@ import {connect} from "react-redux"
 import DataTable from '../../components/DataTable'
 import {capitalizeFirstLetterOfAllWords, addCurrencySymbol} from '../../utils/formatting'
 
-export class MilkCollectionsTable extends Component{
+export class MilkRecordsTable extends Component{
 
     render(){
         const {milkCollectionsArray, suppliers, tableTitle, emptyText} = this.props
@@ -40,4 +40,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps)(MilkCollectionsTable)
+export default connect(mapStateToProps)(MilkRecordsTable)

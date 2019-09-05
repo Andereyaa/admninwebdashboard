@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react'
 
 import DailyStatisticsPanel from '../../containers/DailyStatisticsPanel'
-import MilkCollectionsTable from '../../containers/MilkCollectionsTable'
+import MilkRecordsTable from '../../containers/MilkRecordsTable'
 import CenterDateSelect from '../../containers/CenterDateSelect'
 import SuppliersTable from '../../containers/SuppliersTable'
 
@@ -60,7 +60,7 @@ export class DashboardDailyView extends Component {
                     null
                 }
                 <DailyStatisticsPanel milkCollectionsArray={milkCollectionsArray}/>
-                <MilkCollectionsTable milkCollectionsArray={milkCollectionsArray} tableTitle="Milk Colllections Today" emptyText="There Are No Milk Records"/>
+                <MilkRecordsTable milkCollectionsArray={milkCollectionsArray} tableTitle="Milk Records Today" emptyText="There Are No Milk Records"/>
                 <SuppliersTable suppliersArray={absentSuppliersArray} tableTitle="Absent Suppliers Today" emptyText="Every Supplier At This Center Delivered Milk"/>
             </Fragment>
         )
