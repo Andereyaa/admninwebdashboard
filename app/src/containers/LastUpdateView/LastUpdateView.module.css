@@ -8,7 +8,7 @@
     border-radius: 50em;
     overflow: hidden;
     background-color: var(--light-grey);
-    color: var(--disabled-text);
+    color: var(--dark);
     -webkit-animation: fadein 300s;
     animation: fadein 300s;
 }
