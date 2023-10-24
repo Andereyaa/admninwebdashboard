@@ -1,0 +1,27 @@
+.container {
+    height: 560px;
+    width: 600px;
+    border: 1px solid var(--white);
+    box-shadow: 2px 2px var(--translucent-dark);
+    border-radius: 4px;
+    padding: 4em 4em 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    /* min-width: ; */
+    /* max-width: ; */
+}
+
+.buttonContainer {
+    padding-top: 0.5em;
+    text-align: center
+}
+
+@media (max-width: 1400px){
+    .container{
+        height: 400px;
+        width: 400px;
+        padding: 2em 2em 1em;
+    }
+}

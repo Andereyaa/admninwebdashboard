@@ -1,0 +1,46 @@
+.container {
+
+}
+
+.menuButton {
+    height: 30px;
+    width: 30px;
+    border: 2px solid var(--white);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.menuButton > svg {
+    font-size: 1rem;
+}
+
+.dropdown {
+    width: 100vw;
+    background-color: #3f3b3bc2;
+    height: 0;
+    min-height: 0px;
+    position: absolute;
+    right: 0;
+    top: 110%;
+    transition: min-height 0.3s;
+    overflow: hidden;
+    z-index: 5;
+}
+
+.dropdown.open {
+    min-height: 30vh;
+    overflow: auto;
+}
+
+.dropdown > a, .dropdown > div {
+    padding: 0.5em;
+}
+
+@media(max-height: 350px){
+    .dropdown.open {
+        min-height: 50vh;
+    }
+}

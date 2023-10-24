@@ -1,0 +1,29 @@
+.input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+
+.input + label {
+    border: 2px solid var(--primary);
+    background-color: var(--white);
+    padding: 4px 10px;
+    display: inline-block;
+    text-decoration: none;
+    color: var(--primary);
+    border-radius: 4px;
+    font-size: var(--small-font)
+}
+
+.input + label:hover {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.input + label:active {
+    border-style: inset;
+}

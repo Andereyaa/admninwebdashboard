@@ -1,0 +1,19 @@
+.container {
+    height: calc(100vh - 40px);
+    width: 20%;
+    float: left;
+    /* min-width: 235px; */
+    background-color: var(--primary);
+    margin: 0;
+    transition: margin 0.25s
+}
+
+.hidden {
+    margin: 0 -100vw;
+}
+
+@media(max-width: 850px){
+    .container {
+        margin-left: -20%
+    }
+}

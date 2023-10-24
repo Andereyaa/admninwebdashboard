@@ -1,0 +1,1 @@
+export const MAX_REQUEST_TIME = 5000

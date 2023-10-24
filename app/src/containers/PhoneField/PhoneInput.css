@@ -1,0 +1,28 @@
+.react-phone-number-input{
+    border: 1px solid var(--white);
+    padding-left: 7px;
+    background: var(--translucent-light);
+    width: 90px;
+    border-right: none;
+    display: inline-block;
+    height: 30px;
+}
+.react-phone-number-input__input{
+    background: transparent;
+    height: 28px;
+    border-bottom: none;
+    font-size: 0.9rem;
+}
+
+.react-phone-number-input__input:disabled{
+    color: var(--black)
+}
+
+.react-phone-number-input__country-select-arrow{
+    color: var(--black)
+}
+
+.react-phone-number-input__country-select:focus + .react-phone-number-input__country-select-arrow {
+    color: var(--black)
+}
+

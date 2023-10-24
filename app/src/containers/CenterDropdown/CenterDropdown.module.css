@@ -1,0 +1,6 @@
+.container {
+    padding: 4px;
+    border: 1px outset var(--light-grey);
+    border-radius: 20px;
+    outline: none;
+}

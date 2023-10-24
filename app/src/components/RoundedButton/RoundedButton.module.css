@@ -1,0 +1,17 @@
+.container {
+    background-color: var(--primary);
+    border: 2px solid var(--white);
+    color: var(--white);
+    padding: 7px 45px; 
+    border-radius: 20px;
+    font-size: 1rem;
+    outline: none;
+}
+
+.container:hover {
+    background-color: var(--secondary);
+}
+
+.container:active {
+    border-style: inset
+}

@@ -1,0 +1,63 @@
+.tableTop {
+    display:flex;
+    justify-content: flex-end;
+    padding: 0.5em;
+}
+.tableContainer {
+    height: 50vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.tableContainer th {
+    background: var(--primary);
+    color: var(--white);
+    font-size: var(--small-font);
+    padding: 0.4em 0;
+    border: 0.5px solid var( --white);
+    width: 35px;
+}
+
+.tableContainer th.summaryHeader {
+    width: 70px; 
+}
+
+.tableContainer .supplierHeader {
+    width: 150px;
+    box-shadow: 1px 0px 1px var(--dark);
+}
+.supplierData {
+    border: 0.5px solid var(--dark);
+    width: 150px;
+    padding: 0.4em 0 0.4em 0.4em;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: var(--small-font);
+    font-weight: 700;
+    box-shadow: 1px 0px 1px var(--dark);
+}
+
+.supplierRow {
+    border: 2px solid var(--dark)
+}
+
+.supplierTable {
+    border-collapse: collapse;
+    table-layout: fixed;
+    position: absolute;
+    background: var(--white);
+    top: 0;
+    left: 0;
+}
+
+.milkRecordTableContainer {
+    overflow-x: scroll;
+    margin-left: 150px;
+    width: calc(100% - 150px);
+}
+
+.milkRecordTable{
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+}

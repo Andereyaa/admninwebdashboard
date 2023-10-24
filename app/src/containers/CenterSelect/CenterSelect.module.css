@@ -1,0 +1,10 @@
+.container {
+    border: 1px solid var(--light-grey);
+    padding: 0.5em 0.5em 0 0;
+    display: block;
+}
+
+.innerContainer {
+    display: flex;
+    flex-wrap: wrap;
+}

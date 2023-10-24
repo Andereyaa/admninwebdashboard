@@ -1,0 +1,75 @@
+.container {
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100%;
+    overflow: auto;
+}
+
+.title {
+    font-size: var(--title-font);
+    color: var(--secondary);
+}
+
+.instructions {
+    margin-bottom: 0.25em;
+}
+.buttonHolder {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1em;
+}
+
+.buttonHolder > button:first-of-type {
+    border: none;
+    margin-right: 0.5em;
+}
+
+.fileInput, .foundSuppliers {
+    margin-bottom: 1em;
+}
+
+.modal {
+    position: absolute;
+    top: 35%;
+    left: 30%;
+    right: 30%;
+    bottom: 35%;
+    background-color: var(--white);
+    transition: top 0.25s, bottom 0.25s, left 1s, right 1s;
+  }
+
+  .modal.large {
+    top: 10%;
+    left: 10%;
+    right: 10%;
+    bottom: 10%;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--translucent-dark);
+  }
+
+  @media(max-width: 850px){
+      .modal, .modal.large {
+          left: 5%;
+          right:5%;
+      }
+      .modal.large {
+        top: 5%;
+        bottom: 5%;
+      }
+  }
+
+@media(max-height: 350px){
+      .modal {
+          top: 15%;
+          bottom: 15%;
+      }
+}
