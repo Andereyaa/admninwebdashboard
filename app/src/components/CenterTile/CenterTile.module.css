@@ -1,0 +1,33 @@
+.container {
+    border: 1px solid var(--light-grey);
+    border-radius: 4px;
+    display: inline-block;
+    width: 14em;
+    padding: 0.5em;
+    margin: 0 0 0.5em 0.5em;
+    box-shadow: var(--translucent-dark) 1px 2px;
+}
+
+.innerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.container:hover {
+    border-color: var(--secondary)
+}
+.innerContainer > svg {
+    color: var(--dark);
+    margin-right: 0.5em;
+}
+
+.selected {
+    background-color: var(--secondary);
+    border-color: var(--secondary);
+    color: var(--white);
+    font-weight: 600
+}
+
+.container.selected > .innerContainer > svg {
+    color: var(--white)
+}

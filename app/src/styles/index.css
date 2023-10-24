@@ -1,0 +1,55 @@
+:root {
+  --primary: #32aeb0;
+  --primary-light: #62bebd;
+  --secondary: #ffb208;
+  --accent: #ee534f; 
+  --light-grey: #eee;
+  --white: #fff;
+  --black: #000;
+  --dark: #333;
+  --disabled: #eaeaea;
+  --disabled-text: #bfbdbd;
+  --translucent-dark: #00000094;
+  --translucent-light: #fff3;
+  --translucent-accent: #ee534f66;
+  --translucent-primary: #ffb20861;
+  --large-font: 1.75rem;
+  --large-font-phone: 1.5rem;
+  --title-font: 1.25rem;
+  --small-font:0.75rem;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*, ::after, ::before {
+  box-sizing: inherit
+}
+
+html, body, #root {
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.1em 1em;
+  border: 1px solid var(--white);
+  border-radius: 15px;
+  color: var(--white);
+  background-color: var(--translucent-light);
+  text-transform: capitalize;
+  font-size: var(--small-font);
+}

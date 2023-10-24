@@ -1,0 +1,29 @@
+.container {
+}
+
+.units {
+
+}
+
+.units.unitsLeft {
+    margin-right: 0.5em
+}
+
+.units.unitsRight {
+    margin-left: 0.5em
+}
+
+.label {
+    font-size: var(--small-font)
+}
+
+.valueContainer {
+    display: flex;
+    font-size: var(--large-font)
+}
+
+@media(max-width: 450px){
+    .valueContainer {
+        font-size: var(--large-font-phone)
+    }
+}

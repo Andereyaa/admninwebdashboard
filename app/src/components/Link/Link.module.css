@@ -1,0 +1,7 @@
+.container {
+    color: var(--white)
+}
+
+.container:hover {
+    text-decoration: underline
+}

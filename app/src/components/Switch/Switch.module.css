@@ -1,0 +1,31 @@
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    border-radius: 50em;
+    overflow: hidden;
+}
+
+.option {
+    padding: 0.2em;
+    background-color: var(--primary-light);
+    flex: 1 1;
+    text-align: center;
+    border: 1px solid var(--primary);
+}
+
+.option:hover, .option.selected {
+    background-color: var(--secondary);
+    border-color: var(--secondary)
+}
+.option.selected {
+    color: var(--white);
+    font-weight: 700;
+    border-style: inset
+}
+
+@media(max-width: 450px){
+    .option {
+        font-size: var(--small-font)
+    }
+}

@@ -1,0 +1,37 @@
+.container {
+    padding: 1.5em;
+    background-color: var(--primary-light);
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    overflow: hidden;
+}
+
+.text {
+    color: var(--dark);
+    margin-left: 5px;
+}
+
+
+.container > svg {
+    color: var(--dark)
+}
+
+/* during hover */
+.container:hover, .container.selected {
+    background-color: var(--secondary)
+}
+
+.container.selected > svg {
+    color: var(--white)
+}
+
+.container.selected > .text {
+    color: var(--white);
+    font-weight: 600
+}
+
+.container.selected > svg {
+    color: var(--white)
+}
